@@ -1,0 +1,106 @@
+{
+	"messages": [
+		{
+			"name": "lose",
+			"type": "string",
+			"data": "string"
+		},
+		{
+			"name": "win",
+			"type": "array",
+			"data": [
+				"You won! Hooray!",
+				"ah well, here we go again"
+			]
+		},
+		{
+			"name": "start",
+			"type": "array",
+			"data": [
+				"Your adventure begins",
+				"Welcome to a new adventure",
+				"Let me draw your attention to this wonderful world that you find yourself in and show you around",
+				"Come in, come in, a whole world awaits (Fine print: a whole new world does not entail an entire world as you may understand it and so you may be dissapointed to find a lack of world in here)"
+			]
+		}
+	],
+	"events": {
+		"places": [
+			"countryside"
+		],
+		"events": [
+			{
+				"id": "cosi_caravan_trading_burning",
+				"place": 0,
+				"outcomes": [
+					{
+						"name": "Let it burn then steal all of the remaining goods",
+						"gold": 50,
+						"rep": -5,
+						"health": 0,
+						"output": 
+					},
+					{
+						"name": 
+					}
+				]
+			},
+			{
+				"id": "cosi_caravan_trading",
+				"place": 0,
+				"outcomes": [
+
+				]
+			}
+		]
+	},
+	"shorthands": [
+		{
+			"short": "ma",
+			"long": "magic"
+		},
+		{
+			"short": "me",
+			"long": "melee"
+		},
+		{
+			"short": "ra",
+			"long": "ranged"
+		},
+		{
+			"short": "co",
+			"long": "consumable"
+		}
+	],
+	"weapons": [
+		{
+			"name": "The ORB",
+			"type": "ma",
+			"mCost": 1,
+			"maxUses": 5,
+			"dev": true
+		},
+		{
+			"name": "The Ban Hammer",
+			"type": "me",
+			"mCost": 0,
+			"maxUses": 1,
+			"dev": true,
+			"lore": true,
+			"loreData": "The ultimate hammer, it stops the entity it reaches from ever having existed in the first place"
+		},
+		{
+			"name": "Throwing Knives",
+			"type": "ra",
+			"mCost": 0,
+			"maxUses": 20,
+			"dev": false
+		}
+	],
+	"items": [
+		{
+			"name": "potion",
+			"type": "co"
+		}
+	]
+}
