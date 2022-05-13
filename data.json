@@ -2,8 +2,18 @@
 	"messages": [
 		{
 			"name": "lose",
-			"type": "string",
-			"data": "string"
+			"type": "array",
+			"data": [
+				"Your soul fades away into nothing, never to be seen again...",
+				"GAME OVER"
+			]
+		},
+		{
+			"name": "retire",
+			"type": "array",
+			"data": [
+				"You decide to end your journey here at age %s and slowly meander back home popping in to anyone who helped you along your way and then happily retire in the place of your birth"
+			]
 		},
 		{
 			"name": "win",
@@ -22,35 +32,99 @@
 				"Let me draw your attention to this wonderful world that you find yourself in and show you around",
 				"Come in, come in, a whole world awaits (Fine print: a whole new world does not entail an entire world as you may understand it and so you may be dissapointed to find a lack of world in here)"
 			]
+		},
+		{
+			"name": "welcome",
+			"type": "array",
+			"data": [
+				"You are in the %s, there is a secret to discover here",
+				"This is the %s, Welcome",
+				"There are many secrets in the %s, enjoy your stay...",
+				"Enjoy your stay in the %s",
+				"Welcome to the %s"
+			]
 		}
 	],
 	"events": {
 		"places": [
-			"countryside"
+			"countryside",
+			"crypts",
+			"deepest darkest pits of the dimension commonly refered to as hell"
 		],
 		"events": [
 			{
-				"id": "cosi_caravan_trading_burning",
+				"id": "cosi-trading-caravan-burning",
 				"place": 0,
+				"text": "You come across a burning trading caravan at night, under attack from bandits, who are hidden by shadows",
 				"outcomes": [
 					{
 						"name": "Let it burn then steal all of the remaining goods",
 						"gold": 50,
 						"rep": -5,
 						"health": 0,
-						"output": 
+						"output": "A suvivor saw you steal the goods and you became less reputable"
 					},
 					{
-						"name": 
+						"name": "Help the survivors, for a price...",
+						"gold": 20,
+						"rep": 1,
+						"health": -10,
+						"output": "You get singed by the flames which smarts a bit but the leader of the trading caravan offers to give you some money and spread the words about your good deeds"
+					},
+					{
+						"name": "Help the survivors out of the goodness of your heart",
+						"gold": 0,
+						"rep": 3,
+						"health": -5,
+						"output": "The leader of the trading caravan is slightly dismayed by your refusal for money but offers to spread the news of your good endeavors and help heal you of your stinging wounds"
 					}
 				]
 			},
 			{
-				"id": "cosi_caravan_trading",
+				"id": "cosi-trading-caravan",
 				"place": 0,
+				"text": "You come across a trading caravan and start haggling with the owner",
+				"outcomes": "shop"
+			},
+			{
+				"id": "cosi-entrance-crypt",
+				"place": 0,
+				"text": "You find an enormous door to an old crypt, do you wish to enter?",
+				"outcomes": 1
+			},
+			{
+				"id": "cryp-lich-boss",
+				"place": 1,
+				"text": "You come across a skull with glowing red rubies for eyes",
 				"outcomes": [
-
+					{
+						"name": "Attempt to prise off the eyes",
+						"gold": 100,
+						"rep": -5,
+						"health": -25,
+						"output": "You succeed with removing one of the eyes, however as you go to remove the second a cult who worships this statue jumps out of the darkness and stab you with spears letting you barely escape with the ruby and a gushing wound"
+					},
+					{
+						"name": "Kneel down before the statue in reverence",
+						"gold": 20,
+						"rep": 4,
+						"health": 10,
+						"output": "Cult members leap out of the shadows and study you but then collectively decide to give you gifts and heal you. They wish you well on your travels and you continue onwards"
+					},
+					{
+						"name": "Attack the centre of the statue to remove both eyes at once",
+						"gold": 200,
+						"rep": -10,
+						"health": -50,
+						"output": "You catch the rubies as they fall but the statue splits in half, cult members hiding in the shadows collectively hiss as a huge lich appears, you flee and escape but not before taking a gushing wound at your side, impeding your escape greatly"
+					}
 				]
+			},
+			{
+				"id": "cryp-trading-merchant",
+				"place": 1,
+				"text": "You come across a brave merchant looking for exquisite wares and start an exchange",
+				"outcomes": "shop"
 			}
 		]
 	},
@@ -99,8 +173,13 @@
 	],
 	"items": [
 		{
-			"name": "potion",
-			"type": "co"
+			"name": "lesser healing potion",
+			"type": "co",
+			"effects": {
+				"gold": 0,
+				"health": 10,
+				"rep": 0
+			}
 		}
 	]
 }
