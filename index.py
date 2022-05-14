@@ -193,11 +193,11 @@ class game:
 		print(self.messages('welcome')%self.locationf()+'\n'*2)
 		while(self.alive()):
 			self.eventManager()
-			self.stats()
 			self.gameTime+=1
 			if(self.age!=self.startAge+self.gameTime//10):
 				self.age=self.startAge+self.gameTime//10
-				print(f'Happy Birthday, you are now {self.age}!\n')
+				print(f'\nHappy Birthday, you are now {self.age}!')
+			self.stats()
 				
 		
 
