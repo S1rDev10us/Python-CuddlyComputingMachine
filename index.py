@@ -1,8 +1,13 @@
-﻿from random import choice,randint
+﻿from _typeshed import Self
+from random import choice,randint
 from files import *
-from os import path
+from os import path, system
+#from msvcrt import getch
+from time import sleep
+#from keyboard import wait as getch
 dev=False
-
+def getch():
+	system('pause')
 class game:
 	def __init__(self):
 		self.reset()
@@ -35,7 +40,12 @@ class game:
 		self.location=0
 		self.gold=0
 		self.rep=0
-
+	#confirmation function
+	def confirm(self):
+		x=input('y/n:')
+		while(not (x=='y' or x =='n')):
+			x=input('y/n:')
+		return x=='y'
 	#get a formatted location
 	def locationf(self):
 		return self.events["places"][self.location]
@@ -164,19 +174,22 @@ class game:
 		if(event['outcomes']=='shop'):
 			self.shop()
 		elif(type(event['outcomes'])==type(0)):
-			if(input('y/n\n>>>').lower()=='y'):
+			if(self.confirm()):
 				self.location=event['outcomes']
-				print('\n'+self.messages('welcome')%self.locationf()+'\n'*2)
+				print('\n'+self.messages('welcome')%self.locationf()['name'])
+				getch()
+				print('\n'*2)
 		else:
 			print('Do you?')
 			for x in range(len(event['outcomes'])):
 				print(f"{str(x)}: {event['outcomes'][x]['name']}")
 			outcome=self.validn(event["outcomes"])
 			outcome=event["outcomes"][int(outcome)]
-			print(outcome['output'])
-			if(self.exists(outcome['gold'])):self.gold+=outcome['gold']
-			if(self.exists(outcome['rep'])):self.rep+=outcome['rep']
-			if(self.exists(outcome['health'])):self.health+=outcome['health']
+			print('\n'+outcome['output'])
+			if(self.exists(outcome['gold'])):self.gold+=outcome['gold']+randint(0,int(outcome['gold']/10))
+			if(self.exists(outcome['rep'])):self.rep+=outcome['rep']+randint(0,int(outcome['rep']/10))
+			if(self.exists(outcome['health'])):self.health+=outcome['health']+randint(0,int(outcome['health']/10))
+			getch()
 
 	#statistics
 	def stats(self):
@@ -186,24 +199,38 @@ class game:
 		print(f'●{self.health} health')
 		print(f'●{self.age} age\n')
 
+	#dynamic things such as slow damage from heat in hell
+	def dynamic(self):
+		self.gold+=self.locationf()['gold']
+		self.rep+=self.locationf()['rep']
+		self.health+=self.locationf()['health']
 	#Main gameplay loop
 	def start(self):
 		self.reset()
 		print(self.messages('start')+'\n')
-		print(self.messages('welcome')%self.locationf()+'\n'*2)
+		print(self.messages('welcome')%self.locationf()['name'])
+		getch()
+		print('\n'*2)
 		while(self.alive()):
 			self.eventManager()
 			self.gameTime+=1
 			if(self.age!=self.startAge+self.gameTime//10):
 				self.age=self.startAge+self.gameTime//10
 				print(f'\nHappy Birthday, you are now {self.age}!')
+				getch()
 			self.stats()
 				
 		
 
 
 
+
+
+
+
 runtime = game()
 runtime.start()
-while(input('Would you like to play again?(y/n)\n>>>').lower()=='y'):
+print('Would you like to play again?')
+while(runtime.confirm()):
 	runtime.start()
+	print('Would you like to play again?')

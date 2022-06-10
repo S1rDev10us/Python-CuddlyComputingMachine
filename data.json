@@ -2,7 +2,6 @@
 	"messages": [
 		{
 			"name": "lose",
-			"type": "array",
 			"data": [
 				"Your soul fades away into nothing, never to be seen again...",
 				"GAME OVER"
@@ -10,14 +9,12 @@
 		},
 		{
 			"name": "retire",
-			"type": "array",
 			"data": [
 				"You decide to end your journey here at age %s and slowly meander back home popping in to anyone who helped you along your way and then happily retire in the place of your birth"
 			]
 		},
 		{
 			"name": "win",
-			"type": "array",
 			"data": [
 				"You won! Hooray!",
 				"ah well, here we go again"
@@ -25,7 +22,6 @@
 		},
 		{
 			"name": "start",
-			"type": "array",
 			"data": [
 				"Your adventure begins",
 				"Welcome to a new adventure",
@@ -38,18 +34,37 @@
 			"type": "array",
 			"data": [
 				"You are in the %s, there is a secret to discover here",
-				"This is the %s, Welcome",
+				"This is the %s, Welcome!",
 				"There are many secrets in the %s, enjoy your stay...",
 				"Enjoy your stay in the %s",
-				"Welcome to the %s"
+				"Welcome to the %s!"
 			]
 		}
 	],
 	"events": {
 		"places": [
-			"countryside",
-			"crypts",
-			"deepest darkest pits of the dimension commonly refered to as hell"
+			{
+				"name": "countryside",
+				"gold": 0,
+				"rep": 0,
+				"health": 0
+			},
+			{
+				"name": "crypts",
+				"gold": 0,
+				"rep": 0,
+				"health": 0
+			},
+			{
+				"name": "deepest darkest pits of the dimension commonly refered to as hell",
+				"gold": 0,
+				"rep": 0,
+				"health": -1
+			}
+
+			
+			
+			
 		],
 		"events": [
 			{
@@ -125,6 +140,12 @@
 				"place": 1,
 				"text": "You come across a brave merchant looking for exquisite wares and start an exchange",
 				"outcomes": "shop"
+			},
+			{
+				"id": "crypt-entrance-hell",
+				"place": 1,
+				"text": "You find a bubbling pool of lava, with an abyss in the centre which tries to pull you in, do you wish to enter",
+				"outcomes": 2
 			}
 		]
 	},
