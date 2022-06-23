@@ -2,7 +2,7 @@
 from files import *
 from os import path, system
 #from msvcrt import getch
-from time import sleep
+#from time import sleep
 #from keyboard import wait as getch
 dev=False
 def getch():
@@ -86,10 +86,7 @@ class game:
 
 	#Choose an event
 	def event(self):
-		eventl=[]
-		for x in self.events['events']:
-			if(x['place']==self.location):eventl.append(x)
-		return choice(eventl)
+		return choice(self.filterlist(events['events'],'place',self.location))
 
 	#Buyable items
 	def availableItems(self):
@@ -203,10 +200,20 @@ class game:
 			getch()
 	#predicate system
 	def predicate(self,condition):
-		match condition['type']:
-			case 'has':
+		if(type(condition)==self.array):
+			z=0
+			for x in condition:
+				match x['condition']:
+					case 'has':
+						pass
+					case 'rep':
+						if(x['greater']):
+							if(x['rep']<self.rep):
+								z+=1
+						pass
+			if(z=len(condition))
+		else:
 
-				pass
 	#statistics
 	def stats(self):
 		print('\nYou now have:')
@@ -214,7 +221,13 @@ class game:
 		print(f'●{self.rep} reputation')
 		print(f'●{self.health} health')
 		print(f'●{self.age} age\n')
-
+	#filter function
+	def filterlist(self,thelist,key,value):
+		newlist=[]
+		for x in thelist:
+			if(x[key]==value):
+				newlist.append(x)
+		return newlist
 	#environmental things such as slow damage from heat in hell
 	def environmentalEffects(self):
 		self.gold+=self.locationf()['gold']

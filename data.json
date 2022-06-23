@@ -31,7 +31,6 @@
 		},
 		{
 			"name": "welcome",
-			"type": "array",
 			"data": [
 				"You are in the %s, there is a secret to discover here",
 				"This is the %s, Welcome!",
