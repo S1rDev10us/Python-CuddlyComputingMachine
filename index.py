@@ -194,11 +194,15 @@ class game:
 				print(f"{str(x)}: {event['outcomes'][x]['name']}")
 			outcome=self.validn(event["outcomes"])
 			outcome=event["outcomes"][int(outcome)]
-			print('\n'+outcome['output'])
-			if(self.exists(outcome['gold'])):self.gold+=outcome['gold']+randint(0,int(outcome['gold']/10))
-			if(self.exists(outcome['rep'])):self.rep+=outcome['rep']+randint(0,int(outcome['rep']/10))
-			if(self.exists(outcome['health'])):self.health+=outcome['health']+randint(0,int(outcome['health']/10))
+			self.eventOutcome(outcome)
 			getch()
+	#What to do at the end of an event
+	def eventOutcome(self,outcome):
+		print('\n'+outcome['output'])
+		if(self.exists(outcome['gold'])):self.gold+=outcome['gold']+randint(0,int(outcome['gold']/10))
+		if(self.exists(outcome['rep'])):self.rep+=outcome['rep']+randint(0,int(outcome['rep']/10))
+		if(self.exists(outcome['health'])):self.health+=outcome['health']+randint(0,int(outcome['health']/10))
+		pass
 	#predicate system
 	def predicate(self,condition):
 		if(type(condition)==self.array):
