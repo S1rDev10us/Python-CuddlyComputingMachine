@@ -1,4 +1,6 @@
+﻿from itertools import count
 from random import choice,randint
+from xml.dom.domreg import well_known_implementations
 from files import *
 from os import path, system
 from math import floor
@@ -103,38 +105,64 @@ class game:
 			number=self.validn(['e','w','i'])
 			match number:
 				case 1:
-					print(self.breakLine)
-					print(self.emptyLine)
-					print('|         Weapons shop         |')
-					print(self.emptyLine)
-					print('|● 0 for Melee                 |')
-					print('|● 1 for Magic                 |')
-					print('|● 2 for Ranged                |')
-					print(self.breakLine)
+					WeaponBuy = True
+					FirsLoop = True
+					while(WeaponBuy):
+						if(FirsLoop):
+							print(self.breakLine)
+							print(self.emptyLine)
+							print('|         Weapons shop         |')
+							print(self.emptyLine)
+							print('|● 0 Back           		      |')
+							print('|● 1 for Melee                 |')
+							print('|● 2 for Magic                 |')
+							print('|● 3 for Ranged                |')
+							print(self.breakLine)
 
-					weapons = []
-					weaType = ""
-					match self.validn(['m','m','r']):
-						case 0:
-							weapons = self.filterlist(self.weapons, "type", "me")
-							weaType = "Melee"
-						case 1:
-							weapons = self.filterlist(self.weapons, "type", "ma")
-							weaType = "Magic"
-						case 2:
-							weapons = self.filterlist(self.weapons, "type", "ra")
-							weaType = "Ranged"
-						case _:
-							print('Well done you broke the validator')
+							weapons = []
+							weaType = ""
+							match self.validn(['b','m','m','r']):
+								case 1:
+									weapons = self.filterlist(self.weapons, "type", "me")
+									weaType = "Melee"
+								case 2:
+									weapons = self.filterlist(self.weapons, "type", "ma")
+									weaType = "Magic"
+								case 3:
+									weapons = self.filterlist(self.weapons, "type", "ra")
+									weaType = "Ranged"
+								case 0:
+									WeaponBuy = False
+								case _:
+									print('Well done you broke the validator')
+							if(WeaponBuy):
+								passin = weapons
+								passin.append("B")
+								passin.append("L")
+								FirsLoop = False
 
-					print(self.breakLine)
-					print(self.emptyLine)
-					print(f'|         {weaType} weapons')
-					print(self.emptyLine)
-					for count, weapon in enumerate(weapons):
-							print("|● " + str(count) + " " + weapon["name"])
-					print(self.emptyLine)
-					print(self.breakLine)
+						# TODO pick three random weapons instead of the whole list
+						if(WeaponBuy):
+							print(self.breakLine)
+							print(self.emptyLine)
+							print(f'|         {weaType} weapons')
+							print(self.emptyLine)
+							print("|● 0 Back\n|● 1 Show Lore")
+							for count, weapon in enumerate(weapons):
+									if weapon == "B" or weapon == "L":#<<<<|
+										pass#<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<|<--temp fix
+									else:#<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<|
+										print("|● " + str(count+2) + " " + weapon["name"])
+							print(self.emptyLine)
+							print(self.breakLine)
+							slection = self.validn(passin)
+							match slection:
+								case 0:
+									FirsLoop = True
+								case 1:
+									print("this function is a work in progress")
+								case _:
+									print("this function is a work in progress")
 
 				case 2:
 					pass
@@ -167,6 +195,7 @@ class game:
 				except:
 					pass
 		return int(outcome)
+
 	#run the event
 	def eventManager(self):
 		event=self.event()

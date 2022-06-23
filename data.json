@@ -216,6 +216,21 @@
 			"loreData": "The ultimate hammer, it stops the entity it reaches from ever having existed in the first place"
 		},
 		{
+			"name": "rusty blade",
+			"type": "me",
+			"mCost": 0,
+			"maxUses": 1,
+			"dev": false
+		},
+		{
+			"name": "blade literally made of rust",
+			"type": "me",
+			"mCost": 0,
+			"maxUses": 1,
+			"dev": false,
+			"loreData": "almost as if the rusty blade got even rustier than it already was..."
+		},
+		{
 			"name": "Throwing Knives",
 			"type": "ra",
 			"mCost": 0,
