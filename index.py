@@ -1,4 +1,4 @@
-from random import choice,randint
+from random import choice,randint, choices
 from files import *
 from os import path, system
 from math import floor
@@ -22,6 +22,7 @@ class game:
 		self.array=type([])
 		self.dict=type({})
 		self.predicates=self.data['predicates']
+		self.number=type(0)
 		if(not dev):
 			remove_list=self.filterlist(self.weapons,'dev',True)
 			self.weapons=[i for i in self.weapons if i not in remove_list]
@@ -79,7 +80,15 @@ class game:
 		raise Exception(f"Message \"{target}\" was not found")
 	#Choose an event
 	def event(self):
-		return choice(self.filterlist(self.events['events'],'place',self.location))
+		events=self.filterlist(self.events['events'],'place',self.location)
+		listweights=[]
+		for x in events:
+			if('weight' in x.keys()):
+				listweights.append(x['weight'])
+			else:
+				listweights.append(1)
+		event=choices(events,weights=listweights,k=1)[0]
+		return event
 
 	#Buyable items
 	def availableItems(self):
