@@ -62,7 +62,7 @@ class game:
 			alive=False
 			print('\n'*5+self.messages('retire') % self.age)
 		elif(self.health<=0):
-			print('\n'*5+self.messages('lose'))
+			print('\n'*5+self.messages('death'))
 		return alive
 	
 	#Get the messages for a specific section
