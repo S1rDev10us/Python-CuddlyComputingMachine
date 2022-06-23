@@ -18,6 +18,7 @@ class game:
 		self.breakLine='-'*32
 		self.emptyLine='|'+' '*30+'|'
 		self.string=type("")
+		self.startInv=self.data['start']
 		self.array=type([])
 		self.dict=type({})
 		self.predicates=self.data['predicates']
@@ -33,7 +34,7 @@ class game:
 		self.reset()
 	#reset all variables for game start
 	def reset(self):
-		self.inventory=self.data['start']
+		self.inventory=self.startInv
 		self.startAge=randint(25,50)
 		self.age=self.startAge
 		self.old=randint(100,150)
