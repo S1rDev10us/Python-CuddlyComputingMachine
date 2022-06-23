@@ -33,10 +33,8 @@ class game:
 		self.reset()
 	#reset all variables for game start
 	def reset(self):
-		for x in self.data['start']:
-			locals()[f"self.{x}"]=self.data['start'][x]
-			print(locals()['self'])
-			print(x)
+		#for x in self.data['start']:
+			#vars()[f"self.{x}"]=self.data['start'][x]
 		print(self.inventory)
 		self.gameTime=0
 		self.food=100
