@@ -19,6 +19,7 @@ class game:
 		self.emptyLine='|'+' '*30+'|'
 		self.string=type("")
 		self.array=type([])
+		self.predicates=self.data['predicates']
 		if(dev==False):
 			found=True
 			while(found):
@@ -191,17 +192,29 @@ class game:
 		if(type(condition)==self.array):
 			z=0
 			for x in condition:
-				match x['condition']:
-					case 'has':
-						pass
-					case 'rep':
-						if(x['greater']):
-							if(x['rep']<self.rep):
-								z+=1
-						pass
-			if(z=len(condition))
+				if(self.singlePredicate(condition)):z+=1
+			if(z==len(condition)):
+				return True
 		else:
-
+			return self.singlePredicate(condition)
+		return False
+	#code for one predicate
+	def singlePredicate(self,condition):
+		match condition['condition']:
+			case 'has':
+				return False
+				pass
+			case 'rep':
+				if(condition['greater']):
+					if(condition['rep']<self.rep):return True
+				else:
+					if(condition['rep']>self.rep):return True
+				pass
+			case 'predicate':
+				return predicate(self.predicates[condition['predicate']])
+			case _:
+				raise Exception(f"The predicate {condition['condition']} is not supported\nThe entire predicate is:\n{condition}")
+		return False
 	#statistics
 	def stats(self):
 		print('\nYou now have:')
