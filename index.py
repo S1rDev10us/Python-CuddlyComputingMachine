@@ -1,16 +1,15 @@
 ﻿from random import choice,randint
 from files import *
 from os import path, system
+from math import floor
 #from msvcrt import getch
 #from time import sleep
 #from keyboard import wait as getch
-dev=True
+dev=False
 def getch():
 	system('pause')
 class game:
-
 	def __init__(self):
-		self.reset()
 		self.data=readjs(path.abspath('data.json'))
 		self.events=self.data['events']
 		self.weapons=self.data['weapons']
@@ -20,6 +19,8 @@ class game:
 		self.emptyLine='|'+' '*30+'|'
 		self.string=type("")
 		self.array=type([])
+		self.dict=type({})
+		self.predicates=self.data['predicates']
 		if(dev==False):
 			found=True
 			while(found):
@@ -29,8 +30,12 @@ class game:
 						self.weapons.pop(x)
 						found=True
 						break
+		self.reset()
 	#reset all variables for game start
 	def reset(self):
+		#for x in self.data['start']:
+			#vars()[f"self.{x}"]=self.data['start'][x]
+		print(self.inventory)
 		self.gameTime=0
 		self.food=100
 		self.health=100
@@ -94,29 +99,21 @@ class game:
 
 		return
 
-	# displays a shop with multiple options
-	# and allows to by things
+	#shop function
 	def shop(self):
 		self.shopLevel=self.rep/10
 		shopping=True
-
+		print(self.breakLine)
+		print(self.emptyLine +'\n| Welcome to this shop, enjoy! |')
+		print(self.emptyLine)
+		print('|● 0 to Exit                   |')
+		print('|● 1 for Weapons               |')
+		print('|● 2 for Items                 |')
+		print(self.emptyLine+'\n'+self.breakLine)
 		while(shopping):
-
-			print(self.breakLine)
-			print(self.emptyLine +'\n| Welcome to this shop, enjoy! |')
-			print(self.emptyLine)
-			print('|● 0 to Exit                   |')
-			print('|● 1 for Weapons               |')
-			print('|● 2 for Items                 |')
-			print(self.emptyLine+'\n'+self.breakLine)
-
 			number=self.validn(['e','w','i'])
 			match number:
-				# weapons menu
-				# allows to choose between
-				# three types of weapon  
 				case 1:
-
 					print(self.breakLine)
 					print(self.emptyLine)
 					print('|         Weapons shop         |')
@@ -125,30 +122,23 @@ class game:
 					print('|● 1 for Magic                 |')
 					print('|● 2 for Ranged                |')
 					print(self.breakLine)
-
 					WeaponOut = ""
-					opt = self.validn(['m','m','r'])
-					weaType = ""
-					# the following cases will store all the weapons of a given type
-					# in a list, then output the items in a menu format where the items
-					# can be selected in a menu format
-					match opt:
+					WeaponRaw = []
+					match self.validn(['m','m','r']):
 						case 0:
-							weapons = self.filterlist(self.weapons, "type", "me")
-							weaType = "Melee"
+							# print(self.breakLine)
+							# for count, weapon in enumerate(self.weapons):
+							# 	if weapon["type"] == "ma":
+							# 		WeaponOut += "|● " + str(count) + " " + weapon["name"]
+							# 		WeaponRaw += weapon
+							pass
 						case 1:
-							weapons = self.filterlist(self.weapons, "type", "ma")
-							weaType = "Magic"
+							pass
 						case 2:
-							weapons = self.filterlist(self.weapons, "type", "ra")
-							weaType = "Ranged"
+							pass
 						case _:
 							print('Well done you broke the validator')
-					print(self.breakLine+'\n'+self.emptyLine)
-					print(f'|         {weaType} weapons')
-					for count, weapon in enumerate(weapons):
-						WeaponOut += "|● " + str(count) + " " + weapon["name"] +'\n'
-					print(self.breakLine)
+					pass
 				case 2:
 					pass
 				case 0:
@@ -163,6 +153,13 @@ class game:
 					print('Well done i guess, you broke the validator?')
 					pass
 			
+			print(self.breakLine)
+			print(self.emptyLine +'\n| Welcome to this shop, enjoy! |')
+			print(self.emptyLine)
+			print('|● 0 to Exit                   |')
+			print('|● 1 for Weapons               |')
+			print('|● 2 for Items                 |')
+			print(self.emptyLine+'\n'+self.breakLine)
 	#valid number
 	def validn(self,check):
 		outcome=input('>>>')
@@ -179,11 +176,6 @@ class game:
 				except:
 					pass
 		return int(outcome)
-
-	#check if a variable exists
-	def exists(self,exists):
-		return exists!=None
-
 	#run the event
 	def eventManager(self):
 		event=self.event()
@@ -202,29 +194,81 @@ class game:
 				print(f"{str(x)}: {event['outcomes'][x]['name']}")
 			outcome=self.validn(event["outcomes"])
 			outcome=event["outcomes"][int(outcome)]
-			print('\n'+outcome['output'])
-			if(self.exists(outcome['gold'])):self.gold+=outcome['gold']+randint(0,int(outcome['gold']/10))
-			if(self.exists(outcome['rep'])):self.rep+=outcome['rep']+randint(0,int(outcome['rep']/10))
-			if(self.exists(outcome['health'])):self.health+=outcome['health']+randint(0,int(outcome['health']/10))
+			self.eventOutcome(outcome)
 			getch()
+	#What to do at the end of an event
+	def eventOutcome(self,outcome):
+		if(type(outcome['output'])==self.string):
+			print('\n'+outcome['output'])
+			if('gold' in outcome):
+				self.gold+=outcome['gold']+randint(0,floor(outcome['gold']/10))
+			if('rep' in outcome):
+				self.rep+=outcome['rep']+randint(0,floor(outcome['rep']/10))
+			if('health' in outcome):
+				self.health+=outcome['health']+randint(0,floor(outcome['health']/10))
+		else:
+			if(self.predicate(outcome['output']['predicate'])):
+				outcome=outcome['output']['true']
+			else:
+				outcome=outcome['output']['false']
+				pass
+			print('\n'+outcome['output'])
+			if('gold' in outcome):
+				if(outcome['gold']>0):
+					self.gold+=outcome['gold']+randint(0,floor(outcome['gold']/10))
+				else:
+					self.gold+=outcome['gold']+randint(floor(outcome['gold']/10),0)
+			if('rep' in outcome):
+				if(outcome['rep']>0):
+					self.rep+=outcome['rep']+randint(0,floor(outcome['rep']/10))
+				else:
+					self.rep+=outcome['rep']+randint(floor(outcome['rep']/10),0)
+			if('health' in outcome):
+				if(outcome['health']>0):
+					self.health+=outcome['health']+randint(0,floor(outcome['health']/10))
+				else:
+					self.health+=outcome['health']+randint(floor(outcome['health']/10),0)
+			pass
+		pass
 	#predicate system
 	def predicate(self,condition):
 		if(type(condition)==self.array):
 			z=0
 			for x in condition:
-				match x['condition']:
-					case 'has':
-						pass
-					case 'rep':
-						if(x['greater']):
-							if(x['rep']<self.rep):
-								z+=1
-						pass
+				if(self.singlePredicate(x)):
+					z+=1
 			if(z==len(condition)):
-				pass
+				return True
 		else:
-			pass
-
+			return self.singlePredicate(condition)
+		return False
+	#code for one predicate
+	def singlePredicate(self,condition):
+		match condition['condition']:
+			case 'has':
+				for z in self.inventory:
+					for x in z:
+						a=0
+						for y in condition['predicate']:
+							if(y in x):
+								if(x[y]==condition['predicate'][y]):
+									a+=1
+						if(len(condition['predicate'].values())<1):
+							raise Exception(f"The predicate did not have any values\nThe predicate was {condition}")
+						if(a==len(condition['predicate'].values())):
+							return True
+				return False
+			case 'rep':
+				if(condition['greater']):
+					if(condition['rep']<self.rep):return True
+				else:
+					if(condition['rep']>self.rep):return True
+				pass
+			case 'predicate':
+				return self.predicate(self.predicates[condition['predicate']])
+			case _:
+				raise Exception(f"The predicate {condition['condition']} is not supported\nThe entire predicate is:\n{condition}")
+		return False
 	#statistics
 	def stats(self):
 		print('\nYou now have:')
