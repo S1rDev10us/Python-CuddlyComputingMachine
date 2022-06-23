@@ -230,10 +230,8 @@
 		}
 	},
 	"start": {
-		"inventory": {
-			"items": [],
-			"weapons": [],
-			"accessories": []
-		}
-	}
+		"items": [],
+		"weapons": [],
+		"accessories": []
+	}	
 }

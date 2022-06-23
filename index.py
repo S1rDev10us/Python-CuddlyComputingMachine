@@ -33,23 +33,16 @@ class game:
 		self.reset()
 	#reset all variables for game start
 	def reset(self):
-		#for x in self.data['start']:
-			#vars()[f"self.{x}"]=self.data['start'][x]
-		print(self.inventory)
-		self.gameTime=0
-		self.food=100
-		self.health=100
+		self.inventory=self.data['start']
 		self.startAge=randint(25,50)
 		self.age=self.startAge
 		self.old=randint(100,150)
-		self.location=0
+		self.gameTime=0
+		self.food=100
+		self.health=100
 		self.gold=0
+		self.location=0
 		self.rep=0
-		self.inventory = {
-			"items": [],
-			"weapons": [],
-			"accessories": []
-		}
 	#confirmation function
 	def confirm(self):
 		x=input('y/n:')
@@ -201,11 +194,20 @@ class game:
 		if(type(outcome['output'])==self.string):
 			print('\n'+outcome['output'])
 			if('gold' in outcome):
-				self.gold+=outcome['gold']+randint(0,floor(outcome['gold']/10))
+				if(outcome['gold']>0):
+					self.gold+=outcome['gold']+randint(0,floor(outcome['gold']/10))
+				else:
+					self.gold+=outcome['gold']+randint(floor(outcome['gold']/10),0)
 			if('rep' in outcome):
-				self.rep+=outcome['rep']+randint(0,floor(outcome['rep']/10))
+				if(outcome['rep']>0):
+					self.gold+=outcome['rep']+randint(0,floor(outcome['rep']/10))
+				else:
+					self.gold+=outcome['rep']+randint(floor(outcome['rep']/10),0)
 			if('health' in outcome):
-				self.health+=outcome['health']+randint(0,floor(outcome['health']/10))
+				if(outcome['health']>0):
+					self.health+=outcome['health']+randint(0,floor(outcome['health']/10))
+				else:
+					self.health+=outcome['health']+randint(floor(outcome['health']/10),0)
 		else:
 			if(self.predicate(outcome['output']['predicate'])):
 				outcome=outcome['output']['true']
@@ -220,9 +222,9 @@ class game:
 					self.gold+=outcome['gold']+randint(floor(outcome['gold']/10),0)
 			if('rep' in outcome):
 				if(outcome['rep']>0):
-					self.rep+=outcome['rep']+randint(0,floor(outcome['rep']/10))
+					self.gold+=outcome['rep']+randint(0,floor(outcome['rep']/10))
 				else:
-					self.rep+=outcome['rep']+randint(floor(outcome['rep']/10),0)
+					self.gold+=outcome['rep']+randint(floor(outcome['rep']/10),0)
 			if('health' in outcome):
 				if(outcome['health']>0):
 					self.health+=outcome['health']+randint(0,floor(outcome['health']/10))
