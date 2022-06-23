@@ -144,7 +144,7 @@ class game:
 					print(self.breakLine)
 					pass
 				case _:
-					print('Well done i guess, you broke the validator?')
+					print('Well done I guess, you broke the validator?')
 					pass
 			
 			print(self.breakLine)
