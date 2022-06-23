@@ -1,5 +1,4 @@
-﻿from _typeshed import Self
-from random import choice,randint
+﻿from random import choice,randint
 from files import *
 from os import path, system
 #from msvcrt import getch
@@ -190,7 +189,12 @@ class game:
 			if(self.exists(outcome['rep'])):self.rep+=outcome['rep']+randint(0,int(outcome['rep']/10))
 			if(self.exists(outcome['health'])):self.health+=outcome['health']+randint(0,int(outcome['health']/10))
 			getch()
+	#predicate system
+	def predicate(self,condition):
+		match condition['type']:
+			case 'has':
 
+				pass
 	#statistics
 	def stats(self):
 		print('\nYou now have:')
@@ -199,8 +203,8 @@ class game:
 		print(f'●{self.health} health')
 		print(f'●{self.age} age\n')
 
-	#dynamic things such as slow damage from heat in hell
-	def dynamic(self):
+	#environmental things such as slow damage from heat in hell
+	def environmentalEffects(self):
 		self.gold+=self.locationf()['gold']
 		self.rep+=self.locationf()['rep']
 		self.health+=self.locationf()['health']
@@ -213,6 +217,7 @@ class game:
 		print('\n'*2)
 		while(self.alive()):
 			self.eventManager()
+			self.environmentalEffects()
 			self.gameTime+=1
 			if(self.age!=self.startAge+self.gameTime//10):
 				self.age=self.startAge+self.gameTime//10

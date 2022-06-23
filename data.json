@@ -131,7 +131,22 @@
 						"gold": 200,
 						"rep": -10,
 						"health": -50,
-						"output": "You catch the rubies as they fall but the statue splits in half, cult members hiding in the shadows collectively hiss as a huge lich appears, you flee and escape but not before taking a gushing wound at your side, impeding your escape greatly"
+						"output": "You catch the rubies as they fall but the statue splits in half, cult members hiding in the shadows collectively hiss as a huge lich appears, you flee and escape but not before taking a gushing wound at your side, impeding your escape greatly",
+						"condition": {
+							"predicate": {
+								"condition": "has",
+								"predicate": {
+
+								}
+							},
+							"true": {
+
+							},
+							"false": {
+
+							}
+						}
+
 					}
 				]
 			},
@@ -144,8 +159,14 @@
 			{
 				"id": "crypt-entrance-hell",
 				"place": 1,
-				"text": "You find a bubbling pool of lava, with an abyss in the centre which tries to pull you in, do you wish to enter",
+				"text": "You find a bubbling pool of lava, with an abyss in the centre which tries to pull you in, do you wish to enter?",
 				"outcomes": 2
+			},
+			{
+				"id": "hell-entrance-cosi",
+				"place": 2,
+				"text": "You find a spiraling staircase going ever upwards, do you ascend it?",
+				"outcomes": 0
 			}
 		]
 	},
