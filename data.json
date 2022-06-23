@@ -1,45 +1,30 @@
 {
-	"messages": [
-		{
-			"name": "lose",
-			"data": [
-				"Your soul fades away into nothing, never to be seen again...",
-				"GAME OVER"
-			]
-		},
-		{
-			"name": "retire",
-			"data": [
-				"You decide to end your journey here at age %s and slowly meander back home popping in to anyone who helped you along your way and then happily retire in the place of your birth"
-			]
-		},
-		{
-			"name": "win",
-			"data": [
-				"You won! Hooray!",
-				"ah well, here we go again"
-			]
-		},
-		{
-			"name": "start",
-			"data": [
-				"Your adventure begins",
-				"Welcome to a new adventure",
-				"Let me draw your attention to this wonderful world that you find yourself in and show you around",
-				"Come in, come in, a whole world awaits (Fine print: a whole new world does not entail an entire world as you may understand it and so you may be dissapointed to find a lack of world in here)"
-			]
-		},
-		{
-			"name": "welcome",
-			"data": [
-				"You are in the %s, there is a secret to discover here",
-				"This is the %s, Welcome!",
-				"There are many secrets in the %s, enjoy your stay...",
-				"Enjoy your stay in the %s",
-				"Welcome to the %s!"
-			]
-		}
-	],
+	"messages": {
+		"lose": [
+			"Your soul fades away into nothing, never to be seen again...",
+			"GAME OVER"
+		],
+		"retire": [
+			"You decide to end your journey here at age %s and slowly meander back home popping in to anyone who helped you along your way and then happily retire in the place of your birth"
+		],
+		"win": [
+			"You won! Hooray!",
+			"ah well, here we go again"
+		],
+		"start": [
+			"Your adventure begins",
+			"Welcome to a new adventure",
+			"Let me draw your attention to this wonderful world that you find yourself in and show you around",
+			"Come in, come in, a whole world awaits (Fine print: a whole new world does not entail an entire world as you may understand it and so you may be dissapointed to find a lack of world in here)"
+		],
+		"welcome": [
+			"You are in the %s, there is a secret to discover here",
+			"This is the %s, Welcome!",
+			"There are many secrets in the %s, enjoy your stay...",
+			"Enjoy your stay in the %s",
+			"Welcome to the %s!"
+		]
+	},
 	"events": {
 		"places": [
 			{
@@ -173,24 +158,12 @@
 			}
 		]
 	},
-	"shorthands": [
-		{
-			"short": "ma",
-			"long": "magic"
-		},
-		{
-			"short": "me",
-			"long": "melee"
-		},
-		{
-			"short": "ra",
-			"long": "ranged"
-		},
-		{
-			"short": "co",
-			"long": "consumable"
-		}
-	],
+	"shorthands": {
+		"ma": "magic",
+		"me": "melee",
+		"ra": "ranged",
+		"co": "consumable"
+	},
 	"weapons": [
 		{
 			"name": "The ORB",
@@ -235,5 +208,5 @@
 		"items": [],
 		"weapons": [],
 		"accessories": []
-	}	
+	}
 }

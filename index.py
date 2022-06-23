@@ -22,15 +22,9 @@ class game:
 		self.array=type([])
 		self.dict=type({})
 		self.predicates=self.data['predicates']
-		if(dev==False):
-			found=True
-			while(found):
-				found=False
-				for x in range(len(self.weapons)):
-					if(self.weapons[x]['dev']):
-						self.weapons.pop(x)
-						found=True
-						break
+		if(not dev):
+			remove_list=self.filterlist(weapons,'dev',True)
+			self.weapons=[i for i in self.weapons if i not in remove_list]
 		self.reset()
 	#reset all variables for game start
 	def reset(self):
@@ -57,10 +51,9 @@ class game:
 	#Look for a specific shorthand
 	def short(self,short):
 		for x in self.shorthands:
-			if(x['short']==short):
-				longhand=x['long']
-				break
-		return longhand
+			if(x==short):
+				return self.shorthands[x]
+		raise Exception(f"Shorthand \"{short}\" was not found")
 
 	#Check if character is alive
 	def alive(self):
@@ -75,15 +68,15 @@ class game:
 	#Get the messages for a specific section
 	def messages(self,target):
 		for x in self.message:
-			if(x['name']==target):
-				match type(x['data']):
+			if(x==target):
+				match type(self.message[x]):
 					case self.string:
-						return x['data']
+						return self.message[x]
 					case self.array:
-						return choice(x['data'])
+						return choice(self.message[x])
 					case _:
-						return choice(x['data'])
-
+						return choice(self.message[x])
+		raise Exception(f"Message \"{target}\" was not found")
 	#Choose an event
 	def event(self):
 		return choice(self.filterlist(self.events['events'],'place',self.location))
