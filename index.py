@@ -1,4 +1,4 @@
-﻿from random import choice,randint
+from random import choice,randint
 from files import *
 from os import path, system
 from math import floor
