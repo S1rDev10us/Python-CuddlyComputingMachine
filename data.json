@@ -130,8 +130,7 @@
 						"gold": 200,
 						"rep": -10,
 						"health": -50,
-						"output": "You catch the rubies as they fall but the statue splits in half, cult members hiding in the shadows collectively hiss as a huge lich appears, you flee and escape but not before taking a gushing wound at your side, impeding your escape greatly",
-						"condition": {
+						"output": {
 							"predicate": {
 								"condition": "has",
 								"predicate": {
@@ -142,7 +141,7 @@
 
 							},
 							"false": {
-
+								"output":"You catch the rubies as they fall but the statue splits in half, cult members hiding in the shadows collectively hiss as a huge lich appears, you flee and escape but not before taking a gushing wound at your side, impeding your escape greatly"
 							}
 						}
 

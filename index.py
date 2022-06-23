@@ -19,6 +19,7 @@ class game:
 		self.emptyLine='|'+' '*30+'|'
 		self.string=type("")
 		self.array=type([])
+		self.dict=type({})
 		self.predicates=self.data['predicates']
 		if(dev==False):
 			found=True
@@ -87,7 +88,7 @@ class game:
 
 	#Choose an event
 	def event(self):
-		return choice(self.filterlist(events['events'],'place',self.location))
+		return choice(self.filterlist(self.events['events'],'place',self.location))
 
 	#Buyable items
 	def availableItems(self):
@@ -198,10 +199,22 @@ class game:
 			getch()
 	#What to do at the end of an event
 	def eventOutcome(self,outcome):
-		print('\n'+outcome['output'])
-		if(self.exists(outcome['gold'])):self.gold+=outcome['gold']+randint(0,int(outcome['gold']/10))
-		if(self.exists(outcome['rep'])):self.rep+=outcome['rep']+randint(0,int(outcome['rep']/10))
-		if(self.exists(outcome['health'])):self.health+=outcome['health']+randint(0,int(outcome['health']/10))
+		if(type(outcome['output'])==self.string):
+			print('\n'+outcome['output'])
+			if(self.exists(outcome['gold'])):self.gold+=outcome['gold']+randint(0,int(outcome['gold']/10))
+			if(self.exists(outcome['rep'])):self.rep+=outcome['rep']+randint(0,int(outcome['rep']/10))
+			if(self.exists(outcome['health'])):self.health+=outcome['health']+randint(0,int(outcome['health']/10))
+		else:
+			if(self.predicate(outcome['output']['predicate'])):
+				outcome=outcome['output']['true']
+			else:
+				outcome=outcome['output']['false']
+				pass
+			print('\n'+outcome['output'])
+			if('gold' in outcome):self.gold+=outcome['gold']+randint(0,int(outcome['gold']/10))
+			if('rep' in outcome):self.rep+=outcome['rep']+randint(0,int(outcome['rep']/10))
+			if('health' in outcome):self.health+=outcome['health']+randint(0,int(outcome['health']/10))
+			pass
 		pass
 	#predicate system
 	def predicate(self,condition):
@@ -227,7 +240,7 @@ class game:
 					if(condition['rep']>self.rep):return True
 				pass
 			case 'predicate':
-				return predicate(self.predicates[condition['predicate']])
+				return self.predicate(self.predicates[condition['predicate']])
 			case _:
 				raise Exception(f"The predicate {condition['condition']} is not supported\nThe entire predicate is:\n{condition}")
 		return False
