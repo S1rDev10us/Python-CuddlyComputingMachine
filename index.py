@@ -1,6 +1,5 @@
 ﻿from random import choice,randint
 from files import *
-from load import *
 from os import path, system
 from math import floor
 #from msvcrt import getch
