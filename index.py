@@ -5,7 +5,7 @@ from math import floor
 #from msvcrt import getch
 #from time import sleep
 #from keyboard import wait as getch
-dev=False
+dev=True
 def getch():
 	system('pause')
 class game:
@@ -97,14 +97,16 @@ class game:
 	def shop(self):
 		self.shopLevel=self.rep/10
 		shopping=True
-		print(self.breakLine)
-		print(self.emptyLine +'\n| Welcome to this shop, enjoy! |')
-		print(self.emptyLine)
-		print('|● 0 to Exit                   |')
-		print('|● 1 for Weapons               |')
-		print('|● 2 for Items                 |')
-		print(self.emptyLine+'\n'+self.breakLine)
+
 		while(shopping):
+			print(self.breakLine)
+			print(self.emptyLine +'\n| Welcome to this shop, enjoy! |')
+			print(self.emptyLine)
+			print('|● 0 to Exit                   |')
+			print('|● 1 for Weapons               |')
+			print('|● 2 for Items                 |')
+			print(self.emptyLine+'\n'+self.breakLine)
+
 			number=self.validn(['e','w','i'])
 			match number:
 				case 1:
@@ -116,23 +118,31 @@ class game:
 					print('|● 1 for Magic                 |')
 					print('|● 2 for Ranged                |')
 					print(self.breakLine)
-					WeaponOut = ""
-					WeaponRaw = []
+
+					weapons = []
+					weaType = ""
 					match self.validn(['m','m','r']):
 						case 0:
-							# print(self.breakLine)
-							# for count, weapon in enumerate(self.weapons):
-							# 	if weapon["type"] == "ma":
-							# 		WeaponOut += "|● " + str(count) + " " + weapon["name"]
-							# 		WeaponRaw += weapon
-							pass
+							weapons = self.filterlist(self.weapons, "type", "me")
+							weaType = "Melee"
 						case 1:
-							pass
+							weapons = self.filterlist(self.weapons, "type", "ma")
+							weaType = "Magic"
 						case 2:
-							pass
+							weapons = self.filterlist(self.weapons, "type", "ra")
+							weaType = "Ranged"
 						case _:
 							print('Well done you broke the validator')
-					pass
+
+					print(self.breakLine)
+					print(self.emptyLine)
+					print(f'|         {weaType} weapons')
+					print(self.emptyLine)
+					for count, weapon in enumerate(weapons):
+							print("|● " + str(count) + " " + weapon["name"])
+					print(self.emptyLine)
+					print(self.breakLine)
+
 				case 2:
 					pass
 				case 0:
@@ -143,17 +153,11 @@ class game:
 					print(self.emptyLine)
 					print(self.breakLine)
 					pass
+				
 				case _:
 					print('Well done i guess, you broke the validator?')
 					pass
-			
-			print(self.breakLine)
-			print(self.emptyLine +'\n| Welcome to this shop, enjoy! |')
-			print(self.emptyLine)
-			print('|● 0 to Exit                   |')
-			print('|● 1 for Weapons               |')
-			print('|● 2 for Items                 |')
-			print(self.emptyLine+'\n'+self.breakLine)
+
 	#valid number
 	def validn(self,check):
 		outcome=input('>>>')
