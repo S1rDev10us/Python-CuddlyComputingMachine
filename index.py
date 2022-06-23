@@ -1,4 +1,4 @@
-﻿from random import choice,randint
+from random import choice,randint
 from files import *
 from os import path, system
 from math import floor
@@ -23,7 +23,7 @@ class game:
 		self.dict=type({})
 		self.predicates=self.data['predicates']
 		if(not dev):
-			remove_list=self.filterlist(weapons,'dev',True)
+			remove_list=self.filterlist(self.weapons,'dev',True)
 			self.weapons=[i for i in self.weapons if i not in remove_list]
 		self.reset()
 	#reset all variables for game start
