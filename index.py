@@ -172,11 +172,6 @@ class game:
 				except:
 					pass
 		return int(outcome)
-
-	#check if a variable exists
-	def exists(self,exists):
-		return exists!=None
-
 	#run the event
 	def eventManager(self):
 		event=self.event()
@@ -201,9 +196,9 @@ class game:
 	def eventOutcome(self,outcome):
 		if(type(outcome['output'])==self.string):
 			print('\n'+outcome['output'])
-			if(self.exists(outcome['gold'])):self.gold+=outcome['gold']+randint(0,int(outcome['gold']/10))
-			if(self.exists(outcome['rep'])):self.rep+=outcome['rep']+randint(0,int(outcome['rep']/10))
-			if(self.exists(outcome['health'])):self.health+=outcome['health']+randint(0,int(outcome['health']/10))
+			if('gold' in outcome):self.gold+=outcome['gold']+randint(0,int(outcome['gold']/10))
+			if('rep' in outcome):self.rep+=outcome['rep']+randint(0,int(outcome['rep']/10))
+			if('health' in outcome):self.health+=outcome['health']+randint(0,int(outcome['health']/10))
 		else:
 			if(self.predicate(outcome['output']['predicate'])):
 				outcome=outcome['output']['true']
