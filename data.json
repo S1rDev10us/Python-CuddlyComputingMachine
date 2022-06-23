@@ -240,8 +240,14 @@
 		}
 	},
 	"start": {
-		"items": [],
-		"weapons": [],
-		"accessories": []
+		"items": [
+
+		],
+		"weapons": [
+
+		],
+		"accessories": [
+
+		]
 	}
 }
