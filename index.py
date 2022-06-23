@@ -1,6 +1,7 @@
 ﻿from random import choice,randint
 from files import *
 from os import path, system
+from math import floor
 #from msvcrt import getch
 #from time import sleep
 #from keyboard import wait as getch
@@ -9,7 +10,6 @@ def getch():
 	system('pause')
 class game:
 	def __init__(self):
-		self.reset()
 		self.data=readjs(path.abspath('data.json'))
 		self.events=self.data['events']
 		self.weapons=self.data['weapons']
@@ -30,8 +30,14 @@ class game:
 						self.weapons.pop(x)
 						found=True
 						break
+		self.reset()
 	#reset all variables for game start
 	def reset(self):
+		for x in self.data['start']:
+			locals()[f"self.{x}"]=self.data['start'][x]
+			print(locals()['self'])
+			print(x)
+		print(self.inventory)
 		self.gameTime=0
 		self.food=100
 		self.health=100
@@ -196,9 +202,12 @@ class game:
 	def eventOutcome(self,outcome):
 		if(type(outcome['output'])==self.string):
 			print('\n'+outcome['output'])
-			if('gold' in outcome):self.gold+=outcome['gold']+randint(0,int(outcome['gold']/10))
-			if('rep' in outcome):self.rep+=outcome['rep']+randint(0,int(outcome['rep']/10))
-			if('health' in outcome):self.health+=outcome['health']+randint(0,int(outcome['health']/10))
+			if('gold' in outcome):
+				self.gold+=outcome['gold']+randint(0,floor(outcome['gold']/10))
+			if('rep' in outcome):
+				self.rep+=outcome['rep']+randint(0,floor(outcome['rep']/10))
+			if('health' in outcome):
+				self.health+=outcome['health']+randint(0,floor(outcome['health']/10))
 		else:
 			if(self.predicate(outcome['output']['predicate'])):
 				outcome=outcome['output']['true']
@@ -206,9 +215,21 @@ class game:
 				outcome=outcome['output']['false']
 				pass
 			print('\n'+outcome['output'])
-			if('gold' in outcome):self.gold+=outcome['gold']+randint(0,int(outcome['gold']/10))
-			if('rep' in outcome):self.rep+=outcome['rep']+randint(0,int(outcome['rep']/10))
-			if('health' in outcome):self.health+=outcome['health']+randint(0,int(outcome['health']/10))
+			if('gold' in outcome):
+				if(outcome['gold']>0):
+					self.gold+=outcome['gold']+randint(0,floor(outcome['gold']/10))
+				else:
+					self.gold+=outcome['gold']+randint(floor(outcome['gold']/10),0)
+			if('rep' in outcome):
+				if(outcome['rep']>0):
+					self.rep+=outcome['rep']+randint(0,floor(outcome['rep']/10))
+				else:
+					self.rep+=outcome['rep']+randint(floor(outcome['rep']/10),0)
+			if('health' in outcome):
+				if(outcome['health']>0):
+					self.health+=outcome['health']+randint(0,floor(outcome['health']/10))
+				else:
+					self.health+=outcome['health']+randint(floor(outcome['health']/10),0)
 			pass
 		pass
 	#predicate system
@@ -216,7 +237,8 @@ class game:
 		if(type(condition)==self.array):
 			z=0
 			for x in condition:
-				if(self.singlePredicate(condition)):z+=1
+				if(self.singlePredicate(x)):
+					z+=1
 			if(z==len(condition)):
 				return True
 		else:
@@ -230,12 +252,14 @@ class game:
 					for x in z:
 						a=0
 						for y in condition['predicate']:
-							if(x[y]==condition['predicate'][y]):
-								a+=1
-						if(len(condition['predicate'].values())<1):raise Exception(f"The predicate did not have any values\nThe predicate was {condition}")
-						if(a==len(condition['predicate'].values())):return True
+							if(y in x):
+								if(x[y]==condition['predicate'][y]):
+									a+=1
+						if(len(condition['predicate'].values())<1):
+							raise Exception(f"The predicate did not have any values\nThe predicate was {condition}")
+						if(a==len(condition['predicate'].values())):
+							return True
 				return False
-				pass
 			case 'rep':
 				if(condition['greater']):
 					if(condition['rep']<self.rep):return True

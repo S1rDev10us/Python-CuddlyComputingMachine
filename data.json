@@ -228,5 +228,12 @@
 		"fireproof": {
 
 		}
+	},
+	"start": {
+		"inventory": {
+			"items": [],
+			"weapons": [],
+			"accessories": []
+		}
 	}
 }
