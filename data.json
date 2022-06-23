@@ -31,7 +31,6 @@
 		},
 		{
 			"name": "welcome",
-			"type": "array",
 			"data": [
 				"You are in the %s, there is a secret to discover here",
 				"This is the %s, Welcome!",
@@ -202,7 +201,6 @@
 			"mCost": 0,
 			"maxUses": 1,
 			"dev": true,
-			"lore": true,
 			"loreData": "The ultimate hammer, it stops the entity it reaches from ever having existed in the first place"
 		},
 		{
