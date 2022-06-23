@@ -2,7 +2,10 @@
 	"messages": {
 		"lose": [
 			"Your soul fades away into nothing, never to be seen again...",
-			"GAME OVER"
+			"GAME OVER",
+			"Ashes to ashes, dust to dust",
+			"You are untethered from your mortal bonds",
+			"You have been lost to the great unknown"
 		],
 		"retire": [
 			"You decide to end your journey here at age %s and slowly meander back home popping in to anyone who helped you along your way and then happily retire in the place of your birth"
@@ -155,6 +158,38 @@
 				"place": 2,
 				"text": "You find the ghost of a dead merchant wandering the eternal plane of hell, offering the souls of the items he once sold",
 				"outcomes": "shop"
+			},
+			{
+				"id": "hell-fight-demon-fire-flying",
+				"place": 2,
+				"text": "You come across a fire demon floating high above you, you do not think it has seen you but the dangers if it has are immense",
+				"outcomes": [
+					{
+						"name": "Assume it hasn't seen you and carry onwards",
+						"gold": 5,
+						"health": -5,
+						"output": "It swoops down on you narrowly missing you but catching your gold purse, melting some of your gold and slightly burning you"
+					},
+					{
+						"name": "Fight the demon just in case",
+						"output": {
+							"predicate": {
+								"condition": "has",
+								"predicate": {
+									"type": "ra"
+								}
+							},
+							"true": {
+								"output": "You defeat the abomination before it gets close, saving yourself",
+								"gold": 50
+							},
+							"false": {
+								"output": "You get mauled by the creature before hiding in a nearby cave and cowering in fear and pain",
+								"health": -75
+							}
+						}
+					}
+				]
 			}
 		]
 	},
