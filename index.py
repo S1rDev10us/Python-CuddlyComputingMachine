@@ -155,7 +155,7 @@ class game:
 					pass
 				
 				case _:
-					print('Well done i guess, you broke the validator?')
+					print('Well done I guess, you broke the validator?')
 					pass
 
 	#valid number
