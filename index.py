@@ -247,16 +247,13 @@ class game:
 		match condition['condition']:
 			case 'has':
 				for z in self.inventory:
-					for x in z:
-						a=0
+					for x in self.inventory[z]:
 						for y in condition['predicate']:
 							if(y in x):
 								if(x[y]==condition['predicate'][y]):
-									a+=1
+									return True
 						if(len(condition['predicate'].values())<1):
 							raise Exception(f"The predicate did not have any values\nThe predicate was {condition}")
-						if(a==len(condition['predicate'].values())):
-							return True
 				return False
 			case 'rep':
 				if(condition['greater']):
