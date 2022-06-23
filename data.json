@@ -164,6 +164,12 @@
 				"place": 2,
 				"text": "You find a spiraling staircase going ever upwards, do you ascend it?",
 				"outcomes": 0
+			},
+			{
+				"id": "hell-trading-merchant",
+				"place": 2,
+				"text": "You find the ghost of a dead merchant wandering the eternal plane of hell, offering the souls of the items he once sold",
+				"outcomes": "shop"
 			}
 		]
 	},
