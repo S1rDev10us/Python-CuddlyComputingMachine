@@ -40,6 +40,11 @@ class game:
 		self.location=0
 		self.gold=0
 		self.rep=0
+		self.inventory = {
+			"items": [],
+			"weapons": [],
+			"accessories": []
+		}
 	#confirmation function
 	def confirm(self):
 		x=input('y/n:')
@@ -112,8 +117,15 @@ class game:
 					print('|● 1 for Magic                 |')
 					print('|● 2 for Ranged                |')
 					print(self.breakLine)
+					WeaponOut = ""
+					WeaponRaw = []
 					match self.validn(['m','m','r']):
 						case 0:
+							# print(self.breakLine)
+							# for count, weapon in enumerate(self.weapons):
+							# 	if weapon["type"] == "ma":
+							# 		WeaponOut += "|● " + str(count) + " " + weapon["name"]
+							# 		WeaponRaw += weapon
 							pass
 						case 1:
 							pass
