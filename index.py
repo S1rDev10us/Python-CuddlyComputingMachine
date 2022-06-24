@@ -85,7 +85,6 @@ class game:
 		events=[]
 		for x in self.filterlist(self.events['events'],'place',self.location):
 			if('predicate' in x.keys()):
-				print(x['id'])
 				if(self.predicate(x['predicate'])):
 					events.append(x)
 			else:
