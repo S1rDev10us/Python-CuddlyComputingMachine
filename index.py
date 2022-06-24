@@ -182,7 +182,6 @@ class game:
 								for i in weapons[inweaType]:
 									passin.append(i)
 								passin.append("B")
-								passin.append("L")
 								FirsLoop = False
 
 						if(WeaponBuy):
@@ -191,10 +190,10 @@ class game:
 							print(self.emptyLine)
 							print(f'|         {weaType} weapons')
 							print(self.emptyLine)
-							print("|● 0 Back                      |\n|● 1 Show Lore")
+							print("|● 0 Back                      |")
 							print(self.breakLine)
 							for count, weapon in enumerate(weapons[inweaType]):
-									print(f"|● {count+2} {weapon['name']}\n| Cost: {weapon['Cost']}")
+									print(f"|● {count+1} {weapon['name']}\n| Cost: {weapon['Cost']}")
 							print(self.emptyLine)
 							print(self.breakLine)
 							print("Gold:", self.gold)
@@ -204,35 +203,58 @@ class game:
 							match selection:
 								case 0:
 									FirsLoop = True
-								case 1:
-									inLore = True
-									weaLore = []
-									for i in weapons[inweaType]:
-										if('loreData' in i.keys()):weaLore.append(i["name"] + ": " + i["loreData"])
-										else:weaLore.append(i["name"] + ": " + "No lore for this item")
-									while(inLore):
-										print(self.breakLine)
-										print(self.emptyLine)
-										print(f'|         {weaType} weapons')
-										print("|            Lore              |\n|● 0 Back                      |")
-										print(self.emptyLine)
-										for weapon in weaLore:
-												print("|●",self.strpara(weapon, menumode=True))
-										print(self.emptyLine)
-										print(self.breakLine)
-										print("Gold:", self.gold)
-										match self.validn('b'):
-											case 0:
-												inLore = False
-											case _:
-												print("you broke the validator")
+								# case 1:
+								# 	inLore = True
+								# 	weaLore = []
+								# 	for i in weapons[inweaType]:
+								# 		if('loreData' in i.keys()):weaLore.append(i["name"] + ": " + i["loreData"])
+								# 		else:weaLore.append(i["name"] + ": " + "No lore for this item")
+								# 	while(inLore):
+								# 		print(self.breakLine)
+								# 		print(self.emptyLine)
+								# 		print(f'|         {weaType} weapons')
+								# 		print("|            Lore              |\n|● 0 Back                      |")
+								# 		print(self.emptyLine)
+								# 		for weapon in weaLore:
+								# 				print("|●",self.strpara(weapon, menumode=True))
+								# 		print(self.emptyLine)
+								# 		print(self.breakLine)
+								# 		print("Gold:", self.gold)
+								# 		match self.validn('b'):
+								# 			case 0:
+								# 				inLore = False
+								# 			case _:
+								# 				print("you broke the validator")
 								case _:
-									# TODO allow buying weapons
-									self.gold -= weapons[inweaType][selection-2]['Cost']
-									self.weapons.remove(weapons[inweaType][selection-2])
-									self.inventory["weapons"].append(weapons[inweaType][selection-2])
-									weapons[inweaType].pop(selection-2)
-									print("this function is a work in progress")
+									print(self.breakLine)
+									print(self.emptyLine)
+									print(f'|{weapons[inweaType][selection-1]["name"]}')
+									print(self.emptyLine)
+									if('loreData' in weapons[inweaType][selection-1].keys()):
+										print(f"|● Lore: {self.strpara(weapons[inweaType][selection-1]['loreData'], menumode=True)}")
+									else:
+										print("|● this item has no lore")
+									print(self.emptyLine)
+									print(f"|● Cost: {weapons[inweaType][selection-1]['Cost']}")
+									print(self.breakLine)
+									idiot = True
+									while idiot:
+										try:
+											buy = str(input("would you like to buy this item? (y/n)\n>>>"))
+											idiot = False
+											buy.lower()
+											if buy == "y" or buy == "yes":
+												self.gold -= weapons[inweaType][selection-2]['Cost']
+												self.weapons.remove(weapons[inweaType][selection-2])
+												self.inventory["weapons"].append(weapons[inweaType][selection-2])
+												weapons[inweaType].pop(selection-2)
+												print("this function is a work in progress")
+											elif buy == "n" or buy == "no":
+												pass
+											else:
+												raise ValueError()
+										except ValueError:
+											print("invalid input!")
 
 				case 2:
 					pass
