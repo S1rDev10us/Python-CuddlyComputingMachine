@@ -453,7 +453,7 @@ class game:
 		self.statEffects(self.locationf())
 		if(self.gold<0):
 			self.health+=floor(self.gold/10)
-			print('You were mugged by the gangs that you are indebted to')
+			print(self.messages('debt'))
 			getch()
 	#start an event based on an id (dev only)
 	def eventFromId(self,id):

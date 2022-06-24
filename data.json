@@ -26,6 +26,9 @@
 			"There are many secrets in the %s, enjoy your stay...",
 			"Enjoy your stay in the %s",
 			"Welcome to the %s!"
+		],
+		"debt": [
+			"You were mugged by the gangs that you are indebted to"
 		]
 	},
 	"events": {
