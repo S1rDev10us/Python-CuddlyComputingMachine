@@ -421,7 +421,7 @@ class game:
 				return outcome
 				pass
 			case _:
-				raise Exception(f"The predicate {condition['condition']} is not supported\nThe entire predicate is:\n{condition}")
+				raise Exception(f"The predicate {check} is not supported\nThe entire predicate is:\n{condition}")
 		return False
 	#statistics
 	def stats(self):
@@ -453,7 +453,7 @@ class game:
 		self.statEffects(self.locationf())
 		if(self.gold<0):
 			self.health+=floor(self.gold/10)
-			print('You were muged by the gangs that you are indebted to')
+			print('You were mugged by the gangs that you are indebted to')
 			getch()
 	#start an event based on an id (dev only)
 	def eventFromId(self,id):
