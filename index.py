@@ -341,7 +341,8 @@ class game:
 		return False
 	#code for one predicate
 	def singlePredicate(self,condition):
-		check =condition.keys()[0]
+		check =list(condition.keys())[0]
+		print(check)
 		match check:
 			case 'has':
 				for z in self.inventory:
