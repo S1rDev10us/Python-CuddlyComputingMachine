@@ -126,18 +126,18 @@
 				"text": "You come across a weary traveler who asks for directions to the nearest town",
 				"outcomes": [
 					{
-						"name": "direct him towards",
-						"gold": 0,
+						"name": "direct him there",
+						"gold": 20,
 						"rep": 5,
 						"health": 0,
-						"output": ""
+						"output": "he thanks you and gives you a bag of gold"
 					},
 					{
 						"name": "mug him",
-						"gold": 15,
+						"gold": 75,
 						"rep": 0,
 						"health": 0,
-						"output": "",
+						"output": "traveler will not forget",
 						"complete": "traveler-mugged"
 					}
 				]
