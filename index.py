@@ -113,6 +113,8 @@ class game:
 		return
 
 	#shop function
+	# TODO intergrate shop properties like discounts and avaliable items
+	# with the json file
 	def shop(self):
 		self.shopLevel=self.rep/10
 		shopping=True
