@@ -1,4 +1,4 @@
-﻿from random import choice,randint, choices
+﻿from random import choice,randint, choices,randrange
 from files import *
 from os import path, system
 from math import floor
@@ -36,7 +36,6 @@ class game:
 		self.age=self.startAge
 		self.old=randint(100,150)
 		self.gameTime=0
-		self.food=100
 		self.health=100
 		self.gold=0
 		self.location=0
@@ -337,6 +336,10 @@ class game:
 				pass
 			case 'not':
 				return (not self.predicate(condition['predicate']))
+				pass
+			case 'chance':
+				precision = 1/0.01
+				return randrange(0, 1*precision, 1*precision)/precision < condition['chance']
 				pass
 			case _:
 				raise Exception(f"The predicate {condition['condition']} is not supported\nThe entire predicate is:\n{condition}")
