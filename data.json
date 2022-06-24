@@ -318,14 +318,14 @@
 		{
 			"name": "The ORB",
 			"type": "ma",
-			"mCost": 1,
+			"Cost": 50,
 			"maxUses": 5,
 			"dev": true
 		},
 		{
 			"name": "The Ban Hammer",
 			"type": "me",
-			"mCost": 0,
+			"Cost": 0,
 			"maxUses": 1,
 			"dev": true,
 			"loreData": "The ultimate hammer, it stops the entity it reaches from ever having existed in the first place"
@@ -333,14 +333,14 @@
 		{
 			"name": "rusty blade",
 			"type": "me",
-			"mCost": 0,
+			"Cost": 50,
 			"maxUses": 1,
 			"dev": false
 		},
 		{
 			"name": "blade literally made of rust",
 			"type": "me",
-			"mCost": 0,
+			"Cost": 50,
 			"maxUses": 1,
 			"dev": false,
 			"loreData": "almost as if the rusty blade got even rustier than it already was..."
@@ -348,7 +348,7 @@
 		{
 			"name": "Throwing Knives",
 			"type": "ra",
-			"mCost": 0,
+			"Cost": 50,
 			"maxUses": 20,
 			"dev": false
 		}
