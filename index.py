@@ -346,11 +346,11 @@ class game:
 			case 'has':
 				for z in self.inventory:
 					for x in self.inventory[z]:
-						for y in condition['predicate']:
+						for y in condition[check]:
 							if(y in x):
-								if(x[y]==condition['predicate'][y]):
+								if(x[y]==condition[check][y]):
 									return True
-						if(len(condition['predicate'].keys())<1):
+						if(len(condition[check].keys())<1):
 							raise Exception(f"The predicate did not have any values\nThe predicate was {condition}")
 				return False
 			case 'rep':
@@ -381,7 +381,7 @@ class game:
 				return (not self.predicate(condition[check]))
 				pass
 			case 'chance':
-				precision = 1/0.01
+				precision = 1/0.001
 				return randrange(0, floor(1*precision), floor(1*precision))/precision < condition[check]
 				pass
 			case _:
