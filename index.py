@@ -15,7 +15,7 @@ class game:
 		self.weapons=self.data['weapons']
 		self.message=self.data['messages']
 		self.shorthands=self.data['shorthands']
-		self.breakLine='-'*32
+		self.breakLine='+'+'-'*30+'+'
 		self.emptyLine='|'+' '*30+'|'
 		self.string=type("")
 		self.startInv=self.data['start']
@@ -120,7 +120,7 @@ class game:
 							print(self.emptyLine)
 							print('|         Weapons shop         |')
 							print(self.emptyLine)
-							print('|● 0 Back           		      |')
+							print('|● 0 Back                      |')
 							print('|● 1 for Melee                 |')
 							print('|● 2 for Magic                 |')
 							print('|● 3 for Ranged                |')
@@ -154,7 +154,7 @@ class game:
 							print(self.emptyLine)
 							print(f'|         {weaType} weapons')
 							print(self.emptyLine)
-							print("|● 0 Back\n|● 1 Show Lore")
+							print("|● 0 Back                      |\n|● 1 Show Lore")
 							for count, weapon in enumerate(weapons):
 									if weapon == "B" or weapon == "L":#<<<<|
 										pass#<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<|<--temp fix
