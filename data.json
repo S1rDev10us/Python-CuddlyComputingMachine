@@ -104,9 +104,7 @@
 				"text": "You find an enormous door to an old crypt, do you wish to enter?",
 				"outcomes": 1,
 				"predicate": {
-					"condition": "not",
-					"predicate": {
-						"condition": "complete",
+					"not": {
 						"complete": "hell"
 					}
 				}
@@ -137,8 +135,7 @@
 						"health": -50,
 						"output": {
 							"predicate": {
-								"condition": "has",
-								"predicate": {
+								"has": {
 									"name": ""
 								}
 							},
@@ -195,8 +192,7 @@
 						"name": "Fight the demon just in case",
 						"output": {
 							"predicate": {
-								"condition": "has",
-								"predicate": {
+								"has": {
 									"type": "ra"
 								}
 							},
@@ -219,12 +215,10 @@
 				"outcomes": 3,
 				"predicate": [
 					{
-						"condition": "complete",
 						"complete": "hell"
 					},
 					{
-						"condition": "not",
-						"predicate": {
+						"not": {
 							"condition": "complete",
 							"complete": "sea"
 						}
@@ -294,14 +288,15 @@
 	],
 	"predicates": {
 		"fireproof": {
-			"condition": "has",
-			"predicate": {
+			"has": {
 				"name": "Fireproof Boots"
 			}
 		},
 		"beenToHell": {
-			"condition": "completed",
-			"complete": "hell"
+			"completed": "hell"
+		},
+		"fiftyfifty": {
+			"chance": 0.5
 		}
 	},
 	"start": {
