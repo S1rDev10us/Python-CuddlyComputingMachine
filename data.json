@@ -116,7 +116,7 @@
 									"accessories": [
 										{
 											"name": "sheep",
-											"type": "pet",
+											"type": "pe",
 											"effects": {
 												"gold": 1,
 												"health": 1,
@@ -342,6 +342,88 @@
 						"not": {
 							"complete": "sea"
 						}
+					}
+				]
+			},
+			{
+				"id": "beach-entrance-cosi",
+				"place": 3,
+				"text": "you come across a river, do you follow it upstream",
+				"outcomes": 0
+			},
+			{
+				"id": "beach-drowning-swimmer",
+				"place": 3,
+				"text": "You look out to the beach and see a swimmer in trouble",
+				"outcomes": [
+					{
+						"name": "swim out to save him",
+						"output": {
+							"predicate": {
+								"completed": "ability-swimming"
+							},
+							"true": {
+								"rep": 8,
+								"health": -5,
+								"output": "you swam over and saved him"
+							},
+							"false": {
+								"health": -10000,
+								"output": "you drowned"
+							}
+						}
+					},
+					{
+						"name": "call for help",
+						"output": {
+							"predicate": {
+								"chance": 0.6
+							},
+							"true": {
+								"rep": 8,
+								"output": "somebody heard your distress call and swam out to help"
+							},
+							"false": {
+								"health": -5,
+								"output": "you call but nobody hears you"
+							}
+						}
+					},
+					{
+						"name": "walk of as if you didnt see",
+						"output": {
+							"predicate": {
+								"chance": 0.2
+							},
+							"true": {
+								"rep": -8,
+								"output": "the swimmer managed to survive and he told everyone on the beach"
+							},
+							"false": {
+								"output": "you walk off and let the swimmer drown"
+							}
+						}
+					}
+				]
+			},
+			{
+				"id": "beach-swimming-lessons",
+				"place": 3,
+				"weight": 0.5,
+				"text": "you see a swimming lesson taking place, which reminds you that you never learnt how to swim",
+				"predicate": {
+					"not": {
+						"completed": "ability-swimming"
+					}
+				},
+				"outcomes": [
+					{
+						"name": "pay and learn how to swim",
+						"gold": 250,
+						"complete": "ability-swimming"
+					},
+					{
+						"name": "walk past and carry on with your day"
 					}
 				]
 			}
