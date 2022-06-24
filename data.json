@@ -108,15 +108,15 @@
 						"name": "turn around and walk off",
 						"gold": 0,
 						"rep": -2,
-						"health": 0,
-						"output": "You get singed by the flames which smarts a bit but the leader of the trading caravan offers to give you some money and spread the words about your good deeds"
+						"health": -5,
+						"output": "the fellow sheep watch you walk away and charge at you"
 					},
 					{
 						"name": "push the sheep to its death",
 						"gold": 0,
-						"rep": -15,
-						"health": 0,
-						"output": "the are seen by the cobbler of a nearby town, you gain 5 mutton and lose 15 rep"
+						"rep": -7,
+						"health": 5,
+						"output": "the are seen by the cobbler of a nearby town, you eat the mutton and lose 7 rep"
 					}
 				]
 			},
@@ -126,25 +126,19 @@
 				"text": "You come across a weary traveler who asks for directions to the nearest town",
 				"outcomes": [
 					{
-						"name": "attempt a rescue",
+						"name": "direct him towards",
 						"gold": 0,
 						"rep": 5,
 						"health": 0,
 						"output": ""
 					},
 					{
-						"name": "turn around and walk off",
-						"gold": 0,
-						"rep": -2,
+						"name": "mug him",
+						"gold": 15,
+						"rep": 0,
 						"health": 0,
-						"output": "You get singed by the flames which smarts a bit but the leader of the trading caravan offers to give you some money and spread the words about your good deeds"
-					},
-					{
-						"name": "push the sheep to its death",
-						"gold": 0,
-						"rep": -15,
-						"health": 0,
-						"output": "the are seen by the cobbler of a nearby town, you gain 5 mutton and lose 15 rep"
+						"output": "",
+						"complete": "traveler-mugged"
 					}
 				]
 			},
