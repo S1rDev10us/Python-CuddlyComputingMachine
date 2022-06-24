@@ -398,9 +398,13 @@ class game:
 		for x in self.inventory.keys():
 			print('\n'+self.breakLine)
 			print(x+'\n')
-
+			
 			for z in self.inventory[x]:
 				print(f"● {z['name']}")
+				if('loreData' in z.keys()):
+					print('Lore: '+z['loreData'])
+				if('type' in z.keys()):
+					print('Type: '+self.short(z['type']))
 		print(self.breakLine)
 		print('\nYou now have:')
 		print(f'●{self.gold} gold')
