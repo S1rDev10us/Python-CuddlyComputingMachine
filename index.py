@@ -265,6 +265,8 @@ class game:
 	#run the event
 	def eventManager(self):
 		event=self.event()
+		self.eventNonRandomManager(event)
+	def eventNonRandomManager(self,event):
 		print(event['text'])
 		if(event['outcomes']=='shop'):
 			self.shop()
@@ -309,25 +311,7 @@ class game:
 						self.inventory[x].append(z)
 					pass
 		else:
-			outcome=outcome['output'][f"{str(self.predicate(outcome['output']['predicate'])).lower()}"]
-			print('\n'+outcome['output'])
-			if('gold' in outcome.keys()):
-				if(outcome['gold']>0):
-					self.gold+=outcome['gold']+randint(0,floor(outcome['gold']/10))
-				else:
-					self.gold+=outcome['gold']+randint(floor(outcome['gold']/10),0)
-			if('rep' in outcome.keys()):
-				if(outcome['rep']>0):
-					self.gold+=outcome['rep']+randint(0,floor(outcome['rep']/10))
-				else:
-					self.gold+=outcome['rep']+randint(floor(outcome['rep']/10),0)
-			if('health' in outcome.keys()):
-				if(outcome['health']>0):
-					self.health+=outcome['health']+randint(0,floor(outcome['health']/10))
-				else:
-					self.health+=outcome['health']+randint(floor(outcome['health']/10),0)
-			pass
-			if('complete' in outcome.keys()):self.completed.append(outcome['complete'])
+			self.eventNonRandomManager(outcome['output'][f"{str(self.predicate(outcome['output']['predicate'])).lower()}"])
 		pass
 	#completed, checks if a condition is done
 	def complete(self,check):
