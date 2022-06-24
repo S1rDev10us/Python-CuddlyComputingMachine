@@ -407,6 +407,10 @@ class game:
 		if('gold' in self.locationf().keys()):self.gold+=self.locationf()['gold']
 		if('rep' in self.locationf().keys()):self.rep+=self.locationf()['rep']
 		if('health' in self.locationf().keys()):self.health+=self.locationf()['health']
+		if(self.gold<0):
+			self.health+=self.gold/10
+			print('You were muged by the gangs that you are indebted to')
+			getch()
 		
 	#Main gameplay loop
 	def start(self):
