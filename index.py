@@ -303,6 +303,11 @@ class game:
 				else:
 					self.health+=outcome['health']+randint(floor(outcome['health']/10),0)
 			if('complete' in outcome.keys()):self.completed.append(outcome['complete'])
+			if('inventory' in outcome.keys()):
+				for x in outcome['inventory'].keys():
+					for z in outcome['inventory'][x]:
+						self.inventory[x].append(z)
+					pass
 		else:
 			outcome=outcome['output'][f"{self.predicate(outcome['output']['predicate'])}"]
 			print('\n'+outcome['output'])
@@ -372,7 +377,7 @@ class game:
 				else:
 					if(condition[check]['health']>self.health):return True
 				pass
-			case 'predicate':
+			case 'reference':
 				return self.predicate(self.predicates[condition[check]])
 				pass
 			case 'complete':
