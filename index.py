@@ -153,7 +153,9 @@ class game:
 								case _:
 									print('Well done you broke the validator')
 							if(WeaponBuy):
-								passin = weapons
+								passin = []
+								for i in weapons:
+									passin.append(i)
 								passin.append("B")
 								passin.append("L")
 								FirsLoop = False
@@ -166,10 +168,7 @@ class game:
 							print(self.emptyLine)
 							print("|● 0 Back                      |\n|● 1 Show Lore")
 							for count, weapon in enumerate(weapons):
-									if weapon == "B" or weapon == "L":#<<<<|
-										pass#<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<|<--temp fix
-									else:#<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<|
-										print("|● " + str(count+2) + " " + weapon["name"])
+									print("|● " + str(count+2) + " " + weapon["name"])
 							print(self.emptyLine)
 							print(self.breakLine)
 							slection = self.validn(passin)
