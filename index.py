@@ -399,7 +399,7 @@ class game:
 				return outcome
 				pass
 			case _:
-				raise Exception(f"The predicate {condition['condition']} is not supported\nThe entire predicate is:\n{condition}")
+				raise Exception(f"The predicate {check} is not supported\nThe entire predicate is:\n{condition}")
 		return False
 	#statistics
 	def stats(self):
