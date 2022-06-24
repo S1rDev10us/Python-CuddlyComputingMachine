@@ -98,7 +98,7 @@
 				"text": "You come across a sheep stuck on the edge of a steep hill",
 				"outcomes": [
 					{
-						"name": "attempt a rescue",
+						"name": "Attempt a rescue",
 						"gold": 0,
 						"rep": 5,
 						"health": 0,
@@ -108,14 +108,14 @@
 							},
 							"true": {
 								"health": -40,
-								"output": "you fall down the hill while trying to save the sheep. The sheep dies and you are left injured"
+								"output": "You fall down the hill while trying to save the sheep. The sheep dies and you are left injured"
 							},
 							"false": {
-								"output": "you sucsessfully save the sheep and keep him as a pet",
+								"output": "You sucsessfully save the sheep and keep him as a pet",
 								"inventory": {
 									"accessories": [
 										{
-											"name": "sheep",
+											"name": "Sheep",
 											"type": "pe",
 											"effects": {
 												"gold": 1,
@@ -129,18 +129,18 @@
 						}
 					},
 					{
-						"name": "turn around and walk off",
+						"name": "Turn around and walk off",
 						"gold": 0,
 						"rep": -2,
 						"health": -5,
-						"output": "the fellow sheep watch you walk away and charge at you"
+						"output": "The fellow sheep watch you walk away and charge at you"
 					},
 					{
-						"name": "push the sheep to its death",
+						"name": "Push the sheep to its death",
 						"gold": 0,
 						"rep": -7,
 						"health": 5,
-						"output": "the are seen by the cobbler of a nearby town, you eat the mutton and lose 7 rep"
+						"output": "The are seen by the cobbler of a nearby town, you eat the mutton and lose 7 rep"
 					}
 				]
 			},
@@ -150,26 +150,26 @@
 				"text": "You come across a weary traveler who asks for directions to the nearest town",
 				"outcomes": [
 					{
-						"name": "direct him there",
+						"name": "Direct him there",
 						"gold": 20,
 						"rep": 5,
 						"health": 0,
-						"output": "he thanks you and gives you a bag of gold"
+						"output": "He thanks you and gives you a bag of gold"
 					},
 					{
-						"name": "mug him",
+						"name": "Mug him",
 						"gold": 75,
 						"rep": -2,
 						"health": -10,
-						"output": "traveler will not forget",
+						"output": "Traveler will not forget",
 						"complete": "traveler-mugged"
 					},
 					{
-						"name": "pretend to not be able to help",
+						"name": "Pretend to not be able to help",
 						"gold": 0,
 						"rep": -2,
 						"health": 0,
-						"output": "the traveler wonders off into the distance with no purpose"
+						"output": "The traveler wonders off into the distance with no purpose"
 					}
 				]
 			},
@@ -333,22 +333,12 @@
 				"id": "cosi-entrance-beach",
 				"place": 0,
 				"text": "You see a sandy trail heading down to a beach, do you follow the path",
-				"outcomes": 3,
-				"predicate": [
-					{
-						"complete": "hell"
-					},
-					{
-						"not": {
-							"complete": "sea"
-						}
-					}
-				]
+				"outcomes": 3
 			},
 			{
 				"id": "beach-entrance-cosi",
 				"place": 3,
-				"text": "you come across a river, do you follow it upstream",
+				"text": "You come across a river, do you follow it upstream",
 				"outcomes": 0
 			},
 			{
@@ -357,19 +347,20 @@
 				"text": "You look out to the beach and see a swimmer in trouble",
 				"outcomes": [
 					{
-						"name": "swim out to save him",
+						"name": "Swim out to save him",
 						"output": {
 							"predicate": {
-								"completed": "ability-swimming"
+								"complete": "ability-swimming"
 							},
 							"true": {
 								"rep": 8,
 								"health": -5,
-								"output": "you swam over and saved him"
+								"gold": 25,
+								"output": "You swam over and saved him, after he proceded to give you a bag of gold"
 							},
 							"false": {
-								"health": -10000,
-								"output": "you drowned"
+								"health": "kill",
+								"output": "You drowned"
 							}
 						}
 					},
@@ -410,20 +401,35 @@
 				"id": "beach-swimming-lessons",
 				"place": 3,
 				"weight": 0.5,
-				"text": "you see a swimming lesson taking place, which reminds you that you never learnt how to swim",
+				"text": "You see a swimming lesson taking place, which reminds you that you never learnt how to swim",
 				"predicate": {
 					"not": {
-						"completed": "ability-swimming"
+						"complete": "ability-swimming"
 					}
 				},
 				"outcomes": [
 					{
-						"name": "pay and learn how to swim",
-						"gold": 250,
-						"complete": "ability-swimming"
+						"name": "Pay and learn how to swim",
+						"output": {
+							"predicate": {
+								"gold": {
+									"greater": true,
+									"gold": 250
+								}
+							},
+							"true": {
+								"gold": -250,
+								"output": "You learnt how to swim",
+								"complete": "ability-swimming"
+							},
+							"false": {
+								"output": "You went up to them but you couldn't afford the lesson so you walked off"
+							}
+						}
 					},
 					{
-						"name": "walk past and carry on with your day"
+						"name": "Walk past and carry on with your day",
+						"output": ""
 					}
 				]
 			}
