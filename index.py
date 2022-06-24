@@ -169,6 +169,7 @@ class game:
 
 						# TODO pick three random weapons instead of the whole list
 						if(WeaponBuy):
+							print()
 							print(self.breakLine)
 							print(self.emptyLine)
 							print(f'|         {weaType} weapons')
@@ -180,6 +181,7 @@ class game:
 							print(self.emptyLine)
 							print(self.breakLine)
 							slection = self.validn(passin)
+							print()
 							match slection:
 								case 0:
 									FirsLoop = True
@@ -187,19 +189,16 @@ class game:
 									inLore = True
 									weaLore = []
 									for i in weapons:
-											try:
-												weaLore.append(i["name"] + ": " + i["loreData"])
-											except KeyError:
-												weaLore.append(i["name"] + ": " + "No lore for this item")
+										if('loreData' in i.keys()):weaLore.append(i["name"] + ": " + i["loreData"])
+										else:weaLore.append(i["name"] + ": " + "No lore for this item")
 									while(inLore):
 										print(self.breakLine)
 										print(self.emptyLine)
 										print(f'|         {weaType} weapons')
 										print("|            Lore              |\n|● 0 Back                      |")
-										print(self.breakLine)
+										print(self.emptyLine)
 										for weapon in weaLore:
 												print("|●",self.strpara(weapon, menumode=True))
-												print(self.emptyLine)
 										print(self.emptyLine)
 										print(self.breakLine)
 										match self.validn('b'):
@@ -208,7 +207,7 @@ class game:
 											case _:
 												print("you broke the validator")
 								case _:
-									# TODO allow bying weapons
+									# TODO allow buying weapons
 									print("this function is a work in progress")
 
 				case 2:
@@ -343,16 +342,16 @@ class game:
 		return False
 	#code for one predicate
 	def singlePredicate(self,condition):
-		check =condition.keys()[0]
+		check =list(condition.keys())[0]
 		match check:
 			case 'has':
 				for z in self.inventory:
 					for x in self.inventory[z]:
-						for y in condition['predicate']:
+						for y in condition[check]:
 							if(y in x):
-								if(x[y]==condition['predicate'][y]):
+								if(x[y]==condition[check][y]):
 									return True
-						if(len(condition['predicate'].keys())<1):
+						if(len(condition[check].keys())<1):
 							raise Exception(f"The predicate did not have any values\nThe predicate was {condition}")
 				return False
 			case 'rep':
@@ -383,8 +382,8 @@ class game:
 				return (not self.predicate(condition[check]))
 				pass
 			case 'chance':
-				precision = 1/0.01
-				return randrange(0, 1*precision, 1*precision)/precision < condition[check]
+				precision = 1/0.001
+				return randrange(0, floor(1*precision), floor(1*precision))/precision < condition[check]
 				pass
 			case _:
 				raise Exception(f"The predicate {condition['condition']} is not supported\nThe entire predicate is:\n{condition}")
