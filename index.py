@@ -86,7 +86,17 @@ class game:
 			if('weight' in x.keys()):
 				listweights.append(x['weight'])
 			else:
-				listweights.append(1)
+				match type(x['outcome']):
+					case self.number:
+						listweights.append(0.25)
+						pass
+					case self.string:
+						listweights.append(0.5)
+						pass
+					case self.array:
+						listweights.append(1)
+						pass
+				
 		event=choices(events,weights=listweights,k=1)[0]
 		return event
 
