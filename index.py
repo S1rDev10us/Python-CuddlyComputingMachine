@@ -309,7 +309,7 @@ class game:
 						self.inventory[x].append(z)
 					pass
 		else:
-			outcome=outcome['output'][f"{self.predicate(outcome['output']['predicate'])}"]
+			outcome=outcome['output'][f"{str(self.predicate(outcome['output']['predicate'])).lower()}"]
 			print('\n'+outcome['output'])
 			if('gold' in outcome.keys()):
 				if(outcome['gold']>0):
@@ -396,7 +396,9 @@ class game:
 	#statistics
 	def stats(self):
 		for x in self.inventory.keys():
-			print(self.breakLine)
+			print('\n'+self.breakLine)
+			print(x+'\n')
+
 			for z in self.inventory[x]:
 				print(f"● {z['name']}")
 		print(self.breakLine)
@@ -418,7 +420,7 @@ class game:
 		if('rep' in self.locationf().keys()):self.rep+=self.locationf()['rep']
 		if('health' in self.locationf().keys()):self.health+=self.locationf()['health']
 		if(self.gold<0):
-			self.health+=self.gold/10
+			self.health+=floor(self.gold/10)
 			print('You were muged by the gangs that you are indebted to')
 			getch()
 		
