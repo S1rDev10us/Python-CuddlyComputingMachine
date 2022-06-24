@@ -395,6 +395,11 @@ class game:
 		return False
 	#statistics
 	def stats(self):
+		for x in self.inventory.keys():
+			print(self.breakLine)
+			for z in self.inventory[x]:
+				print(f"● {z['name']}")
+		print(self.breakLine)
 		print('\nYou now have:')
 		print(f'●{self.gold} gold')
 		print(f'●{self.rep} reputation')
