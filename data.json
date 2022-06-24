@@ -46,7 +46,21 @@
 				"name": "deepest darkest pits of the dimension commonly refered to as hell",
 				"gold": 0,
 				"rep": 0,
-				"health": -1
+				"health": -1,
+				"complete": "hell"
+			},
+			{
+				"name": "beach",
+				"gold": 0,
+				"rep": 0,
+				"health": 0
+			},
+			{
+				"name": "sea",
+				"gold": 0,
+				"rep": 0,
+				"health": 0,
+				"complete": "sea"
 			}
 		],
 		"events": [
@@ -88,7 +102,14 @@
 				"id": "cosi-entrance-crypt",
 				"place": 0,
 				"text": "You find an enormous door to an old crypt, do you wish to enter?",
-				"outcomes": 1
+				"outcomes": 1,
+				"predicate": {
+					"condition": "not",
+					"predicate": {
+						"condition": "complete",
+						"complete": "hell"
+					}
+				}
 			},
 			{
 				"id": "cryp-lich-boss",
@@ -190,6 +211,25 @@
 						}
 					}
 				]
+			},
+			{
+				"id": "cosi-entrance-beach",
+				"place": 0,
+				"text": "You see a sandy trail heading down to a beach, do you follow the path",
+				"outcomes": 3,
+				"predicate": [
+					{
+						"condition": "complete",
+						"complete": "hell"
+					},
+					{
+						"condition": "not",
+						"predicate": {
+							"condition": "complete",
+							"complete": "sea"
+						}
+					}
+				]
 			}
 		]
 	},
@@ -254,7 +294,14 @@
 	],
 	"predicates": {
 		"fireproof": {
-
+			"condition": "has",
+			"predicate": {
+				"name": "Fireproof Boots"
+			}
+		},
+		"beenToHell": {
+			"condition": "completed",
+			"complete": "hell"
 		}
 	},
 	"start": {
@@ -267,5 +314,8 @@
 		"accessories": [
 
 		]
-	}
+	},
+	"complete": [
+
+	]
 }

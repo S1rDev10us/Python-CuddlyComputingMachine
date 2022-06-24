@@ -19,6 +19,7 @@ class game:
 		self.emptyLine='|'+' '*30+'|'
 		self.string=type("")
 		self.startInv=self.data['start']
+		self.startComplete=self.data['complete']
 		self.array=type([])
 		self.dict=type({})
 		self.predicates=self.data['predicates']
@@ -30,6 +31,7 @@ class game:
 	#reset all variables for game start
 	def reset(self):
 		self.inventory=self.startInv
+		self.completed=self.startComplete
 		self.startAge=randint(25,50)
 		self.age=self.startAge
 		self.old=randint(100,150)
@@ -80,7 +82,13 @@ class game:
 		raise Exception(f"Message \"{target}\" was not found")
 	#Choose an event
 	def event(self):
-		events=self.filterlist(self.events['events'],'place',self.location)
+		events=[]
+		for x in self.filterlist(self.events['events'],'place',self.location):
+			if('predicate' in x.values()):
+				if(self.predicate(x['predicate'])):
+					events.append(x)
+			else:
+				events.append(x)
 		listweights=[]
 		for x in events:
 			if('weight' in x.keys()):
@@ -237,44 +245,46 @@ class game:
 	def eventOutcome(self,outcome):
 		if(type(outcome['output'])==self.string):
 			print('\n'+outcome['output'])
-			if('gold' in outcome):
+			if('gold' in outcome.values()):
 				if(outcome['gold']>0):
 					self.gold+=outcome['gold']+randint(0,floor(outcome['gold']/10))
 				else:
 					self.gold+=outcome['gold']+randint(floor(outcome['gold']/10),0)
-			if('rep' in outcome):
+			if('rep' in outcome.values()):
 				if(outcome['rep']>0):
 					self.gold+=outcome['rep']+randint(0,floor(outcome['rep']/10))
 				else:
 					self.gold+=outcome['rep']+randint(floor(outcome['rep']/10),0)
-			if('health' in outcome):
+			if('health' in outcome.values()):
 				if(outcome['health']>0):
 					self.health+=outcome['health']+randint(0,floor(outcome['health']/10))
 				else:
 					self.health+=outcome['health']+randint(floor(outcome['health']/10),0)
+			if('complete' in outcome.values()):self.completed.append(outcome['complete'])
 		else:
-			if(self.predicate(outcome['output']['predicate'])):
-				outcome=outcome['output']['true']
-			else:
-				outcome=outcome['output']['false']
-				pass
+			outcome=outcome['output'][f"{self.predicate(outcome['output']['predicate'])}"]
 			print('\n'+outcome['output'])
-			if('gold' in outcome):
+			if('gold' in outcome.values()):
 				if(outcome['gold']>0):
 					self.gold+=outcome['gold']+randint(0,floor(outcome['gold']/10))
 				else:
 					self.gold+=outcome['gold']+randint(floor(outcome['gold']/10),0)
-			if('rep' in outcome):
+			if('rep' in outcome.values()):
 				if(outcome['rep']>0):
 					self.gold+=outcome['rep']+randint(0,floor(outcome['rep']/10))
 				else:
 					self.gold+=outcome['rep']+randint(floor(outcome['rep']/10),0)
-			if('health' in outcome):
+			if('health' in outcome.values()):
 				if(outcome['health']>0):
 					self.health+=outcome['health']+randint(0,floor(outcome['health']/10))
 				else:
 					self.health+=outcome['health']+randint(floor(outcome['health']/10),0)
 			pass
+			if('complete' in outcomes.values()):self.completed.append(outcome['complete'])
+		pass
+	#completed, checks if a condition is done
+	def complete(self,check):
+		return check in self.completed
 		pass
 	#predicate system
 	def predicate(self,condition):
@@ -307,8 +317,27 @@ class game:
 				else:
 					if(condition['rep']>self.rep):return True
 				pass
+			case 'gold':
+				if(condition['greater']):
+					if(condition['gold']<self.gold):return True
+				else:
+					if(condition['gold']>self.gold):return True
+				pass
+			case 'health':
+				if(condition['greater']):
+					if(condition['health']<self.health):return True
+				else:
+					if(condition['health']>self.health):return True
+				pass
 			case 'predicate':
 				return self.predicate(self.predicates[condition['predicate']])
+				pass
+			case 'completed':
+				return self.complete(condition['complete'])
+				pass
+			case 'not':
+				return (not self.predicate(condition['predicate']))
+				pass
 			case _:
 				raise Exception(f"The predicate {condition['condition']} is not supported\nThe entire predicate is:\n{condition}")
 		return False
@@ -328,9 +357,11 @@ class game:
 		return newlist
 	#environmental things such as slow damage from heat in hell
 	def environmentalEffects(self):
-		self.gold+=self.locationf()['gold']
-		self.rep+=self.locationf()['rep']
-		self.health+=self.locationf()['health']
+		if('gold' in self.locationf().values()):self.gold+=self.locationf()['gold']
+		if('rep' in self.locationf().values()):self.rep+=self.locationf()['rep']
+		if('health' in self.locationf().values()):self.health+=self.locationf()['health']
+		if('complete' in self.locationf().values()):self.completed.append(self.locationf()['complete'])
+		
 	#Main gameplay loop
 	def start(self):
 		self.reset()
