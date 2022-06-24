@@ -194,10 +194,9 @@ class game:
 										print(self.emptyLine)
 										print(f'|         {weaType} weapons')
 										print("|            Lore              |\n|● 0 Back                      |")
-										print(self.breakLine)
+										print(self.emptyLine)
 										for weapon in weaLore:
 												print("|●",self.strpara(weapon, menumode=True))
-												print(self.emptyLine)
 										print(self.emptyLine)
 										print(self.breakLine)
 										match self.validn('b'):
@@ -206,7 +205,7 @@ class game:
 											case _:
 												print("you broke the validator")
 								case _:
-									# TODO allow bying weapons
+									# TODO allow buying weapons
 									print("this function is a work in progress")
 
 				case 2:
