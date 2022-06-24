@@ -323,21 +323,7 @@ class game:
 	def eventOutcome(self,outcome):
 		if(type(outcome['output'])==self.string):
 			print('\n'+outcome['output'])
-			if('gold' in outcome.keys()):
-				if(outcome['gold']>0):
-					self.gold+=outcome['gold']+randint(0,floor(outcome['gold']/10))
-				else:
-					self.gold+=outcome['gold']+randint(floor(outcome['gold']/10),0)
-			if('rep' in outcome.keys()):
-				if(outcome['rep']>0):
-					self.gold+=outcome['rep']+randint(0,floor(outcome['rep']/10))
-				else:
-					self.gold+=outcome['rep']+randint(floor(outcome['rep']/10),0)
-			if('health' in outcome.keys()):
-				if(outcome['health']>0):
-					self.health+=outcome['health']+randint(0,floor(outcome['health']/10))
-				else:
-					self.health+=outcome['health']+randint(floor(outcome['health']/10),0)
+			self.statEffectsRand(outcome)
 			if('complete' in outcome.keys()):self.completed.append(outcome['complete'])
 			if('inventory' in outcome.keys()):
 				print('outcome')
@@ -408,7 +394,9 @@ class game:
 				pass
 			case 'chance':
 				precision = 1/0.001
-				return randrange(0, floor(1*precision), floor(1*precision))/precision < condition[check]
+				chance= randrange(0, floor(1*precision), 1)/precision
+				outcome=chance < condition[check]
+				return outcome
 				pass
 			case _:
 				raise Exception(f"The predicate {condition['condition']} is not supported\nThe entire predicate is:\n{condition}")
@@ -440,9 +428,7 @@ class game:
 		return newlist
 	#environmental things such as slow damage from heat in hell
 	def environmentalEffects(self):
-		if('gold' in self.locationf().keys()):self.gold+=self.locationf()['gold']
-		if('rep' in self.locationf().keys()):self.rep+=self.locationf()['rep']
-		if('health' in self.locationf().keys()):self.health+=self.locationf()['health']
+		self.statEffects(self.locationf())
 		if(self.gold<0):
 			self.health+=floor(self.gold/10)
 			print('You were muged by the gangs that you are indebted to')
@@ -451,6 +437,27 @@ class game:
 	def eventFromId(self,id):
 		self.eventNonRandomManager(self.filterlist(self.events['events'],'id',id)[0])
 		self.stats()
+	#affect health, gold and rep based on dictionary
+	def statEffects(self,thing):
+		if('gold' in thing.keys()):self.gold+=thing['gold']
+		if('rep' in thing.keys()):self.rep+=thing['rep']
+		if('health' in thing.keys()):self.health+=thing['health']
+	def statEffectsRand(self,thing):
+		if('gold' in outcome.keys()):
+			if(outcome['gold']>0):
+				self.gold+=outcome['gold']+randint(0,floor(outcome['gold']/10))
+			else:
+				self.gold+=outcome['gold']+randint(floor(outcome['gold']/10),0)
+		if('rep' in outcome.keys()):
+			if(outcome['rep']>0):
+				self.gold+=outcome['rep']+randint(0,floor(outcome['rep']/10))
+			else:
+				self.gold+=outcome['rep']+randint(floor(outcome['rep']/10),0)
+		if('health' in outcome.keys()):
+			if(outcome['health']>0):
+				self.health+=outcome['health']+randint(0,floor(outcome['health']/10))
+			else:
+				self.health+=outcome['health']+randint(floor(outcome['health']/10),0)
 	#Main gameplay loop
 	def start(self):
 		self.reset()
