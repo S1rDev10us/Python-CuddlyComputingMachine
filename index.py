@@ -280,7 +280,7 @@ class game:
 				else:
 					self.health+=outcome['health']+randint(floor(outcome['health']/10),0)
 			pass
-			if('complete' in outcomes.keys()):self.completed.append(outcome['complete'])
+			if('complete' in outcome.keys()):self.completed.append(outcome['complete'])
 		pass
 	#completed, checks if a condition is done
 	def complete(self,check):
