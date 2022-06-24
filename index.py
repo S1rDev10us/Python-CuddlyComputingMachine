@@ -384,7 +384,9 @@ class game:
 				pass
 			case 'chance':
 				precision = 1/0.001
-				return randrange(0, floor(1*precision), floor(1*precision))/precision < condition[check]
+				chance= randrange(0, floor(1*precision), 1)/precision
+				outcome=chance < condition[check]
+				return outcome
 				pass
 			case _:
 				raise Exception(f"The predicate {condition['condition']} is not supported\nThe entire predicate is:\n{condition}")

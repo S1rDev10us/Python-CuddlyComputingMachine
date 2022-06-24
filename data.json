@@ -116,7 +116,7 @@
 									"accessories": [
 										{
 											"name": "sheep",
-											"type": "pet",
+											"type": "pe",
 											"effects": {
 												"gold": 1,
 												"health": 1,
