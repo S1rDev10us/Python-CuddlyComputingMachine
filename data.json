@@ -93,6 +93,62 @@
 				]
 			},
 			{
+				"id": "cosi-sheep-trouble",
+				"place": 0,
+				"text": "You come across a sheep stuck on the edge of a steep fall",
+				"outcomes": [
+					{
+						"name": "attempt a rescue",
+						"gold": 0,
+						"rep": 5,
+						"health": 0,
+						"output": ""
+					},
+					{
+						"name": "turn around and walk off",
+						"gold": 0,
+						"rep": -2,
+						"health": 0,
+						"output": "You get singed by the flames which smarts a bit but the leader of the trading caravan offers to give you some money and spread the words about your good deeds"
+					},
+					{
+						"name": "push the sheep to its death",
+						"gold": 0,
+						"rep": -15,
+						"health": 0,
+						"output": "the are seen by the cobbler of a nearby town, you gain 5 mutton and lose 15 rep"
+					}
+				]
+			},
+			{
+				"id": "cosi-traveler",
+				"place": 0,
+				"text": "You come across a weary traveler who asks for directions to the nearest town",
+				"outcomes": [
+					{
+						"name": "attempt a rescue",
+						"gold": 0,
+						"rep": 5,
+						"health": 0,
+						"output": ""
+					},
+					{
+						"name": "turn around and walk off",
+						"gold": 0,
+						"rep": -2,
+						"health": 0,
+						"output": "You get singed by the flames which smarts a bit but the leader of the trading caravan offers to give you some money and spread the words about your good deeds"
+					},
+					{
+						"name": "push the sheep to its death",
+						"gold": 0,
+						"rep": -15,
+						"health": 0,
+						"output": "the are seen by the cobbler of a nearby town, you gain 5 mutton and lose 15 rep"
+					}
+				]
+			},
+			{
 				"id": "cosi-trading-caravan",
 				"place": 0,
 				"text": "You come across a trading caravan and start haggling with the owner",
