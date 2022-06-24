@@ -187,10 +187,8 @@ class game:
 									inLore = True
 									weaLore = []
 									for i in weapons:
-											try:
-												weaLore.append(i["name"] + ": " + i["loreData"])
-											except KeyError:
-												weaLore.append(i["name"] + ": " + "No lore for this item")
+										if('loreData' in i.keys()):weaLore.append(i["name"] + ": " + i["loreData"])
+										else:weaLore.append(i["name"] + ": " + "No lore for this item")
 									while(inLore):
 										print(self.breakLine)
 										print(self.emptyLine)
