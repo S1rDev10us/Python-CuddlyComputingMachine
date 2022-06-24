@@ -342,7 +342,6 @@ class game:
 	#code for one predicate
 	def singlePredicate(self,condition):
 		check =list(condition.keys())[0]
-		print(check)
 		match check:
 			case 'has':
 				for z in self.inventory:
@@ -383,7 +382,7 @@ class game:
 				pass
 			case 'chance':
 				precision = 1/0.01
-				return randrange(0, 1*precision, 1*precision)/precision < condition[check]
+				return randrange(0, floor(1*precision), floor(1*precision))/precision < condition[check]
 				pass
 			case _:
 				raise Exception(f"The predicate {condition['condition']} is not supported\nThe entire predicate is:\n{condition}")
