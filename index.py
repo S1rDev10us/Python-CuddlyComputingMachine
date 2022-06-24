@@ -285,6 +285,16 @@ class game:
 			outcome=event["outcomes"][int(outcome)]
 			self.eventOutcome(outcome)
 			getch()
+	def recursiveEventManager (self,event):
+		if(event['output']=='shop'):
+			self.shop()
+		elif(type(event['output'])==type(0)):
+			if(self.confirm()):
+				self.location=event['outcomes']
+				print('\n'+self.messages('welcome')%self.locationf()['name'])
+				if('complete' in self.locationf().keys()):self.completed.append(self.locationf()['complete'])
+				getch()
+				print('\n'*2)
 	#What to do at the end of an event
 	def eventOutcome(self,outcome):
 		if(type(outcome['output'])==self.string):
@@ -306,12 +316,14 @@ class game:
 					self.health+=outcome['health']+randint(floor(outcome['health']/10),0)
 			if('complete' in outcome.keys()):self.completed.append(outcome['complete'])
 			if('inventory' in outcome.keys()):
+				print('outcome')
 				for x in outcome['inventory'].keys():
 					for z in outcome['inventory'][x]:
 						self.inventory[x].append(z)
 					pass
 		else:
-			self.eventNonRandomManager(outcome['output'][f"{str(self.predicate(outcome['output']['predicate'])).lower()}"])
+			if(type(outcome['output'])==self.dict):self.eventOutcome(outcome['output'][f"{str(self.predicate(outcome['output']['predicate'])).lower()}"])
+			else:self.recursiveEventManager(outcome['output'][f"{str(self.predicate(outcome['output']['predicate'])).lower()}"])
 		pass
 	#completed, checks if a condition is done
 	def complete(self,check):
@@ -411,7 +423,9 @@ class game:
 			self.health+=floor(self.gold/10)
 			print('You were muged by the gangs that you are indebted to')
 			getch()
-		
+	#start an event based on an id (dev only)
+	def eventFromId(self,id):
+		self.eventNonRandomManager(self.filterlist(self.events['events'],'id',id)[0])
 	#Main gameplay loop
 	def start(self):
 		self.reset()
