@@ -1,4 +1,4 @@
-﻿from random import choice,randint, choices
+﻿from random import choice,randint, choices,randrange
 from files import *
 from os import path, system
 from math import floor
@@ -36,7 +36,6 @@ class game:
 		self.age=self.startAge
 		self.old=randint(100,150)
 		self.gameTime=0
-		self.food=100
 		self.health=100
 		self.gold=0
 		self.location=0
@@ -344,7 +343,8 @@ class game:
 		return False
 	#code for one predicate
 	def singlePredicate(self,condition):
-		match condition['condition']:
+		check =condition.keys()[0]
+		match check:
 			case 'has':
 				for z in self.inventory:
 					for x in self.inventory[z]:
@@ -356,31 +356,35 @@ class game:
 							raise Exception(f"The predicate did not have any values\nThe predicate was {condition}")
 				return False
 			case 'rep':
-				if(condition['greater']):
-					if(condition['rep']<self.rep):return True
+				if(condition[check]['greater']):
+					if(condition[check]['rep']<self.rep):return True
 				else:
-					if(condition['rep']>self.rep):return True
+					if(condition[check]['rep']>self.rep):return True
 				pass
 			case 'gold':
-				if(condition['greater']):
-					if(condition['gold']<self.gold):return True
+				if(condition[check]['greater']):
+					if(condition[check]['gold']<self.gold):return True
 				else:
-					if(condition['gold']>self.gold):return True
+					if(condition[check]['gold']>self.gold):return True
 				pass
 			case 'health':
-				if(condition['greater']):
-					if(condition['health']<self.health):return True
+				if(condition[check]['greater']):
+					if(condition[check]['health']<self.health):return True
 				else:
-					if(condition['health']>self.health):return True
+					if(condition[check]['health']>self.health):return True
 				pass
 			case 'predicate':
-				return self.predicate(self.predicates[condition['predicate']])
+				return self.predicate(self.predicates[condition[check]])
 				pass
 			case 'complete':
 				return self.complete(condition['complete'])
 				pass
 			case 'not':
-				return (not self.predicate(condition['predicate']))
+				return (not self.predicate(condition[check]))
+				pass
+			case 'chance':
+				precision = 1/0.01
+				return randrange(0, 1*precision, 1*precision)/precision < condition[check]
 				pass
 			case _:
 				raise Exception(f"The predicate {condition['condition']} is not supported\nThe entire predicate is:\n{condition}")
