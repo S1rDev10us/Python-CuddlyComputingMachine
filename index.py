@@ -1,5 +1,4 @@
-﻿from imp import new_module
-from random import choice,randint, choices,randrange
+﻿from random import choice,randint, choices,randrange, sample
 from files import *
 from os import path, system
 from math import floor
@@ -120,13 +119,18 @@ class game:
 
 		weatypes = [
 		self.filterlist(self.weapons, "type", "me"),
-		self.filterlist(self.weapons, "type", "me"),
-		self.filterlist(self.weapons, "type", "me")
+		self.filterlist(self.weapons, "type", "ma"),
+		self.filterlist(self.weapons, "type", "ra")
 		]
 
-		# 
-		for i, val in enumerate(weatypes):
-			pass
+		weapons = []
+		samp = 0
+		for i in range(len(weatypes)):
+			if len(weatypes[i]) < 3:
+				samp = len(weatypes[i])
+			else:
+				samp = 3
+			weapons.append(sample(weatypes[i], samp))
 
 		
 
@@ -158,14 +162,16 @@ class game:
 							print(self.breakLine)
 							print("Gold:", self.gold)
 
-							weapons = []
 							weaType = ""
 							match self.validn(['b','m','m','r']):
 								case 1:
+									inweaType = 0
 									weaType = "Melee"
 								case 2:
+									inweaType = 1
 									weaType = "Magic"
 								case 3:
+									inweaType = 2
 									weaType = "Ranged"
 								case 0:
 									WeaponBuy = False
@@ -173,13 +179,12 @@ class game:
 									print('Well done you broke the validator')
 							if(WeaponBuy):
 								passin = []
-								for i in weapons:
+								for i in weapons[inweaType]:
 									passin.append(i)
 								passin.append("B")
 								passin.append("L")
 								FirsLoop = False
 
-						# TODO pick three random weapons instead of the whole list
 						if(WeaponBuy):
 							print()
 							print(self.breakLine)
@@ -188,7 +193,7 @@ class game:
 							print(self.emptyLine)
 							print("|● 0 Back                      |\n|● 1 Show Lore")
 							print(self.breakLine)
-							for count, weapon in enumerate(weapons):
+							for count, weapon in enumerate(weapons[inweaType]):
 									print(f"|● {count+2} {weapon['name']}\n| Cost: {weapon['Cost']}")
 							print(self.emptyLine)
 							print(self.breakLine)
@@ -202,7 +207,7 @@ class game:
 								case 1:
 									inLore = True
 									weaLore = []
-									for i in weapons:
+									for i in weapons[inweaType]:
 										if('loreData' in i.keys()):weaLore.append(i["name"] + ": " + i["loreData"])
 										else:weaLore.append(i["name"] + ": " + "No lore for this item")
 									while(inLore):
@@ -223,10 +228,10 @@ class game:
 												print("you broke the validator")
 								case _:
 									# TODO allow buying weapons
-									self.gold -= weapons[selection-2]['Cost']
-									self.weapons.remove(weapons[selection-2])
-									self.inventory["weapons"].append(weapons[selection-2])
-									weapons.pop(selection-2)
+									self.gold -= weapons[inweaType][selection-2]['Cost']
+									self.weapons.remove(weapons[inweaType][selection-2])
+									self.inventory["weapons"].append(weapons[inweaType][selection-2])
+									weapons[inweaType].pop(selection-2)
 									print("this function is a work in progress")
 
 				case 2:
@@ -284,6 +289,8 @@ class game:
 	#run the event
 	def eventManager(self):
 		event=self.event()
+		self.eventNonRandomManager(event)
+	def eventNonRandomManager(self,event):
 		print(event['text'])
 		if(event['outcomes']=='shop'):
 			self.shop()
@@ -302,6 +309,16 @@ class game:
 			outcome=event["outcomes"][int(outcome)]
 			self.eventOutcome(outcome)
 			getch()
+	def recursiveEventManager (self,event):
+		if(event['output']=='shop'):
+			self.shop()
+		elif(type(event['output'])==type(0)):
+			if(self.confirm()):
+				self.location=event['outcomes']
+				print('\n'+self.messages('welcome')%self.locationf()['name'])
+				if('complete' in self.locationf().keys()):self.completed.append(self.locationf()['complete'])
+				getch()
+				print('\n'*2)
 	#What to do at the end of an event
 	def eventOutcome(self,outcome):
 		if(type(outcome['output'])==self.string):
@@ -323,30 +340,14 @@ class game:
 					self.health+=outcome['health']+randint(floor(outcome['health']/10),0)
 			if('complete' in outcome.keys()):self.completed.append(outcome['complete'])
 			if('inventory' in outcome.keys()):
+				print('outcome')
 				for x in outcome['inventory'].keys():
 					for z in outcome['inventory'][x]:
 						self.inventory[x].append(z)
 					pass
 		else:
-			outcome=outcome['output'][f"{str(self.predicate(outcome['output']['predicate'])).lower()}"]
-			print('\n'+outcome['output'])
-			if('gold' in outcome.keys()):
-				if(outcome['gold']>0):
-					self.gold+=outcome['gold']+randint(0,floor(outcome['gold']/10))
-				else:
-					self.gold+=outcome['gold']+randint(floor(outcome['gold']/10),0)
-			if('rep' in outcome.keys()):
-				if(outcome['rep']>0):
-					self.gold+=outcome['rep']+randint(0,floor(outcome['rep']/10))
-				else:
-					self.gold+=outcome['rep']+randint(floor(outcome['rep']/10),0)
-			if('health' in outcome.keys()):
-				if(outcome['health']>0):
-					self.health+=outcome['health']+randint(0,floor(outcome['health']/10))
-				else:
-					self.health+=outcome['health']+randint(floor(outcome['health']/10),0)
-			pass
-			if('complete' in outcome.keys()):self.completed.append(outcome['complete'])
+			if(type(outcome['output'])==self.dict):self.eventOutcome(outcome['output'][f"{str(self.predicate(outcome['output']['predicate'])).lower()}"])
+			else:self.recursiveEventManager(outcome['output'][f"{str(self.predicate(outcome['output']['predicate'])).lower()}"])
 		pass
 	#completed, checks if a condition is done
 	def complete(self,check):
@@ -446,7 +447,10 @@ class game:
 			self.health+=floor(self.gold/10)
 			print('You were muged by the gangs that you are indebted to')
 			getch()
-		
+	#start an event based on an id (dev only)
+	def eventFromId(self,id):
+		self.eventNonRandomManager(self.filterlist(self.events['events'],'id',id)[0])
+		self.stats()
 	#Main gameplay loop
 	def start(self):
 		self.reset()
@@ -464,17 +468,9 @@ class game:
 				getch()
 			self.stats()
 				
-		
-
-
-
-
-
-
-
 runtime = game()
-runtime.gold = 99999999999999999
-runtime.shop()
+# runtime.gold = 99999999999999999
+# runtime.shop()
 runtime.start()
 print('Would you like to play again?')
 while(runtime.confirm()):

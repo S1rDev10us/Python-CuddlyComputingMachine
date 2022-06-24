@@ -124,7 +124,7 @@
 											}
 										}
 									]
-										
+
 								}
 							}
 						}
@@ -291,6 +291,46 @@
 				]
 			},
 			{
+				"id": "hell-fight-cat-inbread",
+				"place": 2,
+				"text": "You come across an inbread cat guarding a cave with treasure inside, an inbread cat, if correctly tamed can be a great pet and asset to your team",
+				"outcomes": [
+					{
+						"name": "Ignore it and carry on with your day",
+						"output": "The Inbread Cat ignored you and left you alone"
+					},
+					{
+						"name": "Attempt to tame the wild creature",
+						"output": {
+							"predicate": {
+								"chance": 0.2
+							},
+							"true": {
+								"output": "You fail to tame the cat but in doing so defeat it, getting the treasure",
+								"gold": 100
+							},
+							"false": {
+								"output": "You succesfully tame the cat with only a few scratches",
+								"health": -20,
+								"gold": 50,
+								"inventory": {
+									"pets": [
+										{
+											"name": "Inbread Cat",
+											"type": "pe",
+											"effects": {
+												"gold": 1,
+												"health": 1
+											}
+										}
+									]
+								}
+							}
+						}
+					}
+				]
+			},
+			{
 				"id": "cosi-entrance-beach",
 				"place": 0,
 				"text": "You see a sandy trail heading down to a beach, do you follow the path",
@@ -312,7 +352,8 @@
 		"ma": "magic",
 		"me": "melee",
 		"ra": "ranged",
-		"co": "consumable"
+		"co": "consumable",
+		"pe": "pet"
 	},
 	"weapons": [
 		{
