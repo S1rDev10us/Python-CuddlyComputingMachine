@@ -174,6 +174,7 @@ class game:
 							print(f'|         {weaType} weapons')
 							print(self.emptyLine)
 							print("|● 0 Back                      |\n|● 1 Show Lore")
+							print(self.breakLine)
 							for count, weapon in enumerate(weapons):
 									print("|● " + str(count+2) + " " + weapon["name"])
 							print(self.emptyLine)
@@ -183,8 +184,31 @@ class game:
 								case 0:
 									FirsLoop = True
 								case 1:
-									print("this function is a work in progress")
+									inLore = True
+									weaLore = []
+									for i in weapons:
+											try:
+												weaLore.append(i["name"] + ": " + i["loreData"])
+											except KeyError:
+												weaLore.append(i["name"] + ": " + "No lore for this item")
+									while(inLore):
+										print(self.breakLine)
+										print(self.emptyLine)
+										print(f'|         {weaType} weapons')
+										print("|            Lore              |\n|● 0 Back                      |")
+										print(self.breakLine)
+										for weapon in weaLore:
+												print("|●",self.strpara(weapon, menumode=True))
+												print(self.emptyLine)
+										print(self.emptyLine)
+										print(self.breakLine)
+										match self.validn('b'):
+											case 0:
+												inLore = False
+											case _:
+												print("you broke the validator")
 								case _:
+									# TODO allow bying weapons
 									print("this function is a work in progress")
 
 				case 2:
@@ -201,6 +225,26 @@ class game:
 				case _:
 					print('Well done I guess, you broke the validator?')
 					pass
+
+
+	# every 30 characters, replaces a space with a newline
+	def strpara(self, string, menumode=False):
+		out = ""
+		placenl = False
+		for i, val in enumerate(string):
+			if (i+1)%30 == 0:
+				placenl = True
+			if val == " " and placenl:
+				out += "\n"
+				if menumode:
+					out += "|  "
+				placenl = False
+				continue
+			else:
+				pass
+			out += val
+		return out
+
 
 	#valid number
 	def validn(self,check):
