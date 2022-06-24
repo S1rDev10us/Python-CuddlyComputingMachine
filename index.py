@@ -84,7 +84,8 @@ class game:
 	def event(self):
 		events=[]
 		for x in self.filterlist(self.events['events'],'place',self.location):
-			if('predicate' in x.values()):
+			if('predicate' in x.keys()):
+				print(x['id'])
 				if(self.predicate(x['predicate'])):
 					events.append(x)
 			else:
@@ -230,6 +231,7 @@ class game:
 			if(self.confirm()):
 				self.location=event['outcomes']
 				print('\n'+self.messages('welcome')%self.locationf()['name'])
+				if('complete' in self.locationf().keys()):self.completed.append(self.locationf()['complete'])
 				getch()
 				print('\n'*2)
 		else:
@@ -244,42 +246,42 @@ class game:
 	def eventOutcome(self,outcome):
 		if(type(outcome['output'])==self.string):
 			print('\n'+outcome['output'])
-			if('gold' in outcome.values()):
+			if('gold' in outcome.keys()):
 				if(outcome['gold']>0):
 					self.gold+=outcome['gold']+randint(0,floor(outcome['gold']/10))
 				else:
 					self.gold+=outcome['gold']+randint(floor(outcome['gold']/10),0)
-			if('rep' in outcome.values()):
+			if('rep' in outcome.keys()):
 				if(outcome['rep']>0):
 					self.gold+=outcome['rep']+randint(0,floor(outcome['rep']/10))
 				else:
 					self.gold+=outcome['rep']+randint(floor(outcome['rep']/10),0)
-			if('health' in outcome.values()):
+			if('health' in outcome.keys()):
 				if(outcome['health']>0):
 					self.health+=outcome['health']+randint(0,floor(outcome['health']/10))
 				else:
 					self.health+=outcome['health']+randint(floor(outcome['health']/10),0)
-			if('complete' in outcome.values()):self.completed.append(outcome['complete'])
+			if('complete' in outcome.keys()):self.completed.append(outcome['complete'])
 		else:
 			outcome=outcome['output'][f"{self.predicate(outcome['output']['predicate'])}"]
 			print('\n'+outcome['output'])
-			if('gold' in outcome.values()):
+			if('gold' in outcome.keys()):
 				if(outcome['gold']>0):
 					self.gold+=outcome['gold']+randint(0,floor(outcome['gold']/10))
 				else:
 					self.gold+=outcome['gold']+randint(floor(outcome['gold']/10),0)
-			if('rep' in outcome.values()):
+			if('rep' in outcome.keys()):
 				if(outcome['rep']>0):
 					self.gold+=outcome['rep']+randint(0,floor(outcome['rep']/10))
 				else:
 					self.gold+=outcome['rep']+randint(floor(outcome['rep']/10),0)
-			if('health' in outcome.values()):
+			if('health' in outcome.keys()):
 				if(outcome['health']>0):
 					self.health+=outcome['health']+randint(0,floor(outcome['health']/10))
 				else:
 					self.health+=outcome['health']+randint(floor(outcome['health']/10),0)
 			pass
-			if('complete' in outcomes.values()):self.completed.append(outcome['complete'])
+			if('complete' in outcomes.keys()):self.completed.append(outcome['complete'])
 		pass
 	#completed, checks if a condition is done
 	def complete(self,check):
@@ -307,7 +309,7 @@ class game:
 							if(y in x):
 								if(x[y]==condition['predicate'][y]):
 									return True
-						if(len(condition['predicate'].values())<1):
+						if(len(condition['predicate'].keys())<1):
 							raise Exception(f"The predicate did not have any values\nThe predicate was {condition}")
 				return False
 			case 'rep':
@@ -331,7 +333,7 @@ class game:
 			case 'predicate':
 				return self.predicate(self.predicates[condition['predicate']])
 				pass
-			case 'completed':
+			case 'complete':
 				return self.complete(condition['complete'])
 				pass
 			case 'not':
@@ -356,10 +358,9 @@ class game:
 		return newlist
 	#environmental things such as slow damage from heat in hell
 	def environmentalEffects(self):
-		if('gold' in self.locationf().values()):self.gold+=self.locationf()['gold']
-		if('rep' in self.locationf().values()):self.rep+=self.locationf()['rep']
-		if('health' in self.locationf().values()):self.health+=self.locationf()['health']
-		if('complete' in self.locationf().values()):self.completed.append(self.locationf()['complete'])
+		if('gold' in self.locationf().keys()):self.gold+=self.locationf()['gold']
+		if('rep' in self.locationf().keys()):self.rep+=self.locationf()['rep']
+		if('health' in self.locationf().keys()):self.health+=self.locationf()['health']
 		
 	#Main gameplay loop
 	def start(self):
