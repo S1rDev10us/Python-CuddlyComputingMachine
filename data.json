@@ -108,7 +108,7 @@
 							},
 							"true": {
 								"health": -40,
-								"output": "you fall down the hill while trying to save the sheep but you fail and you both fall down the hill. The sheep dies"
+								"output": "you fall down the hill while trying to save the sheep. The sheep dies and you are left injured"
 							},
 							"false": {
 								"output": "you sucsessfully save the sheep and keep him as a pet",
@@ -124,7 +124,6 @@
 											}
 										}
 									]
-
 								}
 							}
 						}
@@ -170,7 +169,7 @@
 						"gold": 0,
 						"rep": -2,
 						"health": 0,
-						"output": "traveler will not forget"
+						"output": "the traveler wonders off into the distance with no purpose"
 					}
 				]
 			},
