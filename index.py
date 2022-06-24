@@ -86,7 +86,7 @@ class game:
 			if('weight' in x.keys()):
 				listweights.append(x['weight'])
 			else:
-				match type(x['outcome']):
+				match type(x['outcomes']):
 					case self.number:
 						listweights.append(0.25)
 						pass
