@@ -1,4 +1,5 @@
-﻿from random import choice,randint, choices,randrange
+﻿from imp import new_module
+from random import choice,randint, choices,randrange
 from files import *
 from os import path, system
 from math import floor
@@ -117,6 +118,18 @@ class game:
 		self.shopLevel=self.rep/10
 		shopping=True
 
+		weatypes = [
+		self.filterlist(self.weapons, "type", "me"),
+		self.filterlist(self.weapons, "type", "me"),
+		self.filterlist(self.weapons, "type", "me")
+		]
+
+		# 
+		for i, val in enumerate(weatypes):
+			pass
+
+		
+
 		while(shopping):
 			print(self.breakLine)
 			print(self.emptyLine +'\n| Welcome to this shop, enjoy! |')
@@ -125,6 +138,7 @@ class game:
 			print('|● 1 for Weapons               |')
 			print('|● 2 for Items                 |')
 			print(self.emptyLine+'\n'+self.breakLine)
+			print("Gold:", self.gold)
 
 			number=self.validn(['e','w','i'])
 			match number:
@@ -142,18 +156,16 @@ class game:
 							print('|● 2 for Magic                 |')
 							print('|● 3 for Ranged                |')
 							print(self.breakLine)
+							print("Gold:", self.gold)
 
 							weapons = []
 							weaType = ""
 							match self.validn(['b','m','m','r']):
 								case 1:
-									weapons = self.filterlist(self.weapons, "type", "me")
 									weaType = "Melee"
 								case 2:
-									weapons = self.filterlist(self.weapons, "type", "ma")
 									weaType = "Magic"
 								case 3:
-									weapons = self.filterlist(self.weapons, "type", "ra")
 									weaType = "Ranged"
 								case 0:
 									WeaponBuy = False
@@ -177,12 +189,14 @@ class game:
 							print("|● 0 Back                      |\n|● 1 Show Lore")
 							print(self.breakLine)
 							for count, weapon in enumerate(weapons):
-									print("|● " + str(count+2) + " " + weapon["name"])
+									print(f"|● {count+2} {weapon['name']}\n| Cost: {weapon['Cost']}")
 							print(self.emptyLine)
 							print(self.breakLine)
-							slection = self.validn(passin)
+							print("Gold:", self.gold)
+
+							selection = self.validn(passin)
 							print()
-							match slection:
+							match selection:
 								case 0:
 									FirsLoop = True
 								case 1:
@@ -201,6 +215,7 @@ class game:
 												print("|●",self.strpara(weapon, menumode=True))
 										print(self.emptyLine)
 										print(self.breakLine)
+										print("Gold:", self.gold)
 										match self.validn('b'):
 											case 0:
 												inLore = False
@@ -208,6 +223,10 @@ class game:
 												print("you broke the validator")
 								case _:
 									# TODO allow buying weapons
+									self.gold -= weapons[selection-2]['Cost']
+									self.weapons.remove(weapons[selection-2])
+									self.inventory["weapons"].append(weapons[selection-2])
+									weapons.pop(selection-2)
 									print("this function is a work in progress")
 
 				case 2:
@@ -454,6 +473,8 @@ class game:
 
 
 runtime = game()
+runtime.gold = 99999999999999999
+runtime.shop()
 runtime.start()
 print('Would you like to play again?')
 while(runtime.confirm()):
