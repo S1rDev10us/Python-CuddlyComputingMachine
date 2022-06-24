@@ -1,4 +1,4 @@
-﻿from random import choice,randint, choices,randrange
+﻿from random import choice,randint, choices,randrange, sample
 from files import *
 from os import path, system
 from math import floor
@@ -426,6 +426,7 @@ class game:
 	#start an event based on an id (dev only)
 	def eventFromId(self,id):
 		self.eventNonRandomManager(self.filterlist(self.events['events'],'id',id)[0])
+		self.stats()
 	#Main gameplay loop
 	def start(self):
 		self.reset()
