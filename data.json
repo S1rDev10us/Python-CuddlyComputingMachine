@@ -95,14 +95,39 @@
 			{
 				"id": "cosi-sheep-trouble",
 				"place": 0,
-				"text": "You come across a sheep stuck on the edge of a steep fall",
+				"text": "You come across a sheep stuck on the edge of a steep hill",
 				"outcomes": [
 					{
 						"name": "attempt a rescue",
 						"gold": 0,
 						"rep": 5,
 						"health": 0,
-						"output": ""
+						"output": {
+							"predicate": {
+								"chance": 0.2
+							},
+							"true": {
+								"health": -40,
+								"output": "you fall down the hill while trying to save the sheep but you fail and you both fall down the hill. The sheep dies"
+							},
+							"false": {
+								"output": "you sucsessfully save the sheep and keep him as a pet",
+								"inventory": {
+									"accessories": [
+										{
+											"name": "sheep",
+											"type": "pet",
+											"effects": {
+												"gold": 1,
+												"health": 1,
+												"rep": 0
+											}
+										}
+									]
+										
+								}
+							}
+						}
 					},
 					{
 						"name": "turn around and walk off",
@@ -135,10 +160,17 @@
 					{
 						"name": "mug him",
 						"gold": 75,
-						"rep": 0,
-						"health": 0,
+						"rep": -2,
+						"health": -10,
 						"output": "traveler will not forget",
 						"complete": "traveler-mugged"
+					},
+					{
+						"name": "pretend to not be able to help",
+						"gold": 0,
+						"rep": -2,
+						"health": 0,
+						"output": "traveler will not forget"
 					}
 				]
 			},
