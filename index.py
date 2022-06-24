@@ -417,8 +417,12 @@ class game:
 	def statEffects(self,thing):
 		if('gold' in thing.keys()):self.gold+=thing['gold']
 		if('rep' in thing.keys()):self.rep+=thing['rep']
-		if('health' in thing.keys()):self.health+=thing['health']
-	def statEffectsRand(self,thing):
+		if('health' in thing.keys()):
+			if(thing['health']=='kill'):
+				self.health=0
+			else:
+				self.health+=thing['health']
+	def statEffectsRand(self,outcome):
 		if('gold' in outcome.keys()):
 			if(outcome['gold']>0):
 				self.gold+=outcome['gold']+randint(0,floor(outcome['gold']/10))
@@ -430,10 +434,13 @@ class game:
 			else:
 				self.gold+=outcome['rep']+randint(floor(outcome['rep']/10),0)
 		if('health' in outcome.keys()):
-			if(outcome['health']>0):
-				self.health+=outcome['health']+randint(0,floor(outcome['health']/10))
+			if(outcome['health']=='kill'):
+				self.health=0
 			else:
-				self.health+=outcome['health']+randint(floor(outcome['health']/10),0)
+				if(outcome['health']>0):
+					self.health+=outcome['health']+randint(0,floor(outcome['health']/10))
+				else:
+					self.health+=outcome['health']+randint(floor(outcome['health']/10),0)
 	#Main gameplay loop
 	def start(self):
 		self.reset()
