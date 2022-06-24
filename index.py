@@ -169,6 +169,7 @@ class game:
 
 						# TODO pick three random weapons instead of the whole list
 						if(WeaponBuy):
+							print()
 							print(self.breakLine)
 							print(self.emptyLine)
 							print(f'|         {weaType} weapons')
@@ -180,6 +181,7 @@ class game:
 							print(self.emptyLine)
 							print(self.breakLine)
 							slection = self.validn(passin)
+							print()
 							match slection:
 								case 0:
 									FirsLoop = True
