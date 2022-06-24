@@ -429,14 +429,6 @@ class game:
 				getch()
 			self.stats()
 				
-		
-
-
-
-
-
-
-
 runtime = game()
 runtime.start()
 print('Would you like to play again?')
