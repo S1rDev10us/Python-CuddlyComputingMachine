@@ -323,7 +323,8 @@ class game:
 				self.location=event['outcomes']
 				print('\n'+self.messages('welcome')%self.locationf()['name'])
 				if('complete' in self.locationf().keys()):
-					if(type(self.locationf()['complete'])==self.array):for x in self.locationf()['complete']:self.completed.append(x)
+					if(type(self.locationf()['complete'])==self.array):
+						for x in self.locationf()['complete']:self.completed.append(x)
 					else:self.completed.append(self.locationf()['complete'])
 				getch()
 				print('\n'*2)
@@ -343,7 +344,8 @@ class game:
 				self.location=event['outcomes']
 				print('\n'+self.messages('welcome')%self.locationf()['name'])
 				if('complete' in self.locationf().keys()):
-					if(type(self.locationf()['complete'])==self.array):for x in self.locationf()['complete']:self.completed.append(x)
+					if(type(self.locationf()['complete'])==self.array):
+						for x in self.locationf()['complete']:self.completed.append(x)
 					else:self.completed.append(self.locationf()['complete'])
 				getch()
 				print('\n'*2)
@@ -354,7 +356,8 @@ class game:
 			self.statEffectsRand(outcome)
 			if('complete' in outcome.keys()):
 				if(type(outcome['complete'])==self.array):self.completed.append(x)
-				else:for x in outcome['complete']:self.completed.append(outcome['complete'])
+				else:
+					for x in outcome['complete']:self.completed.append(outcome['complete'])
 			if('inventory' in outcome.keys()):
 				print('outcome')
 				for x in outcome['inventory'].keys():
