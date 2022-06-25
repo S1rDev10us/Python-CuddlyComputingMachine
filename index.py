@@ -1,4 +1,4 @@
-﻿from random import choice,randint, choices,randrange, sample
+﻿from random import choice,randint, choices,randrange, sample, random
 from files import *
 from os import path, system
 from math import floor
@@ -322,7 +322,9 @@ class game:
 			if(self.confirm()):
 				self.location=event['outcomes']
 				print('\n'+self.messages('welcome')%self.locationf()['name'])
-				if('complete' in self.locationf().keys()):self.completed.append(self.locationf()['complete'])
+				if('complete' in self.locationf().keys()):
+					if(type(self.locationf()['complete'])==self.array):for x in self.locationf()['complete']:self.completed.append(x)
+					else:self.completed.append(self.locationf()['complete'])
 				getch()
 				print('\n'*2)
 		else:
@@ -340,7 +342,9 @@ class game:
 			if(self.confirm()):
 				self.location=event['outcomes']
 				print('\n'+self.messages('welcome')%self.locationf()['name'])
-				if('complete' in self.locationf().keys()):self.completed.append(self.locationf()['complete'])
+				if('complete' in self.locationf().keys()):
+					if(type(self.locationf()['complete'])==self.array):for x in self.locationf()['complete']:self.completed.append(x)
+					else:self.completed.append(self.locationf()['complete'])
 				getch()
 				print('\n'*2)
 	#What to do at the end of an event
@@ -348,7 +352,9 @@ class game:
 		if(type(outcome['output'])==self.string):
 			print('\n'+outcome['output'])
 			self.statEffectsRand(outcome)
-			if('complete' in outcome.keys()):self.completed.append(outcome['complete'])
+			if('complete' in outcome.keys()):
+				if(type(outcome['complete'])==self.array):self.completed.append(x)
+				else:for x in outcome['complete']:self.completed.append(outcome['complete'])
 			if('inventory' in outcome.keys()):
 				print('outcome')
 				for x in outcome['inventory'].keys():
@@ -418,7 +424,7 @@ class game:
 				pass
 			case 'chance':
 				precision = 1/0.001
-				chance= randrange(0, floor(1*precision), 1)/precision
+				chance= random()
 				outcome=chance < condition[check]
 				return outcome
 				pass
