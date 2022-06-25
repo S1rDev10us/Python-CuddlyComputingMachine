@@ -436,6 +436,12 @@
 						"output": ""
 					}
 				]
+			},
+			{
+				"id": "beach-trading-merchant",
+				"place": 3,
+				"text": "You see a merchant at a small stall on the side of the beach",
+				"outcomes": "shop"
 			}
 		],
 		"shop-events": [
@@ -471,7 +477,7 @@
 			"name": "rusty blade",
 			"type": "me",
 			"Cost": 50,
-			"maxUses": 1,
+			"maxUses": 5,
 			"dev": false
 		},
 		{
