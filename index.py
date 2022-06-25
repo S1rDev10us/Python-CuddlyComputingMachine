@@ -365,10 +365,6 @@ class game:
 			if(type(outcome['output'])==self.dict):self.eventOutcome(outcome['output'][f"{str(self.predicate(outcome['output']['predicate'])).lower()}"])
 			else:self.recursiveEventManager(outcome['output'][f"{str(self.predicate(outcome['output']['predicate'])).lower()}"])
 		pass
-	#completed, checks if a condition is done
-	def complete(self,check):
-		return check in self.completed
-		pass
 	#predicate system
 	def predicate(self,condition):
 		if(type(condition)==self.array):
@@ -417,7 +413,7 @@ class game:
 				return self.predicate(self.predicates[condition[check]])
 				pass
 			case 'complete':
-				return self.complete(condition['complete'])
+				return condition['complete'] in self.completed
 				pass
 			case 'not':
 				return (not self.predicate(condition[check]))
