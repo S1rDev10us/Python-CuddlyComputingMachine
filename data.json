@@ -1,5 +1,5 @@
 {
-	"roguelike": true,
+	"roguelike": false,
 	"messages": {
 		"death": [
 			"Your soul fades away into nothing, never to be seen again...",
