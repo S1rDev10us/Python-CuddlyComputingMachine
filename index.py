@@ -37,6 +37,7 @@ class game:
 
 	#reset all variables for game start
 	def reset(self):
+		self.shopLevel=0
 		self.inventory=self.startInv
 		self.completed=self.startComplete
 		self.startAge=randint(25,50)
@@ -139,7 +140,7 @@ class game:
 			raise KeyError(f"no shop founf called {shopName}! check the speeling and try again")
 		
 		repDiscount = shop["repDiscountScaling"] * self.shopLevel
-		if repDiscount > -99:
+		if repDiscount < -99:
 			repDiscount= 0.01
 		else:
 			repDiscount = (repDiscount/100)+1
@@ -147,7 +148,7 @@ class game:
 		if shop["costScale"] != 0:
 			costScale = (shop["costScale"]/100)+1
 		else:
-			costScale = 1
+			costScale = 1.0
 
 
 		# sorts each weapon type
@@ -189,6 +190,8 @@ class game:
 							print(self.breakLine)
 							print(self.emptyLine)
 							print('|         Weapons shop         |')
+							print('| all of you purchases will be |')
+							print(f"| dicounted by {shop['repDiscountScaling']*-1*self.shopLevel}%")
 							print(self.emptyLine)
 							print('|● 0 Back                      |')
 							print('|● 1 for Melee                 |')
@@ -328,7 +331,7 @@ class game:
 	def eventNonRandomManager(self,event):
 		print(event['text'])
 		if(event['outcomes']=='shop'):
-			self.shop(event["name"])
+			self.shop(event["id"])
 		elif(type(event['outcomes'])==type(0)):
 			if(self.confirm()):
 				self.location=event['outcomes']
@@ -495,8 +498,11 @@ class game:
 		if('rep' in outcome.keys()):
 			if(outcome['rep']>0):
 				self.gold+=outcome['rep']+randint(0,floor(outcome['rep']/10))
+	# yo. i think this^ is supposed to say rep
 			else:
 				self.gold+=outcome['rep']+randint(floor(outcome['rep']/10),0)
+	# correct me if im^ 
+	# wrong but this  ^ one too
 		if('health' in outcome.keys()):
 			if(outcome['health']=='kill'):
 				self.health=0
@@ -588,8 +594,9 @@ class game:
 			self.stats()
 				
 runtime = game()
-# runtime.gold = 99999999999999999
-# runtime.shop()
+runtime.gold = 1000
+runtime.rep = 20
+runtime.shop("cosi-trading-caravan")
 runtime.start()
 print('Would you like to play again?')
 while(runtime.confirm()):

@@ -1,5 +1,5 @@
 {
-	"roguelike": false,
+	"roguelike": true,
 	"messages": {
 		"death": [
 			"Your soul fades away into nothing, never to be seen again...",
@@ -488,8 +488,8 @@
 		"shops": [
 			{
 				"name" : "cosi-trading-caravan",
-				"costScale" : 0,
-				"repDiscountScaling" : 0,
+				"costScale" : 30,
+				"repDiscountScaling" : -5,
 				"minGoldForBuy" : 0,
 				"notEnoughMessage": ""
 			}
