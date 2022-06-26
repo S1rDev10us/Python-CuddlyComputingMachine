@@ -2,6 +2,7 @@
 from files import *
 from os import path, system
 from math import floor
+from json import load, dump
 #from msvcrt import getch
 #from time import sleep
 #from keyboard import wait as getch
@@ -24,10 +25,15 @@ class game:
 		self.dict=type({})
 		self.predicates=self.data['predicates']
 		self.number=type(0)
+		self.roguelike = self.data["roguelike"]
 		if(not dev):
 			remove_list=self.filterlist(self.weapons,'dev',True)
 			self.weapons=[i for i in self.weapons if i not in remove_list]
-		self.reset()
+		if self.roguelike:
+			self.reset()
+		else:
+			self.openSave()
+
 	#reset all variables for game start
 	def reset(self):
 		self.inventory=self.startInv
@@ -43,7 +49,8 @@ class game:
 	#confirmation function
 	def confirm(self):
 		x=input('y/n:')
-		while(not (x=='y' or x =='n')):
+		x.lower()
+		while(not (x[0]=='y' or x[0] =='n')):
 			x=input('y/n:')
 		return x=='y'
 	#get a formatted location
@@ -494,9 +501,73 @@ class game:
 					self.health+=outcome['health']+randint(0,floor(outcome['health']/10))
 				else:
 					self.health+=outcome['health']+randint(floor(outcome['health']/10),0)
+	
+
+	def savescheme(self):
+		return {
+			"health":self.health,
+			"age": self.age,
+			"startAge": self.startAge,
+			"gold":self.gold,
+			"rep":self.rep,
+			"location":self.location,
+			"gameTime":self.gameTime,
+			"old":self.old,
+			"complete":self.completed,
+			"inventory":self.inventory
+		}
+
+
+	# opens/creates a save
+	def openSave(self):
+		with open("savedata.json", "r+") as raw:
+			data = load(raw)
+			while True:
+				self.savename = str(input("load or create save: "))
+				for i in data:
+					if self.savename == i:
+						self.save = data[i]
+						self.loadSave()
+						break
+				else:
+					print("this save is not found. check the spelling or create a new save.\nwould you like to create a new save?")
+					if self.confirm():
+						self.save = self.savename
+						self.reset()
+						self.save = self.savescheme()
+						data[self.savename] = self.save
+						overwritejs(data, raw)
+					else:
+						continue
+				break
+
+	def loadSave(self):
+		self.inventory=self.save["inventory"]
+		self.completed=self.save["complete"]
+		self.age=self.save["age"]
+		self.startAge=self.save["startAge"]
+		self.old=self.save["old"]
+		self.gameTime=self.save["gameTime"]
+		self.health=self.save["health"]
+		self.gold=self.save["gold"]
+		self.location=self.save["location"]
+		self.rep=self.save["rep"]
+
+	# saves game data
+	def saveData(self):
+		with open("savedata.json", "r+") as raw:
+			data = load(raw)
+			self.save = self.savescheme()
+			for i in data:
+				if self.savename == i:
+					data[i] = self.save
+			overwritejs(data, raw)
+
+	
 	#Main gameplay loop
 	def start(self):
-		self.reset()
+		if self.roguelike:
+			self.reset()
 		print(self.messages('start')+'\n')
 		print(self.messages('welcome')%self.locationf()['name'])
 		getch()
@@ -505,10 +576,14 @@ class game:
 			self.eventManager()
 			self.environmentalEffects()
 			self.gameTime+=1
+			if not self.roguelike:
+				self.saveData()
+				print("(game saved)")
 			if(self.age!=self.startAge+self.gameTime//10):
 				self.age=self.startAge+self.gameTime//10
 				print(f'\nHappy Birthday, you are now {self.age}!')
 				getch()
+			
 			self.stats()
 				
 runtime = game()

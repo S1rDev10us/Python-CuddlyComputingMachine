@@ -1,0 +1,44 @@
+{
+    "wojiee": {
+        "health": 100,
+        "age": 25,
+        "startAge": 25,
+        "gold": 0,
+        "rep": 0,
+        "location": 0,
+        "gameTime": 0,
+        "old": 125,
+        "complete": [],
+        "inventory": {
+            "items": [],
+            "weapons": [],
+            "accessories": [],
+            "pets": []
+        }
+    },
+    "test": {
+        "health": 100,
+        "age": 25,
+        "startAge": 25,
+        "gold": 24,
+        "rep": 0,
+        "location": 0,
+        "gameTime": 3,
+        "old": 105,
+        "complete": [],
+        "inventory": {
+            "items": [],
+            "weapons": [
+                {
+                    "name": "rusty blade",
+                    "type": "me",
+                    "Cost": 50,
+                    "maxUses": 1,
+                    "dev": false
+                }
+            ],
+            "accessories": [],
+            "pets": []
+        }
+    }
+}

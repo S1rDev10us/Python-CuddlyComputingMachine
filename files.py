@@ -1,4 +1,4 @@
-from json import loads, dumps
+from json import loads, dumps, dump
 def read(filen):
 	f = open(filen, "r")
 	filecont = (f.read())
@@ -17,3 +17,6 @@ def writejs(jsonf,filen):
 	f = open(filen, "w")
 	f.write(dumps(jsonf))
 	f.close()
+def overwritejs(json, file):
+	file.seek(0)
+	dump(json, file, indent=4)
