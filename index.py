@@ -212,28 +212,6 @@ class game:
 							match selection:
 								case 0:
 									FirsLoop = True
-								# case 1:
-								# 	inLore = True
-								# 	weaLore = []
-								# 	for i in weapons[inweaType]:
-								# 		if('loreData' in i.keys()):weaLore.append(i["name"] + ": " + i["loreData"])
-								# 		else:weaLore.append(i["name"] + ": " + "No lore for this item")
-								# 	while(inLore):
-								# 		print(self.breakLine)
-								# 		print(self.emptyLine)
-								# 		print(f'|         {weaType} weapons')
-								# 		print("|            Lore              |\n|● 0 Back                      |")
-								# 		print(self.emptyLine)
-								# 		for weapon in weaLore:
-								# 				print("|●",self.strpara(weapon, menumode=True))
-								# 		print(self.emptyLine)
-								# 		print(self.breakLine)
-								# 		print("Gold:", self.gold)
-								# 		match self.validn('b'):
-								# 			case 0:
-								# 				inLore = False
-								# 			case _:
-								# 				print("you broke the validator")
 								case _:
 									print(self.breakLine)
 									print(self.emptyLine)
