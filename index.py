@@ -1,4 +1,5 @@
 ﻿from random import choice,randint, choices,randrange, sample, random
+import re
 from files import *
 from os import path, system
 from math import floor
@@ -122,16 +123,41 @@ class game:
 	#shop function
 	# TODO intergrate shop properties like discounts and avaliable items
 	# with the json file
-	def shop(self):
-		self.shopLevel=self.rep/10
+	def shop(self, shopName): # <<<--------------------------------------------------------------------------------------------------------------------------start
+		if self.shopLevel == 0:
+			self.shopLevel=1
+		self.shopLevel=self.rep//10*self.shopLevel
 		shopping=True
 
+
+
+		for i in self.data["events"]["shops"]:
+			if i["name"] == shopName:
+				shop = i
+				break
+		else:
+			raise KeyError(f"no shop founf called {shopName}! check the speeling and try again")
+		
+		repDiscount = shop["repDiscountScaling"] * self.shopLevel
+		if repDiscount > -99:
+			repDiscount= 0.01
+		else:
+			repDiscount = (repDiscount/100)+1
+
+		if shop["costScale"] != 0:
+			costScale = (shop["costScale"]/100)+1
+		else:
+			costScale = 1
+
+
+		# sorts each weapon type
 		weatypes = [
 		self.filterlist(self.weapons, "type", "me"),
 		self.filterlist(self.weapons, "type", "ma"),
 		self.filterlist(self.weapons, "type", "ra")
 		]
 
+		# selects 3 or less random weapons for each type of weapon
 		weapons = []
 		samp = 0
 		for i in range(len(weatypes)):
@@ -141,9 +167,8 @@ class game:
 				samp = 3
 			weapons.append(sample(weatypes[i], samp))
 
-		
-
 		while(shopping):
+			# shop menu
 			print(self.breakLine)
 			print(self.emptyLine +'\n| Welcome to this shop, enjoy! |')
 			print(self.emptyLine)
@@ -152,14 +177,15 @@ class game:
 			print('|● 2 for Items                 |')
 			print(self.emptyLine+'\n'+self.breakLine)
 			print("Gold:", self.gold)
-
 			number=self.validn(['e','w','i'])
+			
 			match number:
 				case 1:
 					WeaponBuy = True
 					FirsLoop = True
-					while(WeaponBuy):
+					while(WeaponBuy): # while the user hasn't pressed back
 						if(FirsLoop):
+							# type menu
 							print(self.breakLine)
 							print(self.emptyLine)
 							print('|         Weapons shop         |')
@@ -170,7 +196,8 @@ class game:
 							print('|● 3 for Ranged                |')
 							print(self.breakLine)
 							print("Gold:", self.gold)
-
+							
+							# assignes type and index based on selection
 							weaType = ""
 							match self.validn(['b','m','m','r']):
 								case 1:
@@ -186,14 +213,17 @@ class game:
 									WeaponBuy = False
 								case _:
 									print('Well done you broke the validator')
-							if(WeaponBuy):
+
+							# determines what to pass into the validator		
+							if(WeaponBuy): # if the user hasn't pressed back
 								passin = []
 								for i in weapons[inweaType]:
 									passin.append(i)
 								passin.append("B")
 								FirsLoop = False
 
-						if(WeaponBuy):
+						if(WeaponBuy): # if the user hasn't pressed back
+							# weapons menu
 							print()
 							print(self.breakLine)
 							print(self.emptyLine)
@@ -201,18 +231,23 @@ class game:
 							print(self.emptyLine)
 							print("|● 0 Back                      |")
 							print(self.breakLine)
+							# displays all randomly generated weapons and their cost
 							for count, weapon in enumerate(weapons[inweaType]):
-									print(f"|● {count+1} {weapon['name']}\n| Cost: {weapon['Cost']}")
+									print(f"|● {count+1} {weapon['name']}\n| Cost: {weapon['Cost']*costScale}")
 							print(self.emptyLine)
 							print(self.breakLine)
 							print("Gold:", self.gold)
-
 							selection = self.validn(passin)
+
 							print()
 							match selection:
 								case 0:
-									FirsLoop = True
+									FirsLoop = True # loops back to the type menu
 								case _:
+									# single weapon menu
+									# displays the lore of the weapon, as well as
+									# discounted cost due to rep bonus
+									# allow you to buy the weapon
 									print(self.breakLine)
 									print(self.emptyLine)
 									print(f'|{weapons[inweaType][selection-1]["name"]}')
@@ -222,27 +257,15 @@ class game:
 									else:
 										print("|● this item has no lore")
 									print(self.emptyLine)
-									print(f"|● Cost: {weapons[inweaType][selection-1]['Cost']}")
+									print(f"|● Pre-Discount  Cost: {weapons[inweaType][selection-1]['Cost']*costScale}")
+									print(f"|● Post-Discount Cost: {weapons[inweaType][selection-1]['Cost']*costScale*repDiscount}")
 									print(self.breakLine)
-									idiot = True
-									while idiot:
-										try:
-											buy = str(input("would you like to buy this item? (y/n)\n>>>"))
-											idiot = False
-											buy.lower()
-											if buy == "y" or buy == "yes":
-												self.gold -= weapons[inweaType][selection-2]['Cost']
-												self.weapons.remove(weapons[inweaType][selection-2])
-												self.inventory["weapons"].append(weapons[inweaType][selection-2])
-												weapons[inweaType].pop(selection-2)
-												print("this function is a work in progress")
-											elif buy == "n" or buy == "no":
-												pass
-											else:
-												raise ValueError()
-										except ValueError:
-											print("invalid input!")
 
+									if self.confirm():
+										self.gold -= weapons[inweaType][selection-2]['Cost']*costScale*repDiscount
+										self.weapons.remove(weapons[inweaType][selection-2])		
+										self.inventory["weapons"].append(weapons[inweaType][selection-2])
+										weapons[inweaType].pop(selection-2)
 				case 2:
 					pass
 				case 0:
@@ -256,7 +279,7 @@ class game:
 				
 				case _:
 					print('Well done I guess, you broke the validator?')
-					pass
+					pass # <<<--------------------------------------------------------------------------------------------------------------------------end
 
 
 	# every 30 characters, replaces a space with a newline
@@ -298,11 +321,14 @@ class game:
 	#run the event
 	def eventManager(self):
 		event=self.event()
+		if not self.roguelike:
+			self.saveData()
+			print("(game saved)")
 		self.eventNonRandomManager(event)
 	def eventNonRandomManager(self,event):
 		print(event['text'])
 		if(event['outcomes']=='shop'):
-			self.shop()
+			self.shop(event["name"])
 		elif(type(event['outcomes'])==type(0)):
 			if(self.confirm()):
 				self.location=event['outcomes']
@@ -554,9 +580,6 @@ class game:
 			self.eventManager()
 			self.environmentalEffects()
 			self.gameTime+=1
-			if not self.roguelike:
-				self.saveData()
-				print("(game saved)")
 			if(self.age!=self.startAge+self.gameTime//10):
 				self.age=self.startAge+self.gameTime//10
 				print(f'\nHappy Birthday, you are now {self.age}!')

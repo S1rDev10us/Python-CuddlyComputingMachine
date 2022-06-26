@@ -485,9 +485,13 @@
 				"outcomes": "shop"
 			}
 		],
-		"shop-events": [
+		"shops": [
 			{
-
+				"name" : "cosi-trading-caravan",
+				"costScale" : 0,
+				"repDiscountScaling" : 0,
+				"minGoldForBuy" : 0,
+				"notEnoughMessage": ""
 			}
 		]
 	},
