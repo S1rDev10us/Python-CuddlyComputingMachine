@@ -29,7 +29,8 @@
 			"Welcome to the %s!"
 		],
 		"debt": [
-			"You were mugged by the gangs that you are indebted to"
+			"You were mugged by the gangs that you are indebted to",
+			"the bailiff's came to try and collect your debts"
 		]
 	},
 	"events": {
@@ -93,6 +94,46 @@
 						"rep": 3,
 						"health": -5,
 						"output": "The leader of the trading caravan is slightly dismayed by your refusal for money but offers to spread the news of your good endeavors and help heal you of your stinging wounds"
+					}
+				]
+			},
+			{
+				"id": "cosi-wishing-well",
+				"place": 0,
+				"weight": 0.1,
+				"text": "you come across an ancient looking wishing well",
+				"predicate": {
+					"not": {
+						"complete": "wish-made"
+					}
+				},
+				"outcomes": [
+					{
+						"name": "wish for riches beyond your wildest dreams",
+						"gold": -1,
+						"complete": [
+							"wish-made",
+							"wish-gold"
+						],
+						"output": ""
+					},
+					{
+						"name": "wish to be known as a legend",
+						"gold": -1,
+						"complete": [
+							"wish-made",
+							"wish-rep"
+						],
+						"output": ""
+					},
+					{
+						"name": "wish for love",
+						"gold": -1,
+						"complete": [
+							"wish-made",
+							"wish-love"
+						],
+						"output": ""
 					}
 				]
 			},
