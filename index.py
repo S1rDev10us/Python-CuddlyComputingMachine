@@ -483,9 +483,9 @@ class game:
 				self.gold+=outcome['gold']+randint(floor(outcome['gold']/10),0)
 		if('rep' in outcome.keys()):
 			if(outcome['rep']>0):
-				self.gold+=outcome['rep']+randint(0,floor(outcome['rep']/10))
+				self.rep+=outcome['rep']+randint(0,floor(outcome['rep']/10))
 			else:
-				self.gold+=outcome['rep']+randint(floor(outcome['rep']/10),0)
+				self.rep+=outcome['rep']+randint(floor(outcome['rep']/10),0)
 		if('health' in outcome.keys()):
 			if(outcome['health']=='kill'):
 				self.health=0
