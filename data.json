@@ -206,7 +206,7 @@
 						"gold": 75,
 						"rep": -2,
 						"health": -10,
-						"output": "Traveler will not forget",
+						"output": "Traveler will remember this",
 						"complete": "traveler-mugged"
 					},
 					{
@@ -214,7 +214,7 @@
 						"gold": 0,
 						"rep": -2,
 						"health": 0,
-						"output": "The traveler wonders off into the distance with no purpose"
+						"output": "The traveler wanders off into the distance with no purpose"
 					}
 				]
 			},
