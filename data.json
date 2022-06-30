@@ -378,7 +378,10 @@
 				"id": "cosi-entrance-beach",
 				"place": 0,
 				"text": "You see a sandy trail heading down to a beach, do you follow the path",
-				"outcomes": 3
+				"outcomes": 3,
+				"predicate": {
+					"complete": "hell"
+				}
 			},
 			{
 				"id": "beach-entrance-cosi",

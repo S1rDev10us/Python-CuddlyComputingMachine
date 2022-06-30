@@ -594,9 +594,6 @@ class game:
 			self.stats()
 				
 runtime = game()
-runtime.gold = 1000
-runtime.rep = 20
-runtime.shop("cosi-trading-caravan")
 runtime.start()
 print('Would you like to play again?')
 while(runtime.confirm()):
