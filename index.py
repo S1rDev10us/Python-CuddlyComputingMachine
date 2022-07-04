@@ -137,7 +137,7 @@ class game:
 				shop = i
 				break
 		else:
-			raise KeyError(f"no shop founf called {shopName}! check the speeling and try again")
+			raise KeyError(f"no shop found called {shopName}! check the spelling and try again")
 		
 		repDiscount = shop["repDiscountScaling"] * self.shopLevel
 		if repDiscount < -99:
@@ -369,11 +369,11 @@ class game:
 			print('\n'+outcome['output'])
 			self.statEffectsRand(outcome)
 			if('complete' in outcome.keys()):
-				if(type(outcome['complete'])==self.array):self.completed.append(x)
+				if(type(outcome['complete'])!=self.array):self.completed.append(outcome['complete'])
 				else:
-					for x in outcome['complete']:self.completed.append(outcome['complete'])
+					for x in outcome['complete']:
+						self.completed.append(x)
 			if('inventory' in outcome.keys()):
-				print('outcome')
 				for x in outcome['inventory'].keys():
 					for z in outcome['inventory'][x]:
 						self.inventory[x].append(z)
