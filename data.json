@@ -1,12 +1,13 @@
 {
-	"roguelike": true,
+	"roguelike": false,
 	"messages": {
 		"death": [
 			"Your soul fades away into nothing, never to be seen again...",
 			"GAME OVER",
 			"Ashes to ashes, dust to dust",
 			"You are untethered from your mortal bonds",
-			"You have been lost to the great unknown"
+			"You have been lost to the great unknown",
+			"You have shuffled off this mortal coil"
 		],
 		"retire": [
 			"You decide to end your journey here at age %s and slowly meander back home popping in to anyone who helped you along your way and then happily retire in the place of your birth"
@@ -19,7 +20,8 @@
 			"Your adventure begins",
 			"Welcome to a new adventure",
 			"Let me draw your attention to this wonderful world that you find yourself in and show you around",
-			"Come in, come in, a whole world awaits (Fine print: a whole new world does not entail an entire world as you may understand it and so you may be dissapointed to find a lack of world in here)"
+			"Come in, come in, a whole world awaits (Fine print: a whole new world does not entail an entire world as you may understand it and so you may be dissapointed to find a lack of world in here)",
+			"Alright let's do this one more time"
 		],
 		"welcome": [
 			"You are in the %s, there is a secret to discover here",

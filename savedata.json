@@ -1,14 +1,17 @@
 {
     "wojiee": {
-        "health": 100,
+        "health": 99,
         "age": 25,
         "startAge": 25,
-        "gold": 0,
+        "gold": -1,
         "rep": 0,
         "location": 0,
-        "gameTime": 0,
+        "gameTime": 1,
         "old": 125,
-        "complete": [],
+        "complete": [
+            "wish-made",
+            "wish-love"
+        ],
         "inventory": {
             "items": [],
             "weapons": [],
