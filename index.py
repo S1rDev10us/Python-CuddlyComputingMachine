@@ -555,6 +555,7 @@ class game:
 						overwritejs(data, raw)
 					else:
 						continue
+				self.savename = savename
 				break
 
 	def loadSave(self):
