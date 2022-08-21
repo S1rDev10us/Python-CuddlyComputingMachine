@@ -537,10 +537,10 @@ class game:
 				if savename in data:
 					print('Do you want to overwrite this file?')
 					if(self.confirm()):
-						self.save = self.savename
+						self.save = savename
 						self.reset()
 						self.save = self.savescheme()
-						data[self.savename] = self.save
+						data[savename] = self.save
 						overwritejs(data, raw)
 					else:
 						self.save = data[savename]
@@ -548,10 +548,10 @@ class game:
 				else:
 					print("this save is not found. check the spelling or create a new save.\nwould you like to create a new save?")
 					if self.confirm():
-						self.save = self.savename
+						self.save = savename
 						self.reset()
 						self.save = self.savescheme()
-						data[self.savename] = self.save
+						data[savename] = self.save
 						overwritejs(data, raw)
 					else:
 						continue
