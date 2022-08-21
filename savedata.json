@@ -43,5 +43,39 @@
             "accessories": [],
             "pets": []
         }
+    },
+    "hi": {
+        "health": 100,
+        "age": 32,
+        "startAge": 32,
+        "gold": 0,
+        "rep": 0,
+        "location": 0,
+        "gameTime": 0,
+        "old": 108,
+        "complete": [],
+        "inventory": {
+            "items": [],
+            "weapons": [],
+            "accessories": [],
+            "pets": []
+        }
+    },
+    "agh": {
+        "health": 100,
+        "age": 29,
+        "startAge": 29,
+        "gold": 0,
+        "rep": 0,
+        "location": 0,
+        "gameTime": 0,
+        "old": 112,
+        "complete": [],
+        "inventory": {
+            "items": [],
+            "weapons": [],
+            "accessories": [],
+            "pets": []
+        }
     }
 }
