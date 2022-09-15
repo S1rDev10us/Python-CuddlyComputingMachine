@@ -1,6 +1,6 @@
 ﻿from random import choice,randint, choices,randrange, sample, random
 import re
-from PythonHelper.files import *
+import PythonHelper.files as files
 from os import path, system
 from math import floor
 from json import load, dump
@@ -12,7 +12,7 @@ def getch():
 	system('pause')
 class game:
 	def __init__(self):
-		self.data=readjs(path.abspath('data.json'))
+		self.data=files.readjs(path.abspath('data.json'))
 		self.events=self.data['events']
 		self.weapons=self.data['weapons']
 		self.message=self.data['messages']
@@ -541,7 +541,7 @@ class game:
 						self.reset()
 						self.save = self.savescheme()
 						data[savename] = self.save
-						overwritejs(data, raw)
+						files.overwritejs(data, raw)
 					else:
 						self.save = data[savename]
 						self.loadSave()
@@ -552,7 +552,7 @@ class game:
 						self.reset()
 						self.save = self.savescheme()
 						data[savename] = self.save
-						overwritejs(data, raw)
+						files.overwritejs(data, raw)
 					else:
 						continue
 				self.savename = savename
@@ -578,7 +578,7 @@ class game:
 			for i in data:
 				if self.savename == i:
 					data[i] = self.save
-			overwritejs(data, raw)
+			files.overwritejs(data, raw)
 
 	
 	#Main gameplay loop
