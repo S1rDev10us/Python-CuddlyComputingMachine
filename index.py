@@ -489,7 +489,7 @@ class game:
 				self.health=0
 			else:
 				self.health+=thing['health']
-	def statEffectsRand(self,outcome):
+	def statEffectsRand(self,outcome:dict):
 		if('gold' in outcome.keys()):
 			if(outcome['gold']>0):
 				self.gold+=outcome['gold']+randint(0,floor(outcome['gold']/10))
