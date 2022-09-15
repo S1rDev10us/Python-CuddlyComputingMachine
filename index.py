@@ -1,6 +1,6 @@
 ﻿from random import choice,randint, choices,randrange, sample, random
 import re
-from files import *
+from PythonHelper.files import *
 from os import path, system
 from math import floor
 from json import load, dump
