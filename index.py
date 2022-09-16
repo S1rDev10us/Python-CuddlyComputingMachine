@@ -2,6 +2,9 @@ from os.path import abspath
 from os import listdir
 from game import game
 from PythonHelper import files
+from PythonHelper.logger import Logger
+
+logger=Logger(Logger.INFO)
 
 games:list[dict[str,any]]=[]
 
@@ -36,9 +39,9 @@ for file in gameLocationFiles:
 del file
 
 for file in gameLocationFiles:
-	print(file)
+	logger.log.debug(file)
 	if(not file.endswith('.json')):continue
-	print('file passed tests')
+	logger.log.debug('file passed tests')
 	Id=''
 	
 	for i in file.split('.')[:-1]:Id+=i
@@ -52,4 +55,33 @@ for file in enumerate(games):
 
 
 
-print(games)
+logger.log.debug(games)
+tempList={}
+for x in games:
+	tempList[x['version']['name']]=x['version']['name'] in tempList
+for x,y in enumerate(games):
+	Id=y['id']
+	newLine='\n'
+	print(f"{x}: {y['version']['name']}{f'{newLine}   #{Id}' if tempList[y['version']['name']] else ''}\n   V{y['version']['version']}")
+	del Id
+
+
+
+def ValidNumber(Max:int,Min:int=0) -> int:
+	outcome=input('>>>')
+	f=True
+	outcomed=True
+	while(outcomed):
+		if(f!=True):
+			outcome=input('Please enter a valid number\n>>>')
+		f=False
+		if(outcome.isdigit()):
+			outcome=int(outcome)
+			if(outcome>=Min and outcome<=Max):break
+	return outcome
+
+
+gameChoice=ValidNumber(len(games)-1)
+
+runtime=game(games[gameChoice]['loc'],f"{saveLocation}\\{games[gameChoice]['id']}.json")
+runtime.start()

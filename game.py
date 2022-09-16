@@ -31,9 +31,8 @@ class game:
 		if(not dev):
 			remove_list=self.filterlist(self.weapons,'dev',True)
 			self.weapons=[i for i in self.weapons if i not in remove_list]
-		if self.roguelike:
-			self.reset()
-		else:
+		self.reset()
+		if not self.roguelike:
 			self.openSave()
 
 	#reset all variables for game start
@@ -525,7 +524,8 @@ class game:
 			"gameTime":self.gameTime,
 			"old":self.old,
 			"complete":self.completed,
-			"inventory":self.inventory
+			"inventory":self.inventory,
+			"shopLevel":self.shopLevel
 		}
 
 
@@ -570,6 +570,7 @@ class game:
 		self.gold=self.save["gold"]
 		self.location=self.save["location"]
 		self.rep=self.save["rep"]
+		self.shopLevel=self.save["shopLevel"]
 
 	# saves game data
 	def saveData(self):
