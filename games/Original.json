@@ -1,4 +1,8 @@
 {
+	"version":{
+		"name":"Original",
+		"version":"1.0.0"
+	},
 	"roguelike": false,
 	"messages": {
 		"death": [

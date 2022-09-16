@@ -11,8 +11,8 @@ dev=False
 def getch():
 	system('pause')
 class game:
-	def __init__(self):
-		self.data=files.readjs(path.abspath('data.json'))
+	def __init__(self,fileLoc:str):
+		self.data=files.readjs(path.abspath(fileLoc))
 		self.events=self.data['events']
 		self.weapons=self.data['weapons']
 		self.message=self.data['messages']
