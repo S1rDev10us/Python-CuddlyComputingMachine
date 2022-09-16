@@ -26,6 +26,8 @@ gameLocation:str=config['games']
 gameLocationFiles=listdir(gameLocation)
 saveLocation:str=config['saves']
 saveLocationFiles=listdir(saveLocation)
+
+
 for file in gameLocationFiles:
     if(not file.endswith('.json')):continue
     if(file in saveLocationFiles):continue
@@ -40,7 +42,7 @@ for file in gameLocationFiles:
     Id=''
     
     for i in file.split('.')[:-1]:Id+=i
-    games.append({"loc":abspath(gameLocation+file),"id":Id})
+    games.append({"loc":abspath(f"{gameLocation}\\{file}"),"id":Id})
 del file
 for file in enumerate(games):
     file=games[file[0]]
