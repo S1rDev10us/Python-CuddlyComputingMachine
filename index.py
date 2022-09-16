@@ -5,9 +5,18 @@ from PythonHelper import files
 
 games:list[dict[str,any]]=[]
 config=files.readjs('./config.json')
-gameLocation=config['games']
-saveLocation=config['saves']
-for file in listdir(gameLocation):
+gameLocation:str=config['games']
+gameLocationFiles=listdir(gameLocation)
+saveLocation:str=config['saves']
+saveLocationFiles=listdir(saveLocation)
+for file in gameLocationFiles:
+    if(not file.endswith('.json')):continue
+    if(file in saveLocationFiles):continue
+    files.writejs({},abspath(f"{saveLocation}\\{file}"))
+    pass
+del file
+
+for file in gameLocationFiles:
     print(file)
     if(not file.endswith('.json')):continue
     print('file passed tests')
