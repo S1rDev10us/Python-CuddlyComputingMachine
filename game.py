@@ -11,8 +11,9 @@ dev=False
 def getch():
 	system('pause')
 class game:
-	def __init__(self,fileLoc:str):
+	def __init__(self,fileLoc:str,saveLoc:str):
 		self.data=files.readjs(path.abspath(fileLoc))
+		self.saveLoc=saveLoc
 		self.events=self.data['events']
 		self.weapons=self.data['weapons']
 		self.message=self.data['messages']
@@ -530,7 +531,7 @@ class game:
 
 	# opens/creates a save
 	def openSave(self):
-		with open("savedata.json", "r+") as raw:
+		with open(self.saveLoc, "r+") as raw:
 			data = load(raw)
 			while True:
 				savename = str(input("Load from savename\n>>>"))
@@ -572,7 +573,7 @@ class game:
 
 	# saves game data
 	def saveData(self):
-		with open("savedata.json", "r+") as raw:
+		with open(self.saveLoc, "r+") as raw:
 			data = load(raw)
 			self.save = self.savescheme()
 			for i in data:
