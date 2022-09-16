@@ -7,17 +7,17 @@ games:list[dict[str,any]]=[]
 
 #create empty config file if it doesn't exist
 if(not 'config.json' in listdir('./')):
-    files.writejs({},'./config.json')
+	files.writejs({},'./config.json')
 
 config=files.readjs('./config.json')
 
 if(not 'games' in config):
-    config['games']=files.FolderPicker(Force=False,Title="Pick a game directory")
-    if(config['games']==None):raise Exception("The game directory was not specified")
+	config['games']=files.FolderPicker(Force=False,Title="Pick a game directory")
+	if(config['games']==None):raise Exception("The game directory was not specified")
 
 if(not 'saves' in config):
-    config['saves']=files.FolderPicker(Force=False,Title="Pick a savegame directory")
-    if(config['saves']==None):raise Exception("The savegame directory was not specified")
+	config['saves']=files.FolderPicker(Force=False,Title="Pick a savegame directory")
+	if(config['saves']==None):raise Exception("The savegame directory was not specified")
 
 #Save config file
 files.writejs(config,'./config.json')
@@ -29,26 +29,26 @@ saveLocationFiles=listdir(saveLocation)
 
 
 for file in gameLocationFiles:
-    if(not file.endswith('.json')):continue
-    if(file in saveLocationFiles):continue
-    files.writejs({},abspath(f"{saveLocation}\\{file}"))
-    pass
+	if(not file.endswith('.json')):continue
+	if(file in saveLocationFiles):continue
+	files.writejs({},abspath(f"{saveLocation}\\{file}"))
+	pass
 del file
 
 for file in gameLocationFiles:
-    print(file)
-    if(not file.endswith('.json')):continue
-    print('file passed tests')
-    Id=''
-    
-    for i in file.split('.')[:-1]:Id+=i
-    games.append({"loc":abspath(f"{gameLocation}\\{file}"),"id":Id})
+	print(file)
+	if(not file.endswith('.json')):continue
+	print('file passed tests')
+	Id=''
+	
+	for i in file.split('.')[:-1]:Id+=i
+	games.append({"loc":abspath(f"{gameLocation}\\{file}"),"id":Id})
 del file
 for file in enumerate(games):
-    file=games[file[0]]
-    data=files.readjs(file['loc'])
-    file['version']=data['version']
-    # file['data']=
+	file=games[file[0]]
+	data=files.readjs(file['loc'])
+	file['version']=data['version']
+	# file['data']=
 
 
 
