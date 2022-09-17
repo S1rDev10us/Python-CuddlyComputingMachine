@@ -71,7 +71,12 @@ class game:
 			temp = {
 				"gold":"gold",
 				"health":"health",
-				"rep":"reputation"
+				"rep":"reputation",
+				"ma": "magic",
+				"me": "melee",
+				"ra": "ranged",
+				"co": "consumable",
+				"pe": "pet"
 			}
 			if(not short in temp):
 				raise Exception(f"Shorthand \"{short}\" was not found")

@@ -1,3 +1,6 @@
 [submodule "PythonHelper"]
 	path = PythonHelper
 	url = https://github.com/s1rdev10us/PythonHelper.git
+[submodule "CuddlyComputingGameData"]
+	path = CuddlyComputingGameData
+	url = https://github.com/s1rdev10us/CuddlyComputingGameData.git
