@@ -62,7 +62,13 @@ for x in games:
 for x,y in enumerate(games):
 	Id=y['id']
 	newLine='\n'
-	print(f"{x}: {y['version']['name']}{f'{newLine}   #{Id}' if tempList[y['version']['name']] else ''}\n   V{y['version']['version']}")
+	if('author'in y['version']):
+		Author=y['version']['author']
+	if('version' in y['version']):
+		version=y['version']['version']
+	if('link'in y['version']):
+		link=y['version']['link']
+	print(f"{x}: {y['version']['name']}{f'{newLine}   #{Id}' if tempList[y['version']['name']] else ''}{f'{newLine}   V {version}'if 'version' in y['version']else ''}{f'{newLine}By: {Author}'if ('author' in y['version']) else''}{f'{newLine}Website: {link}'if ('link' in y['version']) else''}")
 	del Id
 
 

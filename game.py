@@ -668,7 +668,7 @@ class game:
 
 
 if(__name__ == "__main__"):
-	runtime = game()
+	runtime = game('./CuddlyComputingGameData/Original.json','saves\\Original.json')
 	runtime.start()
 	print('Would you like to play again?')
 	while(runtime.confirm()):
