@@ -33,11 +33,20 @@ class game:
 		self.number = type(0)
 		self.roguelike = self.data["roguelike"]
 		if(not dev):
-			remove_list = self.filterlist(self.weapons, 'dev', True)
-			self.weapons = [i for i in self.weapons if i not in remove_list]
+			# remove_list = self.filterlist(self.weapons, 'dev', True)
+			self.weapons = [i for i in self.weapons if not i['dev']]
 		self.reset()
 		if not self.roguelike:
 			self.openSave()
+		self.places:dict[str,list[dict]]={}
+		if('events'in self.events):
+			for x in enumerate(self.events['places']):
+				self.places[x[1]['name']]=self.filterlist(self.events['events'],'place',x[0])
+		elif('events'in self.events['places'][0]):
+			for x in enumerate(self.events['places']):
+				self.places[x[1]['name']]=x[1]['events']
+			pass
+
 
 	# reset all variables for game start
 	def reset(self):
@@ -114,7 +123,7 @@ class game:
 
 	def event(self):
 		events = []
-		for x in self.filterlist(self.events['events'], 'place', self.location):
+		for x in self.places[self.locationf()['name']]:
 			if('predicate' in x.keys()):
 				if(self.predicate(x['predicate'])):
 					events.append(x)
@@ -419,6 +428,7 @@ class game:
 			if(type(outcome['output']) == self.dict):
 				self.eventOutcome(
 					outcome['output'][f"{str(self.predicate(outcome['output']['predicate'])).lower()}"])
+			#This is in the case that it is a string or a number (to start a shop or go to a place)
 			else:
 				self.recursiveEventManager(
 					outcome['output'][f"{str(self.predicate(outcome['output']['predicate'])).lower()}"])
@@ -427,15 +437,13 @@ class game:
 
 	def predicate(self, condition):
 		if(type(condition) == self.array):
-			z = 0
 			for x in condition:
-				if(self.singlePredicate(x)):
-					z += 1
-			if(z == len(condition)):
-				return True
+				if(not self.singlePredicate(x)):
+					return False
+			
+			return True
 		else:
 			return self.singlePredicate(condition)
-		return False
 	# code for one predicate
 
 	def singlePredicate(self, condition):
@@ -533,6 +541,7 @@ class game:
 	# start an event based on an id (dev only)
 
 	def eventFromId(self, id):
+		raise Exception('This has an issue with the new event system, please fix this when you can think of a solution')
 		self.eventNonRandomManager(self.filterlist(
 			self.events['events'], 'id', id)[0])
 		self.stats()
