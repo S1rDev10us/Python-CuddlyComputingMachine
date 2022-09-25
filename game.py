@@ -38,6 +38,8 @@ class game:
 		self.reset()
 		if not self.roguelike:
 			self.openSave()
+
+		#Create a better events system to increase performance but still support the old system
 		self.places:dict[str,list[dict]]={}
 		if('events'in self.events):
 			for x in enumerate(self.events['places']):
