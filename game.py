@@ -44,7 +44,8 @@ class game:
 				self.places[x[1]['name']]=self.filterlist(self.events['events'],'place',x[0])
 		elif('events'in self.events['places'][0]):
 			for x in enumerate(self.events['places']):
-				self.places[x[1]['name']]=x[1]['events']
+				if('events' in x[1]):
+					self.places[x[1]['name']]=x[1]['events']
 			pass
 
 
