@@ -365,7 +365,7 @@ class game:
 		elif(type(event['outcomes']) == type(0)):
 			if(self.confirm()):
 				self.location = event['outcomes']
-				print('\n'+self.messages('welcome') % self.locationf()['name'])
+				self.welcome()
 				if('complete' in self.locationf().keys()):
 					if(type(self.locationf()['complete']) == self.array):
 						for x in self.locationf()['complete']:
@@ -389,7 +389,7 @@ class game:
 		elif(type(event['output']) == type(0)):
 			if(self.confirm()):
 				self.location = event['outcomes']
-				print('\n'+self.messages('welcome') % self.locationf()['name'])
+				self.welcome()
 				if('complete' in self.locationf().keys()):
 					if(type(self.locationf()['complete']) == self.array):
 						for x in self.locationf()['complete']:
@@ -646,13 +646,22 @@ class game:
 					data[i] = self.save
 			files.overwritejs(data, raw)
 
+	def welcome(self):
+		loc=self.locationf()
+		if('welcome'in loc):
+			print(f"\n{choice(loc['welcome'])if type(loc['welcome'])==self.array else loc['welcome']}" % loc['name'])
+		else:
+			print('\n'+self.messages('welcome') % loc['name'])
+		pass
+
+
 	# Main gameplay loop
 
 	def start(self):
 		if self.roguelike:
 			self.reset()
 		print(self.messages('start')+'\n')
-		print(self.messages('welcome') % self.locationf()['name'])
+		self.welcome()
 		pause()
 		print('\n'*2)
 		while(self.alive()):
