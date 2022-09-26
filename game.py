@@ -31,13 +31,17 @@ class game:
 		self.dict = type({})
 		self.predicates = self.data['predicates']
 		self.number = type(0)
-		print('Do you want to use the save system?')
-		self.roguelike = self.data["roguelike"] and self.confirm()
+		self.roguelike = self.data["roguelike"]
+		#check to see if the user wants to use the savesystem even if it enabled
+		if((not self.roguelike) and ('forceSave'in self.data and self.data['forceSave'])):
+			print('Do you want to use the save system?')
+			self.roguelike=not self.confirm()
+		# print(self.roguelike)
 		if(not dev):
 			# remove_list = self.filterlist(self.weapons, 'dev', True)
 			self.weapons = [i for i in self.weapons if not i['dev']]
 		self.reset()
-		if not self.roguelike:
+		if (not self.roguelike):
 			self.openSave()
 
 		# Create a better events system to increase performance but still support the old system
