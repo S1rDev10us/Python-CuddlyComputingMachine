@@ -3,7 +3,7 @@
 import PythonHelper.files as files
 from os import path, system
 from math import floor
-from json import load, dump
+from json import load
 # from msvcrt import pause
 # from time import sleep
 # from keyboard import wait as pause
@@ -396,7 +396,7 @@ class game:
 			if(self.confirm()):
 				self.location = event['outcomes']
 				self.welcome()
-				if('complete' in self.locationf().keys()):
+				if('complete' in self.locationf()):
 					if(type(self.locationf()['complete']) == self.array):
 						for x in self.locationf()['complete']:
 							self.completed.append(x)
@@ -694,7 +694,8 @@ class game:
 	def start(self):
 		if self.roguelike:
 			self.reset()
-		print(self.messages('start')+'\n')
+		print(self.messages('start'))
+		pause()
 		self.welcome()
 		pause()
 		print('\n'*2)
