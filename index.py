@@ -59,17 +59,21 @@ logger.log.debug(games)
 tempList={}
 for x in games:
 	tempList[x['version']['name']]=x['version']['name'] in tempList
-for x,y in enumerate(games):
-	Id=y['id']
-	newLine='\n'
-	if('author'in y['version']):
-		Author=y['version']['author']
-	if('version' in y['version']):
-		version=y['version']['version']
-	if('link'in y['version']):
-		link=y['version']['link']
-	print(f"{x}: {y['version']['name']}{f'{newLine}   #{Id}' if tempList[y['version']['name']] else ''}{f'{newLine}   V {version}'if 'version' in y['version']else ''}{f'{newLine}By: {Author}'if ('author' in y['version']) else''}{f'{newLine}Website: {link}'if ('link' in y['version']) else''}")
-	del Id
+
+
+def chooseGame():
+	for x,y in enumerate(games):
+		Id=y['id']
+		newLine='\n'
+		if('author'in y['version']):
+			Author=y['version']['author']
+		if('version' in y['version']):
+			version=y['version']['version']
+		if('link'in y['version']):
+			link=y['version']['link']
+		print(f"{x}: {y['version']['name']}{f'{newLine}   #{Id}' if tempList[y['version']['name']] else ''}{f'{newLine}   V {version}'if 'version' in y['version']else ''}{f'{newLine}By: {Author}'if ('author' in y['version']) else''}{f'{newLine}Website: {link}'if ('link' in y['version']) else''}")
+		del Id
+	return ValidNumber(len(games)-1)
 
 
 
@@ -87,7 +91,7 @@ def ValidNumber(Max:int,Min:int=0) -> int:
 	return outcome
 
 
-gameChoice=ValidNumber(len(games)-1)
+gameChoice=chooseGame()
 
 runtime=game(games[gameChoice]['loc'],f"{saveLocation}\\{games[gameChoice]['id']}.json")
 runtime.start()

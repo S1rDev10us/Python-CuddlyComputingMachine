@@ -1,5 +1,5 @@
 ﻿from random import choice, randint, choices, randrange, sample, random
-import re
+# import re
 import PythonHelper.files as files
 from os import path, system
 from math import floor
