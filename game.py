@@ -33,7 +33,7 @@ class game:
 		self.number = type(0)
 		self.roguelike = self.data["roguelike"]
 		#check to see if the user wants to use the savesystem even if it enabled
-		if((not self.roguelike) and ('forceSave'in self.data and self.data['forceSave'])):
+		if((not self.roguelike) and ('forceSave'in self.data and not self.data['forceSave'])):
 			print('Do you want to use the save system?')
 			self.roguelike=not self.confirm()
 		# print(self.roguelike)
