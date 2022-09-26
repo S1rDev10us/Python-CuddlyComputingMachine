@@ -170,8 +170,18 @@ class game:
 				shop = i
 				break
 		else:
-			raise KeyError(
-				f"no shop found called {shopName}! check the spelling and try again")
+
+			#IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT
+			#This is to prevent errors, please fix this at a later point
+			#Replace this with the desired default
+			shop={
+				"name" : "cosi-trading-caravan",
+				"costScale" : 30,
+				"repDiscountScaling" : -5,
+				"minGoldForBuy" : 0,
+				"notEnoughMessage": ""
+			}
+			# raise KeyError(f"no shop found called {shopName}! check the spelling and try again")
 
 		repDiscount = shop["repDiscountScaling"] * self.shopLevel
 		if repDiscount < -99:

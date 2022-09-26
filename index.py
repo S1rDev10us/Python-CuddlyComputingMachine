@@ -95,3 +95,8 @@ gameChoice=chooseGame()
 
 runtime=game(games[gameChoice]['loc'],f"{saveLocation}\\{games[gameChoice]['id']}.json")
 runtime.start()
+print('Would you like to play again?')
+while(runtime.confirm()):
+	gameChoice=chooseGame()
+	game(games[gameChoice]['loc'],f"{saveLocation}\\{games[gameChoice]['id']}.json").start()
+	print('Would you like to play again?')
