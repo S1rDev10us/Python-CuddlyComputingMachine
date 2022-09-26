@@ -658,7 +658,10 @@ class game:
 					data[i] = self.save
 			files.overwritejs(data, raw)
 
-	def welcome(self):
+	def welcome(self)->None:
+		"""
+		Prints a welcome message, should be called when you enter a new location
+		"""
 		loc=self.locationf()
 		if('welcome'in loc):
 			print(f"\n{choice(loc['welcome'])if type(loc['welcome'])==self.array else loc['welcome']}" % loc['name'])
@@ -689,7 +692,7 @@ class game:
 
 
 if(__name__ == "__main__"):
-	runtime = game('./CuddlyComputingGameData/Original.json','saves\\Original.json')
+	runtime = game('./CuddlyComputingGameData/Original.json','./saves\\Original.json')
 	runtime.start()
 	print('Would you like to play again?')
 	while(runtime.confirm()):
