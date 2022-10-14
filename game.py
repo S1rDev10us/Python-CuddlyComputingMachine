@@ -32,10 +32,10 @@ class game:
 		self.predicates = self.data['predicates']
 		self.number = type(0)
 		self.roguelike = self.data["roguelike"]
-		#check to see if the user wants to use the savesystem even if it enabled
-		if((not self.roguelike) and ('forceSave'in self.data and not self.data['forceSave'])):
-			print('Do you want to use the save system?')
-			self.roguelike=not self.confirm()
+		# check to see if the user wants to use the savesystem even if it enabled
+		if((not self.roguelike) and ('forceSave' in self.data and not self.data['forceSave'])):
+			self.roguelike = not self.confirm(
+				'Do you want to use the save system?')
 		# print(self.roguelike)
 		if(not dev):
 			# remove_list = self.filterlist(self.weapons, 'dev', True)
@@ -72,11 +72,13 @@ class game:
 		self.rep = 0
 	# confirmation function
 
-	def confirm(self):
-		x = input('y/n:')
-		x.lower()
+	def confirm(self, string=''):
+		string=string+'\n' if string != '' else''+'y/n:'
+		x = input(string)
+		x=x.lower()
 		while(not (x[0] == 'y' or x[0] == 'n')):
-			x = input('y/n:')
+			x = input(string)
+			x=x.lower()
 		return x == 'y'
 	# get a formatted location
 
