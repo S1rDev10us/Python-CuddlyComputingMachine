@@ -73,12 +73,12 @@ class game:
 	# confirmation function
 
 	def confirm(self, string=''):
-		string=string+'\n' if string != '' else''+'y/n:'
+		string = string+'\n' if string != '' else''+'y/n:'
 		x = input(string)
-		x=x.lower()
+		x = x.lower()
 		while(not (x[0] == 'y' or x[0] == 'n')):
 			x = input(string)
-			x=x.lower()
+			x = x.lower()
 		return x == 'y'
 	# get a formatted location
 
@@ -348,7 +348,7 @@ class game:
 
 	# every 30 characters, replaces a space with a newline
 
-	def strpara(self, string, menumode=False):
+	def strpara(self, string:str, menumode:bool=False)->str:
 		out = ""
 		placenl = False
 		for i, val in enumerate(string):
@@ -432,7 +432,10 @@ class game:
 				print('\n'*2)
 	# What to do at the end of an event
 
-	def eventOutcome(self, outcome):
+	def eventOutcome(self, outcome: dict) -> None:
+		"""
+		Completes the outcome of a single predicate
+		"""
 		if(type(outcome['output']) == self.string):
 			print('\n'+outcome['output'])
 			self.statEffectsRand(outcome)
@@ -458,7 +461,10 @@ class game:
 		pass
 	# predicate system
 
-	def predicate(self, condition):
+	def predicate(self, condition: dict | list) -> bool:
+		"""
+		Completes a single or list of predicates
+		"""
 		if(type(condition) == self.array):
 			for x in condition:
 				if(not self.singlePredicate(x)):
@@ -469,7 +475,10 @@ class game:
 			return self.singlePredicate(condition)
 	# code for one predicate
 
-	def singlePredicate(self, condition):
+	def singlePredicate(self, condition: dict) -> bool:
+		"""
+		Completes a single predicate
+		"""
 		check = list(condition.keys())[0]
 		match check:
 			case 'has':
@@ -528,7 +537,10 @@ class game:
 		return False
 	# statistics
 
-	def stats(self):
+	def stats(self) -> None:
+		"""
+		Prints out the stats of the player
+		"""
 		for x in self.inventory.keys():
 			print('\n'+self.breakLine)
 			print(x+'\n')
@@ -547,7 +559,10 @@ class game:
 		print(f'●{self.age} age\n')
 	# filter function
 
-	def filterlist(self, thelist, key, value):
+	def filterlist(self, thelist: list | tuple, key: str, value) -> list | tuple:
+		"""
+		Filters a list to remove all values from a list where ``key`` in object is not `value`
+		"""
 		newlist = []
 		for x in thelist:
 			if(x[key] == value):
@@ -555,7 +570,10 @@ class game:
 		return newlist
 	# environmental things such as slow damage from heat in hell
 
-	def environmentalEffects(self):
+	def environmentalEffects(self) -> None:
+		"""
+		Applies effects based on the location
+		"""
 		self.statEffects(self.locationf())
 		if(self.gold < 0):
 			self.health += floor(self.gold/10)
@@ -563,7 +581,10 @@ class game:
 			pause()
 	# start an event based on an id (dev only)
 
-	def eventFromId(self, id):
+	def eventFromId(self, id: str) -> None:
+		"""
+		This has an issue with the new event system, please fix this when you can think of a solution
+		"""
 		raise Exception(
 			'This has an issue with the new event system, please fix this when you can think of a solution')
 		self.eventNonRandomManager(self.filterlist(
@@ -571,7 +592,10 @@ class game:
 		self.stats()
 	# affect health, gold and rep based on dictionary
 
-	def statEffects(self, thing):
+	def statEffects(self, thing: dict) -> None:
+		"""
+		Applies an effect based on an incoming dictionary without any randomness
+		"""
 		if('gold' in thing.keys()):
 			self.gold += thing['gold']
 		if('rep' in thing.keys()):
@@ -582,22 +606,26 @@ class game:
 			else:
 				self.health += thing['health']
 
-	def statEffectsRand(self, outcome: dict):
+	def statEffectsRand(self, outcome: dict) -> None:
+		"""
+		Applies an effect based on an incoming dictionary with an up to 10% random difference
+		"""
 		if('gold' in outcome.keys()):
 			if(outcome['gold'] > 0):
-				self.gold += outcome['gold'] + \
-					randint(0, floor(outcome['gold']/10))
+				self.gold += outcome['gold'] + randint(0, floor(outcome['gold']/10))
 			else:
 				self.gold += outcome['gold'] + \
 					randint(floor(outcome['gold']/10), 0)
 		if('rep' in outcome.keys()):
 			if(outcome['rep'] > 0):
 				self.rep += outcome['rep']+randint(0, floor(outcome['rep']/10))
-	# yo. i think this^ is supposed to say rep
+				# yo. i think this^ is supposed to say rep
+				# DONE
 			else:
 				self.rep += outcome['rep']+randint(floor(outcome['rep']/10), 0)
-	# correct me if im^
-	# wrong but this  ^ one too
+				# correct me if im^
+				# wrong but this  ^ one too
+				# ALSO DONE
 		if('health' in outcome.keys()):
 			if(outcome['health'] == 'kill'):
 				self.health = 0
@@ -609,7 +637,10 @@ class game:
 					self.health += outcome['health'] + \
 						randint(floor(outcome['health']/10), 0)
 
-	def savescheme(self):
+	def savescheme(self) -> dict[str]:
+		"""
+		Returns a dictionary containing the savedata for the current instance
+		"""
 		return {
 			"health": self.health,
 			"age": self.age,
@@ -626,7 +657,10 @@ class game:
 
 	# opens/creates a save
 
-	def openSave(self):
+	def openSave(self) -> None:
+		"""
+		Loads or creates a save into the self.save object
+		"""
 		with open(self.saveLoc, "r+") as raw:
 			data = load(raw)
 			while True:
@@ -656,21 +690,27 @@ class game:
 				self.savename = savename
 				break
 
-	def loadSave(self):
-		self.inventory = self.save["inventory"]
-		self.completed = self.save["complete"]
-		self.age = self.save["age"]
-		self.startAge = self.save["startAge"]
-		self.old = self.save["old"]
-		self.gameTime = self.save["gameTime"]
-		self.health = self.save["health"]
-		self.gold = self.save["gold"]
-		self.location = self.save["location"]
-		self.rep = self.save["rep"]
-		self.shopLevel = self.save["shopLevel"]
+	def loadSave(self) -> None:
+		"""
+		Loads the save from the self.save dict
+		"""
+		self.inventory: dict = self.save["inventory"]
+		self.completed: list[str] = self.save["complete"]
+		self.age: int = self.save["age"]
+		self.startAge: int = self.save["startAge"]
+		self.old: int = self.save["old"]
+		self.gameTime: int = self.save["gameTime"]
+		self.health: int = self.save["health"]
+		self.gold: int = self.save["gold"]
+		self.location: int = self.save["location"]
+		self.rep: int = self.save["rep"]
+		self.shopLevel: int = self.save["shopLevel"]
 
 	# saves game data
-	def saveData(self):
+	def saveData(self) -> None:
+		"""
+		Saves gamedata to the savefile
+		"""
 		with open(self.saveLoc, "r+") as raw:
 			data = load(raw)
 			self.save = self.savescheme()
@@ -693,7 +733,10 @@ class game:
 
 	# Main gameplay loop
 
-	def start(self):
+	def start(self) -> None:
+		"""
+		Starts the main game loop
+		"""
 		if self.roguelike:
 			self.reset()
 		print(self.messages('start'))
