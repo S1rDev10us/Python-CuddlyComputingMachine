@@ -18,7 +18,7 @@ class game:
 	def __init__(self, fileLoc: str, saveLoc: str):
 		self.data = files.readjs(path.abspath(fileLoc))
 		self.saveLoc = saveLoc
-		self.events = self.data['events']
+		self.events:dict[str] = self.data['events']
 		self.weapons = self.data['weapons']
 		self.message = self.data['messages']
 		self.shorthands = self.data['shorthands']
