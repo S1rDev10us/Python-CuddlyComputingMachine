@@ -5,7 +5,7 @@
 
 
 *.code-workspace
-
+.idea
 
 savedata.json
 saves/

@@ -1,6 +1,6 @@
 from os.path import abspath
 from os import listdir
-from game import game
+from game import Game
 from PythonHelper import files
 from PythonHelper.logger import Logger
 
@@ -93,10 +93,10 @@ def ValidNumber(Max:int,Min:int=0) -> int:
 
 gameChoice=chooseGame()
 
-runtime=game(games[gameChoice]['loc'],f"{saveLocation}\\{games[gameChoice]['id']}.json")
+runtime=Game(games[gameChoice]['loc'], f"{saveLocation}\\{games[gameChoice]['id']}.json")
 runtime.start()
 print('Would you like to play again?')
 while(runtime.confirm()):
 	gameChoice=chooseGame()
-	game(games[gameChoice]['loc'],f"{saveLocation}\\{games[gameChoice]['id']}.json").start()
+	Game(games[gameChoice]['loc'], f"{saveLocation}\\{games[gameChoice]['id']}.json").start()
 	print('Would you like to play again?')

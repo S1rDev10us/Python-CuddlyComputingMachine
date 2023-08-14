@@ -14,7 +14,7 @@ def pause():
 	system('pause')
 
 
-class game:
+class Game:
 	def __init__(self, fileLoc: str, saveLoc: str):
 		self.data = files.readjs(path.abspath(fileLoc))
 		self.saveLoc = saveLoc
@@ -757,7 +757,7 @@ class game:
 
 
 if(__name__ == "__main__"):
-	runtime = game('./CuddlyComputingGameData/Original.json',
+	runtime = Game('./CuddlyComputingGameData/Original.json',
 				   './saves\\Original.json')
 	runtime.start()
 	print('Would you like to play again?')
