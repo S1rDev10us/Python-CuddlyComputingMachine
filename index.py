@@ -1,4 +1,4 @@
-from os.path import abspath
+from os.path import abspath, join
 from os import listdir
 from game import Game
 from PythonHelper import files
@@ -34,7 +34,7 @@ saveLocationFiles=listdir(saveLocation)
 for file in gameLocationFiles:
 	if(not file.endswith('.json')):continue
 	if(file in saveLocationFiles):continue
-	files.writejs({},abspath(f"{saveLocation}\\{file}"))
+	files.writejs({},abspath(join(saveLocation,file)))
 	pass
 del file
 
@@ -45,7 +45,7 @@ for file in gameLocationFiles:
 	Id=''
 	
 	for i in file.split('.')[:-1]:Id+=i
-	games.append({"loc":abspath(f"{gameLocation}\\{file}"),"id":Id})
+	games.append({"loc":abspath(join(gameLocation,file)),"id":Id})
 del file
 for file in enumerate(games):
 	file=games[file[0]]
@@ -93,10 +93,12 @@ def ValidNumber(Max:int,Min:int=0) -> int:
 
 gameChoice=chooseGame()
 
-runtime=Game(games[gameChoice]['loc'], f"{saveLocation}\\{games[gameChoice]['id']}.json")
+savePath=join(saveLocation,games[gameChoice]['id']+".json")
+
+runtime=Game(games[gameChoice]['loc'], savePath)
 runtime.start()
 print('Would you like to play again?')
 while(runtime.confirm()):
 	gameChoice=chooseGame()
-	Game(games[gameChoice]['loc'], f"{saveLocation}\\{games[gameChoice]['id']}.json").start()
+	Game(games[gameChoice]['loc'], savePath).start()
 	print('Would you like to play again?')

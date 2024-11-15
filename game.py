@@ -4,6 +4,7 @@ import PythonHelper.files as files
 from os import path, system
 from math import floor
 from json import load
+import platform
 # from msvcrt import pause
 # from time import sleep
 # from keyboard import wait as pause
@@ -11,7 +12,11 @@ dev = False
 
 
 def pause():
-	system('pause')
+	if(platform.system()=="Windows"):
+		system('pause')
+	else:
+		system("/usr/bin/env bash -c 'read -s -n 1 -p \"Press any key to continue...\"'")
+		print()
 
 
 class Game:
@@ -758,7 +763,7 @@ class Game:
 
 if(__name__ == "__main__"):
 	runtime = Game('./CuddlyComputingGameData/Original.json',
-				   './saves\\Original.json')
+				   './saves/Original.json')
 	runtime.start()
 	print('Would you like to play again?')
 	while(runtime.confirm()):
