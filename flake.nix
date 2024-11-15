@@ -10,11 +10,7 @@
     in {
       default = pkgs.mkShell {
         packages = with pkgs; [
-          (python3.withPackages (python-pkgs:
-            with python-pkgs; [
-              # select Python packages here
-              tkinter
-            ]))
+          python3
         ];
       };
     });
